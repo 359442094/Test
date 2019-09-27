@@ -3,6 +3,7 @@ package com.test.controller;
 import com.test.common.annoation.ShowLogger;
 import com.test.common.constant.ErrorConstant;
 import com.test.common.constant.ServiceConstant;
+import com.test.common.dto.Return;
 import com.test.common.dto.UserLoginRequest;
 import com.test.common.dto.UserLoginResponse;
 import com.test.common.exception.ServiceException;
@@ -33,7 +34,7 @@ public class UserController {
     @ApiOperation(value = "用户登录",notes = "用户登录")
     @RequestMapping(path = "/user/login",method = RequestMethod.POST)
     @ResponseBody
-    public UserLoginResponse login(UserLoginRequest request){
+    public Return<UserLoginResponse> login(UserLoginRequest request){
         if(StringUtils.isEmpty(request)){
             throw new ServiceException(ErrorConstant.ERROR_PARAM,"登录参数为空");
         }else if(StringUtils.isEmpty(request.getUsername())){
@@ -50,17 +51,18 @@ public class UserController {
                 redisUtil.set(ServiceConstant.SERVICE_SESSION,sessionId);
                 UserLoginResponse response=new UserLoginResponse();
                 response.setUser(user);
-                return response;
+                return new Return<>(response);
             }
         }
-        return null;
+        return new Return<>(null);
     }
 
+    @ShowLogger(info = "获取上下文对象")
     @ApiOperation(value = "获取上下文对象",notes = "获取上下文对象")
     @RequestMapping(path = "/user/contextUser",method = RequestMethod.GET)
     @ResponseBody
-    public com.test.common.dto.User getContextUser(){
-        return Context.getUser();
+    public Return<com.test.common.dto.User> getContextUser(){
+        return new Return<>(Context.getUser());
     }
 
 }

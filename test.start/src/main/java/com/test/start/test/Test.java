@@ -1,6 +1,8 @@
 package com.test.start.test;
 
+import com.test.common.dto.Return;
 import org.apache.commons.lang.time.DateFormatUtils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -9,7 +11,13 @@ import java.util.List;
 public class Test {
     public static void main(String[] args) {
         //excelImport();
-        excelExport();
+        //excelExport();
+        test();
+    }
+
+    public static void test(){
+        Return<Object> objectReturn=new Return<Object>("200","测试信息","data");
+        System.out.println("objectReturn:"+objectReturn);
     }
 
     public static void excelImport(){

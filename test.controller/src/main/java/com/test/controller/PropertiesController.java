@@ -1,5 +1,6 @@
 package com.test.controller;
 
+import com.test.common.dto.Return;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,8 +25,8 @@ public class PropertiesController {
     @ApiOperation(value = "ConfigurationProperties注解",notes = "ConfigurationProperties注解")
     @RequestMapping(path = "/properties",method = RequestMethod.GET)
     @ResponseBody
-    public Object properties(){
-        return cache+"\t"+valueCache+"\t"+encoding;
+    public Return<String> properties(){
+        return new Return<String>(cache+"\t"+valueCache+"\t"+encoding);
     }
 
     public void setCache(boolean cache) {

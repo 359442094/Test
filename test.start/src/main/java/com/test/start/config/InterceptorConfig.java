@@ -11,7 +11,6 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
-
 import java.util.List;
 
 @Configuration
@@ -24,7 +23,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/user/login","/test","/index")
+                .excludePathPatterns("/user/login","/test","/index","/success")
                 .excludePathPatterns("/swagger-resources/**","/swagger-ui.html/**");
     }
 

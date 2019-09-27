@@ -6,12 +6,16 @@ import com.test.common.util.AESUtil;
 import com.test.common.util.RedisUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+@Slf4j
 @Api(tags = {"测试视图接口"})
 @Controller
 public class TestController {
@@ -31,5 +35,4 @@ public class TestController {
             return "index";
         }
     }
-
 }

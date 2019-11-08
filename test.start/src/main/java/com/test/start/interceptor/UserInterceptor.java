@@ -21,9 +21,9 @@ public class UserInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        if(StringUtils.isEmpty(redisUtil.get(ServiceConstant.SERVICE_SESSION))){
+        /*if(StringUtils.isEmpty(redisUtil.get(ServiceConstant.SERVICE_SESSION))){
             throw new ServiceException(ErrorConstant.ERROR_LOGIN_TIMEOUT,"请重新登录");
-        }
+        }*/
         return true;
     }
 

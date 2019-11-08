@@ -1,9 +1,14 @@
-package com.test.start.test;
+package com.test.start.test.util;
 import java.io.*;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.test.start.test.XiaoYiCourse;
+import com.test.start.test.XiaoYiCourseDetail;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -13,10 +18,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.util.StringUtils;
 
@@ -36,10 +38,6 @@ public class ExcelUtil {
         this.dataList = dataList;
         this.rowName = rowName;
         this.title = title;
-    }
-
-    public void excelImport(){
-
     }
 
     /*
@@ -66,10 +64,115 @@ public class ExcelUtil {
 
     }
 
-    public void excelImport(String fileName){
+    public XiaoYiCourse excelImport(String fileName){
 
         try {
+            XiaoYiCourse course=new XiaoYiCourse();
             Workbook wb = readExcel(fileName); // 获得excel文件对象workbook
+            Sheet s1 = wb.getSheetAt(0); // 获取指定工作表<这里获取的是第一个>
+            course.setCourseName(getValue(s1,1,1));
+            //System.out.println("kcname:"+getValue(s1,1,1));
+            System.out.println("定假:"+getValue(s1,1,4));
+            course.setPrice(new BigDecimal(getValue(s1,1,4)));
+            System.out.println("课时数:"+getValue(s1,1,6));
+            course.setClassHour(getValue(s1,1,6));
+            System.out.println("课程开始时间:"+getValue(s1,1,7));
+            course.setStartDate(getDateValue(s1, 1, 7));
+            System.out.println("课程结束时间:"+getValue(s1,1,8));
+            course.setEndDate(getDateValue(s1, 1, 8));
+            System.out.println("机构介绍:"+getValue(s1,2,1));
+            course.setTeacherInfo(getValue(s1,2,1));
+            DecimalFormat df = new DecimalFormat("#");
+            Cell value = s1.getRow(3).getCell(1);
+            System.out.println("账号:"+df.format(value.getNumericCellValue()));
+            course.setAccount(df.format(value.getNumericCellValue()));
+            System.out.println("教师姓名:"+getValue(s1,3,4));
+            course.setTeacherName(getValue(s1,3,4));
+            System.out.println("课程有效期:"+getValue(s1,3,5));
+            course.setExpirationDuration(getValue(s1,3,5));
+            System.out.println("课程亮点1:"+getValue(s1,4,2));
+            System.out.println("课程亮点2:"+getValue(s1,4,4));
+            System.out.println("课程亮点3:"+getValue(s1,4,6));
+            String totalFeature = getValue(s1,4,2) +"|" + getValue(s1,4,4) +"|" + getValue(s1,4,6);
+            course.setCourseFeature(totalFeature);
+            System.out.println("难度:"+getValue(s1,5,2));
+            course.setClassDifficult(getValue(s1,5,2));
+            System.out.println("适合年级:"+getValue(s1,6,2));
+            course.setClassInfo(getValue(s1,6,2));
+            System.out.println("学习目标:"+getValue(s1,7,2));
+            course.setCourseObj(getValue(s1,7,2));
+            System.out.println("配套讲义:"+getValue(s1,8,2));
+            course.setTextBook(getValue(s1,8,2));
+            System.out.println("学习内容:"+getValue(s1,9,1));
+            course.setCourseContent(getValue(s1,9,1));
+            List<XiaoYiCourseDetail> details=new ArrayList<>();
+            XiaoYiCourseDetail detail=null;
+            //遍历行row
+            for(int rowNum = 13; rowNum<=s1.getLastRowNum();rowNum++){
+                //获取每一行
+                Row row = s1.getRow(rowNum);
+                if(row == null){
+                    continue;
+                }
+                detail=new XiaoYiCourseDetail();
+                System.out.print("课节数:"+getValue(s1,rowNum,0));
+                System.out.print("课节名称:"+getValue(s1,rowNum,1));
+                if(!StringUtils.isEmpty(getValue(s1,rowNum,1))){
+                    detail.setLessonName(getValue(s1,rowNum,1));
+                }
+                Cell cell = s1.getRow(rowNum).getCell(3);
+                System.out.print("开始日期:"+cell);
+                if(!StringUtils.isEmpty(cell.getDateCellValue())){
+                    detail.setLessonDate(cell.getDateCellValue());
+                }
+                System.out.print("开始时间:"+getDateValue(s1,rowNum,4));
+                if(!StringUtils.isEmpty(getDateValue(s1,rowNum,4))){
+                    detail.setStartTime(getDateValue(s1,rowNum,4));
+                }
+                System.out.println("结束时间:"+getDateValue(s1,rowNum,6));
+                if(!StringUtils.isEmpty(getDateValue(s1,rowNum,6))){
+                    detail.setEndTime(getDateValue(s1,rowNum,6));
+                }
+                if(!StringUtils.isEmpty(detail.getLessonName())&&detail.getLessonDate()!=null&&detail.getStartTime()!=null&&detail.getEndTime()!=null){
+                    System.out.println("detail:"+detail);
+                    details.add(detail);
+                }
+            }
+
+            course.setXiaoYiCourseDetails(details);
+            return course;
+        } catch (IndexOutOfBoundsException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Date getDateValue(Sheet s,int row,int cell){
+        Cell value = s.getRow(row).getCell(cell);
+        if (value.getCellType() == org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC) {
+            if (DateUtil.isCellDateFormatted(value)) {
+                return value.getDateCellValue();
+            }
+        }/*else if(value.getCellType() == org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING){
+            return getValue(s,row,cell);
+        }*/
+        return null;
+    }
+
+    public String getValue(Sheet s,int row,int cell){
+        Cell value = s.getRow(row).getCell(cell);
+        if(!StringUtils.isEmpty(value)){
+            return value.toString();
+        }
+        return null;
+    }
+
+    public void excelImport(InputStream inputStream){
+
+        try {
+
+            Workbook wb = readExcel(inputStream); // 获得excel文件对象workbook
 
             Sheet s = wb.getSheetAt(0); // 获取指定工作表<这里获取的是第一个>
             //获取标题
@@ -118,6 +221,18 @@ public class ExcelUtil {
             }
         }
         return cellValue;
+    }
+
+    public Workbook readExcel(InputStream inputStream){
+        Workbook wb = null;
+        try {
+            return new XSSFWorkbook(inputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return wb;
     }
 
     public Workbook readExcel(String fileName){

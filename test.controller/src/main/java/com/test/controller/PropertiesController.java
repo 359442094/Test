@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = {"配置接口"})
+/*@Api(tags = {"配置接口"})
 @PropertySource(value = "classpath:application.properties")
 @ConfigurationProperties(prefix = "spring.thymeleaf")
-@RestController
+@RestController*/
 public class PropertiesController {
 
-    private boolean cache;
+   /* private boolean cache;
     private String encoding;
     @Value(value = "${spring.thymeleaf.cache}")
     private String valueCache;
@@ -35,5 +35,5 @@ public class PropertiesController {
     public void setEncoding(String encoding) {
         this.encoding = encoding;
     }
-
+*/
 }

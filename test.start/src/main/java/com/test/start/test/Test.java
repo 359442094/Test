@@ -1,47 +1,126 @@
 package com.test.start.test;
 
-import com.test.common.dto.Return;
+import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
+import com.test.start.test.bean.APINode;
+import com.test.start.test.bean.Data;
 import org.apache.commons.lang.time.DateFormatUtils;
-
-import java.util.ArrayList;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.springframework.util.StringUtils;
+import java.io.*;
+import java.math.BigDecimal;
+import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
+/**
+ * @author CJ
+ * @date 2019/10/18
+ */
 public class Test {
-    public static void main(String[] args) {
-        //excelImport();
-        //excelExport();
-        test();
-    }
+    public static final String TYPE_JPG = "jpg";
+    public static final String TYPE_GIF = "gif";
+    public static final String TYPE_PNG = "png";
+    public static final String TYPE_BMP = "bmp";
+    public static final String TYPE_UNKNOWN = "unknown";
 
-    public static void test(){
-        Return<Object> objectReturn=new Return<Object>("200","测试信息","data");
-        System.out.println("objectReturn:"+objectReturn);
-    }
-
-    public static void excelImport(){
-        String path = "C:\\Users\\EDZ\\Downloads\\2019.xlsx";
-        ExcelUtil ex = new ExcelUtil();
-        ex.excelImport(path);
-    }
-
-    public static void excelExport(){
-        String title = "张翠山的发言记录";
-        String[] rowsName = new String[]{"序号","时间","发言人","类型","消息"};
-        List<HashMap<String, Object>> listMap = new ArrayList<>();
-        List<Object[]>  dataList = new ArrayList<Object[]>();
-        Object[] objs = null;
-        Calendar calendar=Calendar.getInstance();
-        String format = DateFormatUtils.format(calendar.getTime(), "yyyy-MM-dd");
-        for(int i=1;i<=5;i++){
-            objs = new Object[]{
-                    i,format,"张翠山","文本","工作一定要认真，态度要端正"
-            };
-            dataList.add(objs);
+    /**
+     * byte数组转换成16进制字符串
+     * @param src
+     * @return
+     */
+    public static String bytesToHexString(byte[] src) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (src == null || src.length <= 0) {
+            return null;
         }
-        ExcelUtil ex = new ExcelUtil(title, rowsName, dataList);
-        ex.excelExport();
+        for (int i = 0; i < src.length; i++) {
+            int v = src[i] & 0xFF;
+            String hv = Integer.toHexString(v);
+            if (hv.length() < 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hv);
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * 根据文件流判断图片类型
+     * @param fis
+     * @return jpg/png/gif/bmp
+     */
+    public static Boolean isImagesType(FileInputStream fis) {
+        boolean flag = false;
+        //读取文件的前几个字节来判断图片格式
+        byte[] b = new byte[4];
+        try {
+            fis.read(b, 0, b.length);
+            String type = bytesToHexString(b).toUpperCase();
+            if (type.contains("FFD8FF")) {
+                flag = true;
+            } else if (type.contains("89504E47")) {
+                flag = true;
+            } else if (type.contains("47494638")) {
+                flag = true;
+            } else if (type.contains("424D")) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return flag;
+    }
+
+    public static void testGson() {
+        String json =
+                "{"
+                        + "'title': 'title 1',"
+                        + "'id' : 1,"
+                        + "'children' : 'true',"
+                        + "'groups' : [{"
+                        + "'title' : 'itle 11',"
+                        + "'id' : 2,"
+                        + "'children' : 'true',"
+                        + "'groups' : [{"
+                        + "'title' : 'itle 111',"
+                        + "'id' : 3,"
+                        + "'children': 'false',"
+                        + "'groups':[]"
+                        + "}]"
+                        + "}]"
+                        + "}";
+
+        // Now do the magic.
+        Data data = new Gson().fromJson(json, Data.class);
+        String string = JSON.toJSONString(data);
+        // Show it.
+        System.out.println(string);
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        String str="古琴直播演绎，名师在线教授弹奏指法 |通过基础练习，掌握左右手演绎指法弹奏|掌握三首入门小曲";
+        str = str.replace("|", "&");
+        String[] split = str.split("&");
+        for (String s : split) {
+
+        }
     }
 
 }

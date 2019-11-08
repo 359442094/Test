@@ -128,7 +128,7 @@ public class AESUtil {
    }
 
     public static void main(String[] args) {
-        String content = "test";
+        String content = "72ba23dd04375c39432e967822118cd1";
 
         //加密
         String encryptStart = encryptStart(content);

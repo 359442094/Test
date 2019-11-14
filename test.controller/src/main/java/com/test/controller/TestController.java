@@ -4,6 +4,7 @@ import com.test.common.annoation.CheckMethod;
 import com.test.common.annoation.ShowLogger;
 import com.test.common.dto.CheckFieldRequest;
 import com.test.common.excel.ExcelUtil;
+import com.test.common.util.FileUtil;
 import com.test.common.util.IpUtil;
 import com.test.common.util.RedisUtil;
 import com.test.common.videoApi.*;
@@ -13,11 +14,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,19 +52,46 @@ public class TestController {
     private SettingLiveCallBackAPI settingLiveCallBackAPI;
     @Autowired
     private StartLiveCallBackAPI startLiveCallBackAPI;
+    @Autowired
+    private HttpServletRequest request;
+    @Autowired
+    private HttpServletResponse response;
+    @Autowired
+    private FileUtil fileUtil;
 
-    /*@ApiOperation(value = "测试视图",notes = "测试视图")
-    @ShowLogger(info = "测试视图")
-    @RequestMapping(path = "/test",method = RequestMethod.GET)
-    public String test(){
-        if(!StringUtils.isEmpty(redisUtil.get(ServiceConstant.SERVICE_SESSION))){
-            System.out.println("success");
-            return "success";
-        }else{
-            System.out.println("index");
-            return "index";
-        }
-    }*/
+    @Value(value = "${file.rootPath}")
+    private String rootPath;
+    @Value(value = "${file.urlPrefix}")
+    private String urlPrefix;
+    @Value(value = "${file.imgPath}")
+    private String imgPath;
+    @Value(value = "${file.caseImage}")
+    private String caseImage;
+    @Value(value = "${file.excelTemplate}")
+    private String excelTemplate;
+    @Value(value = "${file.studentTemplate}")
+    private String studentTemplate;
+
+    /**
+     * 下载直播课程填写模板
+     */
+    @ApiOperation(value = "下载直播课程填写模板",notes = "下载直播课程填写模板")
+    @ShowLogger(info = "下载直播课程填写模板")
+    @RequestMapping(path = "/test/file/download/excelTemplate",method = RequestMethod.GET,produces = "application/octet-stream")
+    public void downloadExcelTemplate() throws IOException {
+        //String read="http://120.132.68.197:8080/xy_temp/template.xlsx";
+        log.info("直播课程填写模板位置:"+rootPath + imgPath + excelTemplate);
+        fileUtil.download(rootPath + imgPath + excelTemplate,"直播课程填写模板.xlsx",request,response);
+    }
+
+    @ApiOperation(value = "上传图片",notes = "上传图片")
+    @ShowLogger(info = "上传图片")
+    @RequestMapping(path = "/test/file/upload/file",method = RequestMethod.POST)
+    public void uploadExcelTemplate(@RequestParam(value = "file")MultipartFile file) throws IOException {
+        //String read="http://120.132.68.197:8080/xy_temp/template.xlsx";
+        log.info("上传图片");
+        fileUtil.upload(file);
+    }
 
     @ShowLogger(info = "下载excel")
     @ApiOperation(value = "下载excel",notes = "下载excel")

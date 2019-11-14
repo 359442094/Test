@@ -14,7 +14,6 @@ import org.springframework.util.StringUtils;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.security.MessageDigest;
-import java.sql.Date;
 import java.util.*;
 
 public class TestTYSX {
@@ -85,10 +84,10 @@ public class TestTYSX {
         //addTeacher();
         //addLiveClass();
         //addLesson();
-        //getClassDetail();
+        getClassDetail();
         //getClassOrder();
         //addRecordedClass();
-        addRecordedLesson();
+        //addRecordedLesson();
 
         //addUserClass();
     }
@@ -119,12 +118,12 @@ public class TestTYSX {
     //添加录播课节
     public static void addRecordedLesson(){
         String functionCode="addRecordLesson";
-        String teacherId="8a8880866e1a5c23016e1b592a790126";
-        String classId="8a8880866e3ffb5c016e4065e2cb0058";
+        //String teacherId="8a8880866e1a5c23016e1b592a790126";
+        String classId="8a8880866e3ffb5c016e597a9cb60297";
         String title="视频标题";
         String code=UUID.randomUUID().toString();
         String coverImgLink="http://94.191.62.87:81/images/1.jpg";
-        String vid="asdasdasf12";
+        String vid="aef3afd3d09bbf9671712d08399945ee_a";
         String recordHour="111";
         String allowTaste="1";
         String videoDuration="100";
@@ -132,7 +131,7 @@ public class TestTYSX {
         String timestamp=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         Map<String,String> map=new HashMap<>();
         map.put("functionCode",functionCode);
-        map.put("teacherId",teacherId);
+        //map.put("teacherId",teacherId);
         map.put("classId",classId);
         map.put("title",title);
         map.put("code",code);
@@ -162,14 +161,16 @@ public class TestTYSX {
         String coverImgLink="http://94.191.62.87:81/images/1.jpg";
         String coverVid="aef3afd3d0e5dce8c20c66a3d55ed1de_a";
         Calendar instance = Calendar.getInstance();
+        instance.set(2019,11,11,8,00,00);
         String enrollStartDate=DateFormatUtils.format(instance.getTime(), "yyyyMMddHHmmss");
         instance.add(Calendar.YEAR,1);
+        instance.set(2019,11,11,18,00,00);
         String enrollEndDate=DateFormatUtils.format(instance.getTime(), "yyyyMMddHHmmss");
-        String expirationDuration="30";
+        //String expirationDuration="30";
         String classHour="10";
         String totalTime="100";
         String classType="素质教育";  //学科教育 素质教育 国际教育
-        String recordType="2";
+        String recordType="1";
         String primeCost="666";
         String cost="666";
         String siteName="添翼申学";
@@ -177,7 +178,7 @@ public class TestTYSX {
         String timestamp= DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         Map<String,String> map=new HashMap<>();
         String maxNum="100";
-        map.put("expirationDuration",expirationDuration);
+        //map.put("expirationDuration",expirationDuration);
         map.put("coverVid",coverVid);
         map.put("maxNum",maxNum);
         map.put("siteName",siteName);
@@ -217,14 +218,14 @@ public class TestTYSX {
             map.put("courseHighlight",getURLEncoderString(courseHighlight));
             map.put("courseLearningContent",getURLEncoderString(courseLearningContent));
             map.put("courseObservationStyle",getURLEncoderString(courseObservationStyle));
-        map.put("courseConsultant",getURLEncoderString(courseConsultant));
-        map.put("courseWarmPrompt",getURLEncoderString(courseWarmPrompt));
+            map.put("courseConsultant",getURLEncoderString(courseConsultant));
+            map.put("courseWarmPrompt",getURLEncoderString(courseWarmPrompt));
 
         }
 
         //正式地址:https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addRecordClass
         //测试地址:http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addRecordClass
-        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addRecordClass";
+        String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addRecordClass";
         String post = HttpClientUtil.doPost(url,map);
         System.out.println("post:"+post);
     }

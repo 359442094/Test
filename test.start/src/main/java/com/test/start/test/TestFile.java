@@ -1,10 +1,9 @@
 package com.test.start.test;
 
-import com.test.start.test.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
-import java.net.URLEncoder;
+
 @Slf4j
 public class TestFile {
     public static void main(String[] args) throws IOException {

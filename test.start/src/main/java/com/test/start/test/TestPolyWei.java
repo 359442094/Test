@@ -42,13 +42,13 @@ public class TestPolyWei {
         //获取频道录制视频信息
         //getVideosByChannelId();
         //根据文件Id获取录制视频信息
-        //videosByFileId();
+        videosByFileId();
 
         //异步合并直播录制文件
         //videoMerge(); //可以设置结果回调地址 结果为参数请求进来
 
         //异步批量转存录制文件到点播
-        convertLiveVideo(); //可以设置结果回调地址 (记录文件已发送)
+        //convertLiveVideo(); //可以设置结果回调地址 (记录文件已发送)
         //异步批量转存录制文件到点播回调
         //convertLiveVideoProcess();
 
@@ -125,7 +125,7 @@ public class TestPolyWei {
     public static void videosByFileId() throws NoSuchAlgorithmException {
         Map<String,String> map=new HashMap<>();
         String channelId="397272";
-        String fileId="5bb4fb12d6b8311f59aa49f1fbbeccdb";
+        String fileId="0eed67aee29df3dca22b3ff8562ad164";
         map.put("appId",appId);
         map.put("timestamp",timestamp);
         map.put("channelId",channelId);

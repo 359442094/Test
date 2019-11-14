@@ -12,4 +12,6 @@ public class ExceptionConstant {
     //解析Json异常
     public static final String EXCEPTION_JSON_ERROR="000002";
 
+    public static final String EXCEPTION_FileError="000003";
+
 }

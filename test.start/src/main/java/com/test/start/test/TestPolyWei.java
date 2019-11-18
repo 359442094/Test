@@ -42,10 +42,10 @@ public class TestPolyWei {
         //获取频道录制视频信息
         //getVideosByChannelId();
         //根据文件Id获取录制视频信息
-        videosByFileId();
+        //videosByFileId();
 
         //异步合并直播录制文件
-        //videoMerge(); //可以设置结果回调地址 结果为参数请求进来
+        videoMerge(); //可以设置结果回调地址 结果为参数请求进来
 
         //异步批量转存录制文件到点播
         //convertLiveVideo(); //可以设置结果回调地址 (记录文件已发送)
@@ -105,13 +105,13 @@ public class TestPolyWei {
     public static void videoMerge(){
         String channelId="383452";
         //a48fa62652d21e21f2c6eac9b30678bb
-        String fileIds="8df8f8716e866064f18b6ba25977c934,6f09ba622fa5560b46f8230d2b25cb48,eab2def528425acb61ecf0b2e34dee23,774e091da14e2b7392eec233b0c3c245,e830f1c020f7eb6a24ec617bb3d68297,faaa43dada56fa712fdfdb94c770fb7c,f9290ee2e55564e418d8519fcc460e7e";
+        String fileIds="c9445e88506b4092436a2142a69eec52,a3749212190da5147402d8c3d541b228";
         Map<String,String> map=new HashMap<>();
         map.put("appId",appId);
         map.put("timestamp",timestamp);
         map.put("channelId",channelId);
         map.put("fileIds",fileIds);
-        map.put("callbackUrl","http://94.191.62.87/api/mergeRecordFileCallBack?id=1");
+        map.put("callbackUrl","http://94.191.62.87/xiaoyi/mergeRecordFileCallBack?id=1");
         map.put("mergeMp4","y");
         map.put("sign",Ksort(map));
         String url="http://api.polyv.net/live/v3/channel/record/merge";

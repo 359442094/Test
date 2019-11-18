@@ -32,6 +32,7 @@ public class MergeRecordFileCallBackAPIImpl implements MergeRecordFileCallBackAP
 
     @Override
     public MergeRecordFileCallBackResopnse process(Integer id,MergeRecordFileCallBackRequest request) {
+        log.info("合并回调函数");
         MergeRecordFileCallBackResopnse resopnse=new MergeRecordFileCallBackResopnse();
         resopnse.setId(id);
         resopnse.setFileId(request.getFileId());

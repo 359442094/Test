@@ -18,6 +18,7 @@ public class MergeRecordFileCallBackRequest extends BaseCheck implements Seriali
 
     private static final long serialVersionUID = -2224413968521626524L;
 
+    private Integer id;
     @ApiModelProperty(value = "合并前的文件ID",notes = "合并前的文件ID")
     private String fileIds;
     @ApiModelProperty(value = "合并后的文件ID",notes = "合并后的文件ID")

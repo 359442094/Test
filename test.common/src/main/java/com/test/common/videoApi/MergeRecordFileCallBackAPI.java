@@ -6,6 +6,6 @@ package com.test.common.videoApi;
  */
 public interface MergeRecordFileCallBackAPI {
 
-    MergeRecordFileCallBackResopnse process(Integer id,MergeRecordFileCallBackRequest request);
+    MergeRecordFileCallBackResopnse process(MergeRecordFileCallBackRequest request);
 
 }

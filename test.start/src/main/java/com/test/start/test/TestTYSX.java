@@ -14,6 +14,8 @@ import org.springframework.util.StringUtils;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.security.MessageDigest;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class TestTYSX {
@@ -84,12 +86,10 @@ public class TestTYSX {
         //addTeacher();
         //addLiveClass();
         //addLesson();
-        getClassDetail();
+        //getClassDetail();
         //getClassOrder();
         //addRecordedClass();
         //addRecordedLesson();
-
-        //addUserClass();
     }
 
     //用户分享
@@ -119,7 +119,7 @@ public class TestTYSX {
     public static void addRecordedLesson(){
         String functionCode="addRecordLesson";
         //String teacherId="8a8880866e1a5c23016e1b592a790126";
-        String classId="8a8880866e3ffb5c016e597a9cb60297";
+        String classId="8a8880866e7c3211016e82b7e7b20518";
         String title="视频标题";
         String code=UUID.randomUUID().toString();
         String coverImgLink="http://94.191.62.87:81/images/1.jpg";

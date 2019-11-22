@@ -126,10 +126,9 @@ public class TestController {
     @ShowLogger(info = "合并直播录制文件回调函数")
     @RequestMapping(path = "/xiaoyi/mergeRecordFileCallBack",method = RequestMethod.GET)
     @ApiOperation(value = "合并直播录制文件回调函数",notes = "合并直播录制文件回调函数")
-    public MergeRecordFileCallBackResopnse mergeRecordFileCallBackGET(
-            @RequestParam(value = "id")Integer id,
+    public MergeRecordFileCallBackResopnse mergeRecordFileCallBack(
             MergeRecordFileCallBackRequest request){
-        return mergeRecordFileCallBackAPI.process(id,request);
+        return mergeRecordFileCallBackAPI.process(request);
     }
 
     @ResponseBody

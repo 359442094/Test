@@ -31,8 +31,9 @@ public class MergeRecordFileCallBackAPIImpl implements MergeRecordFileCallBackAP
     private FileForwardSaveAPI fileForwardSaveAPI;
 
     @Override
-    public MergeRecordFileCallBackResopnse process(Integer id,MergeRecordFileCallBackRequest request) {
+    public MergeRecordFileCallBackResopnse process(MergeRecordFileCallBackRequest request) {
         log.info("合并回调函数");
+        Integer id = request.getId();
         MergeRecordFileCallBackResopnse resopnse=new MergeRecordFileCallBackResopnse();
         resopnse.setId(id);
         resopnse.setFileId(request.getFileId());

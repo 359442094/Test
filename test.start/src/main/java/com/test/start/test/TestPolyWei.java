@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
 import java.util.*;
 
 public class TestPolyWei {
@@ -45,7 +44,7 @@ public class TestPolyWei {
         //videosByFileId();
 
         //异步合并直播录制文件
-        videoMerge(); //可以设置结果回调地址 结果为参数请求进来
+        //videoMerge(); //可以设置结果回调地址 结果为参数请求进来
 
         //异步批量转存录制文件到点播
         //convertLiveVideo(); //可以设置结果回调地址 (记录文件已发送)
@@ -54,6 +53,89 @@ public class TestPolyWei {
 
         //设置录制回调通知url
         //settingLiveCallBack();
+
+        //根据直播频道及场次和视频ID查询直播转存视频相关信息
+        //getVideosByVid();
+
+        //导出合并的录制文件并回调mp4下载地址
+        //exportVideoFile();
+
+        //获取播放视频token
+        getToken();
+    }
+
+    //获取播放视频token
+    public static void getToken() throws NoSuchAlgorithmException {
+        String viewerId = UUID.randomUUID().toString();
+        String vid="aef3afd3d04e86cc3890286ebb834487_a";
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(new Date());
+        String ptime = String.valueOf(instance.getTimeInMillis());
+        String data = secretkey+"ts"+ptime+"userId"+userId+"videoId"+vid+"viewerId"+viewerId+secretkey;
+        String sign = MD5Util.getMD5(data).toUpperCase();
+        Map<String,String> map=new HashMap<>();
+        map.put("userId",userId);
+        map.put("ts",ptime);
+        map.put("videoId",vid);
+        map.put("viewerId",viewerId);
+        map.put("sign",sign);
+        String url="https://hls.videocc.net/service/v1/token";
+        String json = HttpClientUtil.doPost(url,map);
+        System.out.println("json:"+json);
+
+    }
+
+
+    //导出合并的录制文件并回调mp4下载地址
+    public static void exportVideoFile() {
+
+        Map<String,String> map=new HashMap<>();
+        String ptime = String.valueOf(Calendar.getInstance().getTimeInMillis());
+        map.put("appId",appId);
+        map.put("timestamp",ptime);
+        map.put("channelId","383452");
+        map.put("startTime","20191111090843");
+        map.put("endTime","20191111103844");
+        String ksort = Ksort(map);
+        map.put("sign",ksort);
+        String url="http://api.polyv.net/live/v3/channel/record/merge-mp4";
+        String post = HttpClientUtil.doPost(url, map);
+        System.out.println("post = " + post);
+
+    }
+
+    //根据直播频道及场次和视频ID查询直播转存视频相关信息
+    public static void getVideosByVid() throws NoSuchAlgorithmException {
+        String vid="aef3afd3d04e86cc3890286ebb834487_a";
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(new Date());
+        String valueOf = String.valueOf(instance.getTimeInMillis());
+        String ptime= valueOf;
+        String data = "ptime="+ptime+"&vid="+vid+secretkey;
+        String sign = SHA1Util.sha1(data).toUpperCase();
+        Map<String,String> map=new HashMap<>();
+        map.put("ptime",ptime);
+        //map.put("userId",userId);
+        map.put("vid",vid);
+        map.put("sign",sign);
+        String url="http://api.polyv.net/v2/video/"+userId+"/get-live-playback";//?ptime="+ptime+"&sign="+sign;//?ptime="+ptime+"&sign="+sign+"&cataId=1499328808069";
+        String json = HttpClientUtil.doPost(url,map);
+        System.out.println("json:"+json);
+        JSONObject jsonObject=JSONObject.parseObject(json);
+        System.out.println("code:"+jsonObject.getString("code"));
+        System.out.println("status = " + jsonObject.getString("status"));
+        System.out.println("message = " + jsonObject.getString("message"));
+        JSONArray jsonArray = JSON.parseArray(jsonObject.getString("data"));
+        for (Object result : jsonArray) {
+            JSONObject resultObject = JSONObject.parseObject(result.toString());
+            System.out.println("data = " + result);
+            System.out.println("vid = " + resultObject.getString("vid"));
+            System.out.println("fileSize = " + resultObject.getInteger("fileSize"));
+            System.out.println("fileUrl = " + resultObject.getString("fileUrl"));
+            System.out.println("sessionId = " + resultObject.getString("sessionId"));
+            System.out.println("type = " + resultObject.getString("type"));
+            System.out.println("channelId = " + resultObject.getString("channelId"));
+        }
     }
 
     public static void settingLiveCallBack() {
@@ -105,14 +187,14 @@ public class TestPolyWei {
     public static void videoMerge(){
         String channelId="383452";
         //a48fa62652d21e21f2c6eac9b30678bb
-        String fileIds="c9445e88506b4092436a2142a69eec52,a3749212190da5147402d8c3d541b228";
+        String fileIds="eafc9c2e6acd7a13d2ad5045ac0c319a,f4544da5da872494fa283061ef0cd176";
         Map<String,String> map=new HashMap<>();
-        map.put("appId",appId);
-        map.put("timestamp",timestamp);
+        map.put("appId","esacskqwxf");
+        map.put("timestamp",String.valueOf(Calendar.getInstance().getTimeInMillis()));
         map.put("channelId",channelId);
         map.put("fileIds",fileIds);
-        map.put("callbackUrl","http://94.191.62.87/xiaoyi/mergeRecordFileCallBack?id=1");
-        map.put("mergeMp4","y");
+        map.put("callbackUrl","http://94.191.62.87/xiaoyi/mergeRecordFileCallBack?fileIds="+fileIds+"&fileId=2&fileUrl=3&fileName=4&id=5");
+        map.put("mergeMp4","Y");
         map.put("sign",Ksort(map));
         String url="http://api.polyv.net/live/v3/channel/record/merge";
         String json = HttpClientUtil.doPost(url, map);
@@ -271,6 +353,25 @@ public class TestPolyWei {
             response.setData(apiNodes);
         }
         return response;
+    }
+
+    public static String KsortVid(Map<String, String> paramMap){
+        //对参数名进行字典排序
+        String[] keyArray = paramMap.keySet().toArray(new String[0]);
+        Arrays.sort(keyArray);
+
+//拼接有序的参数串
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(appSecretKey);
+        for (String key : keyArray)
+        {
+            stringBuilder.append(key).append(paramMap.get(key));
+        }
+
+        stringBuilder.append(secretkey);
+        String signSource = stringBuilder.toString();
+        return signSource;
+        //return org.apache.commons.codec.digest.DigestUtils.md5Hex(signSource).toUpperCase();
     }
 
     public static String Ksort(Map<String, String> paramMap){

@@ -17,6 +17,7 @@ import java.io.Serializable;
 public class FileForwardSaveCallBackRequest implements Serializable {
 
     private Integer id;
+
     private static final long serialVersionUID = 6378528579601398197L;
     @ApiModelProperty(value = "频道号ID",notes = "频道号ID")
     private String channelId;

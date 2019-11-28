@@ -88,8 +88,9 @@ public class TestTYSX {
         //addLesson();
         //getClassDetail();
         //getClassOrder();
-        //addRecordedClass();
+        addRecordedClass();
         //addRecordedLesson();
+        //addUserClass();
     }
 
     //用户分享
@@ -160,17 +161,17 @@ public class TestTYSX {
         String code= UUID.randomUUID().toString();
         String coverImgLink="http://94.191.62.87:81/images/1.jpg";
         String coverVid="aef3afd3d0e5dce8c20c66a3d55ed1de_a";
-        Calendar instance = Calendar.getInstance();
-        instance.set(2019,11,11,8,00,00);
-        String enrollStartDate=DateFormatUtils.format(instance.getTime(), "yyyyMMddHHmmss");
-        instance.add(Calendar.YEAR,1);
-        instance.set(2019,11,11,18,00,00);
-        String enrollEndDate=DateFormatUtils.format(instance.getTime(), "yyyyMMddHHmmss");
+
+        String enrollStartDate="";
+        String enrollEndDate="";
         //String expirationDuration="30";
+        System.out.println(enrollStartDate);
+        System.out.println(enrollEndDate);
+
         String classHour="10";
         String totalTime="100";
         String classType="素质教育";  //学科教育 素质教育 国际教育
-        String recordType="1";
+        String recordType="2";
         String primeCost="666";
         String cost="666";
         String siteName="添翼申学";
@@ -186,6 +187,15 @@ public class TestTYSX {
         map.put("name",name);
         map.put("code",code);
         map.put("coverImgLink",coverImgLink);
+        if(StringUtils.isEmpty(enrollStartDate)){
+            Calendar instance = Calendar.getInstance();
+            enrollStartDate= org.apache.commons.lang3.time.DateFormatUtils.format(instance.getTime(), "yyyyMMddHHmmss");
+        }
+        if(StringUtils.isEmpty(enrollEndDate)){
+            Calendar instance = Calendar.getInstance();
+            instance.add(Calendar.DATE,7);
+            enrollEndDate= org.apache.commons.lang3.time.DateFormatUtils.format(instance.getTime(), "yyyyMMddHHmmss");
+        }
         map.put("enrollStartDate",enrollStartDate);
         map.put("enrollEndDate",enrollEndDate);
         map.put("classHour",classHour);
@@ -225,7 +235,8 @@ public class TestTYSX {
 
         //正式地址:https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addRecordClass
         //测试地址:http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addRecordClass
-        String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addRecordClass";
+        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addRecordClass";
+        //String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addRecordClass";
         String post = HttpClientUtil.doPost(url,map);
         System.out.println("post:"+post);
     }

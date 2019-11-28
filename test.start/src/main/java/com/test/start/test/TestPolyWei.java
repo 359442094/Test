@@ -61,11 +61,52 @@ public class TestPolyWei {
         //exportVideoFile();
 
         //获取播放视频token
-        getToken();
+        //getPolyVideoToken();
+
+        //恢复频道号推流
+        //recoverPistonFlow();
+        //停止频道号推流
+        stopPistonFlow();
+    }
+
+    //停止频道号推流
+    public static void stopPistonFlow() {
+        String channelId = "383452";
+        Map<String,String> map=new HashMap<>();
+        String ptime = String.valueOf(Calendar.getInstance().getTimeInMillis());
+        map.put("appId",appId);
+        map.put("timestamp",ptime);
+        map.put("userId",userId);
+        String ksort = Ksort(map);
+        map.put("sign",ksort);
+        String url = "http://api.polyv.net/live/v2/stream/"+channelId+"/cutoff";
+        String post = HttpClientUtil.doPost(url, map);
+        System.out.println("post = " + post);
+        JSONObject jsonObject = JSONObject.parseObject(post);
+        System.out.println(jsonObject.getString("code"));
+        System.out.println(jsonObject.getString("status"));
+        System.out.println(jsonObject.getString("message"));
+        System.out.println(jsonObject.getString("data"));
+    }
+
+    //恢复频道号推流
+    public static void recoverPistonFlow() {
+        String channelId = "383452";
+        Map<String,String> map=new HashMap<>();
+        String ptime = String.valueOf(Calendar.getInstance().getTimeInMillis());
+        map.put("appId",appId);
+        map.put("timestamp",ptime);
+        map.put("userId",userId);
+        String ksort = Ksort(map);
+        map.put("sign",ksort);
+        String url = "http://api.polyv.net/live/v2/stream/"+channelId+"/resume";
+        String post = HttpClientUtil.doPost(url, map);
+        System.out.println("post = " + post);
+
     }
 
     //获取播放视频token
-    public static void getToken() throws NoSuchAlgorithmException {
+    public static void getPolyVideoToken() throws NoSuchAlgorithmException {
         String viewerId = UUID.randomUUID().toString();
         String vid="aef3afd3d04e86cc3890286ebb834487_a";
         Calendar instance = Calendar.getInstance();
@@ -82,7 +123,25 @@ public class TestPolyWei {
         String url="https://hls.videocc.net/service/v1/token";
         String json = HttpClientUtil.doPost(url,map);
         System.out.println("json:"+json);
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        System.out.println(jsonObject.getInteger("code"));
+        System.out.println(jsonObject.getString("status"));
+        System.out.println(jsonObject.getString("message"));
 
+        JSONObject data1 = JSONObject.parseObject(jsonObject.get("data").toString());
+        System.out.println(StringUtils.isEmpty(data1.getString("token"))?"":data1.getString("token"));
+        System.out.println(data1.getString("userId"));
+        System.out.println(data1.getString("appId"));
+        System.out.println(data1.getString("videoId"));
+        System.out.println(data1.getString("viewerIp"));
+        System.out.println(data1.getString("viewerId"));
+        System.out.println(data1.getString("viewerName"));
+        System.out.println(data1.getString("extraParams"));
+        System.out.println(data1.getString("ttl"));
+        System.out.println(data1.getLong("createdTime"));
+        System.out.println(data1.getLong("expiredTime"));
+        System.out.println(data1.getString("iswxa"));
+        System.out.println(data1.getBoolean("disposable"));
     }
 
 

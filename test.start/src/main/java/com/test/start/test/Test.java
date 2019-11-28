@@ -1,9 +1,12 @@
 package com.test.start.test;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.test.start.test.bean.APINode;
 import com.test.start.test.bean.Data;
+import com.test.start.test.bean.LiveCourseLesson;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -115,12 +118,21 @@ public class Test {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        String str="古琴直播演绎，名师在线教授弹奏指法 |通过基础练习，掌握左右手演绎指法弹奏|掌握三首入门小曲";
-        str = str.replace("|", "&");
-        String[] split = str.split("&");
-        for (String s : split) {
-
+        //[{"lessonId":"997","lessonName":"测试哦"}]
+        String str="[{\"lessonName\":\"1111\",\"startDate\":\"2019-11-27 8:00:00\",\"endDate\":\"2019-11-27 18:00:00\"}]";
+        List<LiveCourseLesson> courseLessons = JSONObject.parseArray(str, LiveCourseLesson.class);
+        for (LiveCourseLesson lesson : courseLessons) {
+            System.out.println(lesson);
         }
+        //courseLessons.stream().forEach(LiveCourseLesson::);
+        /*JSONArray jsonArray = JSONObject.parseArray(str);
+        for (Object o : jsonArray) {
+            JSONObject jsonObject = JSONObject.parseObject(o.toString());
+            System.out.println(jsonObject.getString("lessonName"));
+            *//*System.out.println(jsonObject.getDate("startDate"));
+            //System.out.println(jsonObject.getString("lesson_order"));
+            System.out.println(jsonObject.getDate("endDate"));*//*
+        }*/
     }
 
 }

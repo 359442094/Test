@@ -47,7 +47,7 @@ public class TestPolyWei {
         //videoMerge(); //可以设置结果回调地址 结果为参数请求进来
 
         //异步批量转存录制文件到点播
-        //convertLiveVideo(); //可以设置结果回调地址 (记录文件已发送)
+        convertLiveVideo(); //可以设置结果回调地址 (记录文件已发送)
         //异步批量转存录制文件到点播回调
         //convertLiveVideoProcess();
 
@@ -66,7 +66,68 @@ public class TestPolyWei {
         //恢复频道号推流
         //recoverPistonFlow();
         //停止频道号推流
-        stopPistonFlow();
+        //stopPistonFlow();
+
+        //添加视频点播分类
+        //addVideoClass();
+        //添加直播频道
+        //addLiveChannel();
+
+    }
+
+    //添加直播频道
+    public static void addLiveChannel() {
+        String name = "直播频道名称";
+        Map<String,String> map=new HashMap<>();
+        String ptime = String.valueOf(Calendar.getInstance().getTimeInMillis());
+        map.put("appId",appId);
+        map.put("timestamp",ptime);
+        map.put("userId",userId);
+        map.put("name",name);
+        map.put("channelPasswd","123456");
+        String ksort = Ksort(map);
+        map.put("sign",ksort);
+        String url = "http://api.polyv.net/live/v2/channels/";
+        String post = HttpClientUtil.doPost(url, map);
+        System.out.println("post = " + post);
+        JSONObject jsonObject = JSONObject.parseObject(post);
+        String code = jsonObject.getString("code");
+        String status = jsonObject.getString("status");
+        String message = jsonObject.getString("message");
+        APILiveChannel channel = JSONObject.parseObject(jsonObject.getString("data"), APILiveChannel.class);
+        channel.setCode(code);
+        channel.setStatus(status);
+        channel.setMessage(message);
+        System.out.println(channel);
+    }
+
+
+    //添加视频点播分类(不能同名)
+    public static void addVideoClass() throws NoSuchAlgorithmException {
+        Map<String,String> map=new HashMap<>();
+        String cataName="11111";
+        //视频分类上级目录 默认:正承教育
+        String parentId="1575345411954";
+        map.put("cataname",cataName);
+        map.put("parentid",parentId);
+        map.put("ptime",timestamp);
+        String data ="cataname="+cataName+"&parentid="+parentId+"&ptime="+timestamp+secretkey;
+        String sign = SHA1Util.sha1(data).toUpperCase();
+        map.put("sign",sign);
+        String url="http://api.polyv.net/v2/video/"+userId+"/addCata";
+        String json = HttpClientUtil.doPost(url, map);
+        System.out.println("json = " + json);
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        String code = jsonObject.getString("code");
+        String status = jsonObject.getString("status");
+        String message = jsonObject.getString("message");
+        if("200".equals(code)){
+            APICata cata = JSONObject.parseObject(jsonObject.getString("data"), APICata.class);
+            cata.setCode(code);
+            cata.setStatus(status);
+            cata.setMessage(message);
+            System.out.println("cata:"+cata);
+        }
     }
 
     //停止频道号推流
@@ -224,16 +285,14 @@ public class TestPolyWei {
     //7b1e1f5ea8b5a1df2fa3d3a013eb98db
     //异步批量转存录制文件到点播
     public static void convertLiveVideo(){
-        String channelId="397272";
-        //a48fa62652d21e21f2c6eac9b30678bb,5bb4fb12d6b8311f59aa49f1fbbeccdb
-        //String fileIds="0eed67aee29df3dca22b3ff8562ad164";
-        String fileIds="24009f9397fd2cd4257369e7e98ee176,7e8683025a3914d6cf1cff2922361d7a";
+        String channelId="383452";
+        String fileIds="a122c61782130a40cc1b83b60e5cf0ab,dedff516785d5883f7647b5628c846c7";
         Map<String,String> map=new HashMap<>();
         map.put("appId",appId);
         map.put("timestamp",timestamp);
         map.put("channelId",channelId);
         map.put("fileIds",fileIds);
-        //1 2
+        map.put("cataId","1575345411954");
         map.put("callbackUrl","http://94.191.62.87/xiaoyi/fileForwardSaveCallBack?id=2");
         String sign = Ksort(map);
         map.put("sign",sign);

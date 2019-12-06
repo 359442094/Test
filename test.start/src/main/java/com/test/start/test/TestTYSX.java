@@ -174,7 +174,8 @@ public class TestTYSX {
         String recordType="2";
         String primeCost="666";
         String cost="666";
-        String siteName="添翼申学";
+        //String siteName="添翼申学";
+        String siteName="正承教育";
         String platform="liveCourseConnect";
         String timestamp= DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         Map<String,String> map=new HashMap<>();
@@ -235,8 +236,8 @@ public class TestTYSX {
 
         //正式地址:https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addRecordClass
         //测试地址:http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addRecordClass
-        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addRecordClass";
-        //String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addRecordClass";
+        //String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addRecordClass";
+        String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addRecordClass";
         String post = HttpClientUtil.doPost(url,map);
         System.out.println("post:"+post);
     }

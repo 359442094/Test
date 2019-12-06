@@ -5,11 +5,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.test.common.util.MD5HexUtil;
 import com.test.start.test.bean.*;
 import com.test.start.test.util.HttpClientUtil;
 import com.test.start.test.util.JSONRPC;
 import com.test.start.test.util.MD5Util;
 import com.test.start.test.util.SHA1Util;
+import org.bouncycastle.util.encoders.UrlBase64;
 import org.springframework.util.StringUtils;
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +49,7 @@ public class TestPolyWei {
         //videoMerge(); //可以设置结果回调地址 结果为参数请求进来
 
         //异步批量转存录制文件到点播
-        convertLiveVideo(); //可以设置结果回调地址 (记录文件已发送)
+        //convertLiveVideo(); //可以设置结果回调地址 (记录文件已发送)
         //异步批量转存录制文件到点播回调
         //convertLiveVideoProcess();
 
@@ -73,6 +75,35 @@ public class TestPolyWei {
         //添加直播频道
         //addLiveChannel();
 
+        getVideoOneInfo();
+
+    }
+
+    //获取单个视频信息
+    public static void getVideoOneInfo() throws NoSuchAlgorithmException {
+        String vid="aef3afd3d04e86cc3890286ebb834487_a";
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(new Date());
+        String ptime = String.valueOf(instance.getTimeInMillis());
+        String data = "ptime="+ptime+"&vid="+vid+secretkey;
+        String sign = SHA1Util.sha1(data).toUpperCase();
+        Map<String,String> map=new HashMap<>();
+        map.put("ptime",ptime);
+        map.put("vid",vid);
+        map.put("sign",sign);
+        String url="http://api.polyv.net/v2/video/"+userId+"/get-video-msg";//?ptime="+ptime+"&sign="+sign;//?ptime="+ptime+"&sign="+sign+"&cataId=1499328808069";
+        String json = HttpClientUtil.doPost(url,map);
+        //System.out.println("json:"+json);
+        JSONObject jsonObject = JSONObject.parseObject(json);
+        JSONArray jsonArray = JSONObject.parseArray(jsonObject.getString("data"));
+        for (Object o : jsonArray) {
+            JSONObject jsonObject1 = JSONObject.parseObject(o.toString());
+            //APIVideoOneInfo apiVideoOneInfo = JSONObject.parseObject(o.toString(), APIVideoOneInfo.class);
+            System.out.println("jsonObject1 = " + jsonObject1.getString("status"));
+        }
+
+        //System.out.println("jsonArray = " + jsonArray);
+        /*System.out.println("videoOneInfo = " + jsonObject1.getString("status"));*/
     }
 
     //添加直播频道

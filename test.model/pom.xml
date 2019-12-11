@@ -18,7 +18,6 @@
         <finalName>test.model</finalName>
 
         <plugins>
-
             <plugin>
                 <!--Mybatis-generator插件,用于自动生成Mapper和POJO-->
                 <groupId>org.mybatis.generator</groupId>

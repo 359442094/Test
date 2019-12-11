@@ -75,7 +75,7 @@ public class TestPolyWei {
         //添加直播频道
         //addLiveChannel();
 
-        getVideoOneInfo();
+       // getVideoOneInfo();
 
     }
 

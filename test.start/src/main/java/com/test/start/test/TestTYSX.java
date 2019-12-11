@@ -83,12 +83,12 @@ public class TestTYSX {
     }
 
     public static void main(String[] args) throws Exception {
-        //addTeacher();
+        addTeacher();
         //addLiveClass();
         //addLesson();
         //getClassDetail();
         //getClassOrder();
-        addRecordedClass();
+        //addRecordedClass();
         //addRecordedLesson();
         //addUserClass();
     }
@@ -315,7 +315,7 @@ public class TestTYSX {
     //直播课节添加 ff8080816dba26a7016dbdf418501ae5
     public static void addLesson(){
         String functionCode="addLesson";
-        String teacherId="ff8080816dae664f016db99a9fb92e96";
+        //String teacherId="ff8080816dae664f016db99a9fb92e96";
         String classId="ff8080816dba269d016dbdeb10fd5878";
         String liveContent="直播内容";
         String code=UUID.randomUUID().toString();
@@ -328,7 +328,7 @@ public class TestTYSX {
         ;
         Map<String,String> map=new HashMap<>();
         map.put("functionCode",functionCode);
-        map.put("teacherId",teacherId);
+        //map.put("teacherId",teacherId);
         map.put("classId",classId);
         map.put("liveContent",liveContent);
         map.put("code",code);

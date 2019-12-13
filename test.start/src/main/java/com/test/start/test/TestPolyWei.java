@@ -71,7 +71,7 @@ public class TestPolyWei {
         //stopPistonFlow();
 
         //添加视频点播分类
-        //addVideoClass();
+        addVideoClass();
         //添加直播频道
         //addLiveChannel();
 

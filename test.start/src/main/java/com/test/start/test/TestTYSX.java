@@ -96,7 +96,7 @@ public class TestTYSX {
 
     public static void addTySxUser() {
         String functionCode="register";
-        String channel="428544";
+        String channel="30";
         String id="16621242384";
         String platform="liveCourseConnect";
         String timestamp=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
@@ -107,20 +107,20 @@ public class TestTYSX {
         map.put("platform",platform);
         map.put("timestamp",timestamp);
         map.put("key",Ksort(map));
-        //String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/register";
-        String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/registerUser";
+        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/register";
+        //String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/registerUser";
         String post = HttpClientUtil.doPost(url, map);
         System.out.println("post:"+post);
 
     }
 
-
     //用户分享
     public static void addUserClass() {
         String functionCode="addUserClass";
-        String classId="8a8880866e1a5c23016e1f663a28016b";
-        String channel="channel";
-        String mobilephone="16621242384";
+        //测试 String classId="8a8880866e1a5c23016e1f663a28016b";
+        String classId="ff8080816ed3d794016ed4ec3ac25e33";
+        String channel="383452";
+        String mobilephone="16621242385";
         String platform="liveCourseConnect";
         String timestamp=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         Map<String,String> map=new HashMap<>();
@@ -131,7 +131,7 @@ public class TestTYSX {
         map.put("platform",platform);
         map.put("timestamp",timestamp);
         map.put("key",Ksort(map));
-        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addUserClass";
+        String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addUserClass";
         String post = HttpClientUtil.doPost(url, map);
         System.out.println("post:"+post);
     }
@@ -142,14 +142,14 @@ public class TestTYSX {
     public static void addRecordedLesson(){
         String functionCode="addRecordLesson";
         //String teacherId="8a8880866e1a5c23016e1b592a790126";
-        String classId="402881ec6ef3f0c2016ef7a77f0c02a0";
+        String classId="ff8080816ef95c83016efcfbde8b1fe4";
         String title="视频标题";
         String code=UUID.randomUUID().toString();
         String coverImgLink="http://94.191.62.87:81/images/1.jpg";
         String vid="aef3afd3d09bbf9671712d08399945ee_a";
         String recordHour="111";
         String allowTaste="0";
-        String videoDuration="100";
+        String videoDuration="00:00:00";
         String platform="liveCourseConnect";
         String timestamp=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         Map<String,String> map=new HashMap<>();
@@ -169,13 +169,15 @@ public class TestTYSX {
         String key=Ksort(map);
         map.put("key",key);
         map.put("title",getURLEncoderString(title));
-        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addRecordLesson";
+        //String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addRecordLesson";
+        String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addRecordLesson";
         String post = HttpClientUtil.doPost(url, map);
         System.out.println("post:"+post);
     }
 
     //8a8880866e1a5c23016e1f663a28016b
     //8a8880866e3ffb5c016e4065e2cb0058
+    //ff8080816ef95c83016efcfbde8b1fe4
     //添加录播课程
     public static void addRecordedClass(){
         String functionCode="addRecordClass";
@@ -191,13 +193,13 @@ public class TestTYSX {
         System.out.println(enrollEndDate);
 
         String classHour="10";
-        String totalTime="100";
+        //String totalTime="100";
         String classType="素质教育";  //学科教育 素质教育 国际教育
-        String recordType="1";
+        String recordType="2";
         String primeCost="666";
         String cost="666";
-        String siteName="添翼申学";
-        //String siteName="正承教育";
+        //String siteName="添翼申学";
+        String siteName="正承教育";
         String platform="liveCourseConnect";
         String timestamp= DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         Map<String,String> map=new HashMap<>();
@@ -222,7 +224,7 @@ public class TestTYSX {
         map.put("enrollStartDate",enrollStartDate);
         map.put("enrollEndDate",enrollEndDate);
         map.put("classHour",classHour);
-        map.put("totalTime",totalTime);
+        //map.put("totalTime",totalTime);
         map.put("classType",classType);
         map.put("recordType",recordType);
         map.put("primeCost",primeCost);
@@ -258,8 +260,8 @@ public class TestTYSX {
 
         //正式地址:https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addRecordClass
         //测试地址:http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addRecordClass
-        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addRecordClass";
-        //String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addRecordClass";
+        //String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addRecordClass";
+        String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addRecordClass";
         String post = HttpClientUtil.doPost(url,map);
         System.out.println("post:"+post);
     }
@@ -432,7 +434,7 @@ public class TestTYSX {
     //8a8880866e1a5c23016e1b592a790126
     public static void addTeacher() throws Exception {
         String functionCode="addTeacher";
-        String userId="16621242385";
+        String userId="16621242384";
         String siteName="添翼申学";//"正承教育";
         String orient="暂无";
         String note="暂无";
@@ -454,8 +456,8 @@ public class TestTYSX {
         map.put("note",getURLEncoderString(note));
         map.put("key",key);
         //http://frp.o-learn.cn:51085/hirdparty/
-        //String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addTeacher";
-        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addTeacher";
+        String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addTeacher";
+        //String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addTeacher";
         String post = HttpClientUtil.doPost(url,map);
         System.out.println("post:"+post);
     }

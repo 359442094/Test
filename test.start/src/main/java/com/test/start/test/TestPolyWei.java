@@ -71,11 +71,11 @@ public class TestPolyWei {
         //stopPistonFlow();
 
         //添加视频点播分类
-        addVideoClass();
+        //addVideoClass();
         //添加直播频道
         //addLiveChannel();
 
-       // getVideoOneInfo();
+       getVideoOneInfo();
 
     }
 
@@ -487,7 +487,7 @@ public class TestPolyWei {
         String ptime=String.valueOf(Calendar.getInstance().getTimeInMillis());
         String data = "ptime="+ptime+"&userid="+userId+secretkey;
         String sign = SHA1Util.sha1(data).toUpperCase();
-        String url="http://api.polyv.net/v2/video/"+userId+"/cataJson?ptime="+ptime+"&sign="+sign+"&cataId=1499328808069";
+        String url="http://api.polyv.net/v2/video/"+userId+"/cataJson?ptime="+ptime+"&cataid=1568709388039"+"&sign="+sign;
         String json = HttpClientUtil.doGet(url);
         System.out.println("json:"+json);
         JSONObject object = JSONObject.parseObject(json);

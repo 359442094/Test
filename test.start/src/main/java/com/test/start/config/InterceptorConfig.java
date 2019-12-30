@@ -118,4 +118,5 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public MessageCodesResolver getMessageCodesResolver() {
         return null;
     }
+
 }

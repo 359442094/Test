@@ -10,16 +10,18 @@ import com.test.common.exception.ServiceException;
 import com.test.common.util.AESUtil;
 import com.test.common.util.Context;
 import com.test.common.util.RedisUtil;
+import com.test.model.domain.Test;
+import com.test.model.domain.Test1;
 import com.test.model.domain.User;
 import com.test.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Api(tags = {"用户接口"})
 @RestController

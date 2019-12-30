@@ -117,22 +117,14 @@ public class Test {
         System.out.println(string);
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        //[{"lessonId":"997","lessonName":"测试哦"}]
-        String str="[{\"lessonName\":\"1111\",\"startDate\":\"2019-11-27 8:00:00\",\"endDate\":\"2019-11-27 18:00:00\"}]";
-        List<LiveCourseLesson> courseLessons = JSONObject.parseArray(str, LiveCourseLesson.class);
-        for (LiveCourseLesson lesson : courseLessons) {
-            System.out.println(lesson);
+    public static void main(String[] args){
+        String str="测试内|undefined|";
+        if(str.lastIndexOf("|")+1 == str.length()){
+            str=str.replace("|","");
         }
-        //courseLessons.stream().forEach(LiveCourseLesson::);
-        /*JSONArray jsonArray = JSONObject.parseArray(str);
-        for (Object o : jsonArray) {
-            JSONObject jsonObject = JSONObject.parseObject(o.toString());
-            System.out.println(jsonObject.getString("lessonName"));
-            *//*System.out.println(jsonObject.getDate("startDate"));
-            //System.out.println(jsonObject.getString("lesson_order"));
-            System.out.println(jsonObject.getDate("endDate"));*//*
-        }*/
+        System.out.println(str);
+        System.out.println(str.lastIndexOf("|"));
+
     }
 
 }

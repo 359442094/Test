@@ -17,6 +17,7 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
@@ -118,12 +119,8 @@ public class Test {
     }
 
     public static void main(String[] args){
-        String str="测试内|undefined|";
-        if(str.lastIndexOf("|")+1 == str.length()){
-            str=str.replace("|","");
-        }
-        System.out.println(str);
-        System.out.println(str.lastIndexOf("|"));
+        DecimalFormat decimalFormat = new DecimalFormat(".00");
+        System.out.println(decimalFormat.format(1002200999));    //1,002,200,999.22
 
     }
 

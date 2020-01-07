@@ -2,8 +2,11 @@ package com.test.service.impl;
 
 import com.test.common.excel.ExcelUtil;
 import com.test.common.util.ConvertUtil;
+import com.test.model.domain.Test;
+import com.test.model.domain.TestExample;
 import com.test.model.domain.User;
 import com.test.model.domain.UserExample;
+import com.test.model.persistence.TestMapper;
 import com.test.model.persistence.UserMapper;
 import com.test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private TestMapper testMapper;
 
     @Override
     public com.test.common.dto.User login(User user) {
@@ -31,9 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> users() {
-        List<User> users = userMapper.selectByExample(new UserExample());
-        return users;
+    public List<Test> tests() {
+        return  testMapper.selectByExample(new TestExample());
     }
 
 }

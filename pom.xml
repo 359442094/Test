@@ -36,9 +36,9 @@
 
         <!-- Excel工具 -->
         <dependency>
-            <groupId>com.wuwenze</groupId>
-            <artifactId>ExcelKit</artifactId>
-            <version>2.0.7</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>1.0.1</version>
         </dependency>
 
         <dependency>

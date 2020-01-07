@@ -8,6 +8,7 @@ import com.test.common.util.FileUtil;
 import com.test.common.util.IpUtil;
 import com.test.common.util.RedisUtil;
 import com.test.common.videoApi.*;
+import com.test.model.domain.Test;
 import com.test.model.domain.User;
 import com.test.service.UserService;
 import io.swagger.annotations.Api;
@@ -81,7 +82,7 @@ public class TestController {
     public void downloadExcelTemplate() throws IOException {
         //String read="http://120.132.68.197:8080/xy_temp/template.xlsx";
         log.info("直播课程填写模板位置:"+rootPath + imgPath + excelTemplate);
-        fileUtil.download(rootPath + imgPath + excelTemplate,"直播课程填写模板.xlsx",request,response);
+        FileUtil.download(rootPath + imgPath + excelTemplate,"直播课程填写模板.xlsx",request,response);
     }
 
     @ApiOperation(value = "上传图片",notes = "上传图片")
@@ -90,19 +91,7 @@ public class TestController {
     public void uploadExcelTemplate(@RequestParam(value = "file")MultipartFile file) throws IOException {
         //String read="http://120.132.68.197:8080/xy_temp/template.xlsx";
         log.info("上传图片");
-        fileUtil.upload(file);
-    }
-
-    @ShowLogger(info = "下载excel")
-    @ApiOperation(value = "下载excel",notes = "下载excel")
-    @RequestMapping(path = "/test/testExcel",method = RequestMethod.GET)
-    public void testExcel(HttpServletResponse response) throws IOException {
-        List<User> users = userService.users();
-        ExcelUtil excelUtil=new ExcelUtil();
-        response.setHeader("content-type", "application/octet-stream");
-        response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("excel.xlsx", "UTF-8"));
-        excelUtil.excelExport(response.getOutputStream(),users);
+        FileUtil.upload(file);
     }
 
     @ShowLogger(info = "测试")

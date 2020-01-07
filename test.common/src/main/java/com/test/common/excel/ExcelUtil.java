@@ -1,6 +1,7 @@
 package com.test.common.excel;
 
 import com.microsoft.schemas.office.visio.x2012.main.CellType;
+import com.test.model.domain.Test;
 import com.test.model.domain.User;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.poi.hssf.usermodel.*;
@@ -8,6 +9,8 @@ import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.util.StringUtils;
 
@@ -46,12 +49,10 @@ public class ExcelUtil {
             HSSFSheet sheet = workbook.createSheet(title);
             // 加载数据
             autoContent(dataList,workbook,sheet);
-            // 让列宽随着导出的列长自动适应
-            autoColumnStyle(sheet,rowName.length);
+            //指定列自动适应
             // 写入
             String savePath = "D:/";
             String fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()).toString() +".xls";
-
             saveWorkbook(outputStream,workbook,savePath,fileName);
 
         }catch(Exception e){
@@ -219,16 +220,16 @@ public class ExcelUtil {
         return null;
     }
 
-    public void excelExport(OutputStream outputStream,List<User> users){
+    public void excelExport(OutputStream outputStream,List<Test> users){
         String title = "张翠山的发言记录";
-        String[] rowsName = new String[]{"序号","时间","用户","密码","消息"};
+        String[] rowsName = new String[]{"序号","时间","用户","备注"};
         List<Object[]>  dataList = new ArrayList<Object[]>();
         Object[] objs = null;
         Calendar calendar=Calendar.getInstance();
         String format = DateFormatUtils.format(calendar.getTime(), "yyyy-MM-dd");
         for (int i = 0; i < users.size(); i++) {
             objs = new Object[]{
-                    i,format,users.get(i).getName(),users.get(i).getPwd(),"工作一定要认真，态度要端正"
+                    i,users.get(i).getName(),users.get(i).getPwd(),"工作一定要认真，态度要端正"
             };
             dataList.add(objs);
         }
@@ -314,8 +315,8 @@ public class ExcelUtil {
 
         //将查询出的数据设置到sheet对应的单元格中
         for(int i=0;i<dataList.size();i++){
-
             Object[] obj = dataList.get(i);//遍历每个对象
+
             HSSFRow row = sheet.createRow(i+2);//创建所需的行数
 
             row.setHeight((short) (25 * 20)); //设置高度
@@ -325,13 +326,22 @@ public class ExcelUtil {
                 if(j == 0){
                     cell = row.createCell(j, HSSFCell.CELL_TYPE_NUMERIC);
                     cell.setCellValue(i+1);
+
                 }else{
                     cell = row.createCell(j, HSSFCell.CELL_TYPE_STRING);
                     if(!"".equals(obj[j]) && obj[j] != null){
-                        cell.setCellValue(obj[j].toString());                        //设置单元格的值
+                        //设置单元格的值
+                        cell.setCellValue(obj[j].toString());
                     }
                 }
-                cell.setCellStyle(this.getStyle(workbook));                                    //设置单元格样式
+                // 必须在单元格设值以后进行
+                // 调整每一列宽度
+                sheet.autoSizeColumn((short) j);
+                // 解决自动设置列宽中文失效的问题
+                sheet.setColumnWidth(j, sheet.getColumnWidth(j) * 17 / 10);
+
+                //设置单元格样式
+                cell.setCellStyle(this.getStyle(workbook));
             }
         }
     }
@@ -362,10 +372,10 @@ public class ExcelUtil {
      * @param sheet 工作表对象
      * @param columnNum 工作表列头数组长度
      * */
-    public void autoColumnStyle(HSSFSheet sheet, int columnNum){
-        for (int colNum = 0; colNum < columnNum; colNum++) {
-            int columnWidth = sheet.getColumnWidth(colNum) / 256;
-            for (int rowNum = 0; rowNum < sheet.getLastRowNum(); rowNum++) {
+    public void autoColumnStyle(HSSFSheet sheet, int size){
+        for (int columnNum = 0; columnNum < size; columnNum++) {
+            int columnWidth = sheet.getColumnWidth(columnNum) / 256;
+            for (int rowNum = 1; rowNum < sheet.getLastRowNum(); rowNum++) {
                 HSSFRow currentRow;
                 //当前行未被使用过
                 if (sheet.getRow(rowNum) == null) {
@@ -373,9 +383,11 @@ public class ExcelUtil {
                 } else {
                     currentRow = sheet.getRow(rowNum);
                 }
-                if (currentRow.getCell(colNum) != null) {
-                    HSSFCell currentCell = currentRow.getCell(colNum);
-                    if (currentCell.getCellType() == HSSFCell.CELL_TYPE_STRING) {
+                System.out.println("rowNum:"+rowNum);
+                if (currentRow.getCell(columnNum) != null) {
+                    HSSFCell currentCell = currentRow.getCell(columnNum);
+                    if (currentCell.getCellType() == XSSFCell.CELL_TYPE_STRING) {
+                        System.out.println("currentCell.getStringCellValue():"+currentCell.getStringCellValue());
                         int length = currentCell.getStringCellValue().getBytes().length;
                         if (columnWidth < length) {
                             columnWidth = length;
@@ -383,11 +395,8 @@ public class ExcelUtil {
                     }
                 }
             }
-            if(colNum == 0){
-                sheet.setColumnWidth(colNum, (columnWidth-2) * 128);
-            }else{
-                sheet.setColumnWidth(colNum, (columnWidth+4) * 256);
-            }
+            System.out.println("columnNum："+columnNum+"\tcolumnWidth:"+columnWidth);
+            sheet.setColumnWidth(columnNum, columnWidth * 256);
         }
     }
 

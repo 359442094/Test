@@ -26,6 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 请求外部接口工具类
+ * @author CJ
+ * @date 2019/10/12
+ */
 public class HttpClientUtil {
     /**
      * 带参数的get请求
@@ -81,8 +86,10 @@ public class HttpClientUtil {
     /**
      * 带File参数的post请求
      * @param url
-     * @param param
-     * @return String
+     * @param writeToken
+     * @param file
+     * @param jsonrpc
+     * @return
      */
     public static String uploadFile(String url,String writeToken,File file,String jsonrpc) {
         // 创建Httpclient对象
@@ -124,6 +131,55 @@ public class HttpClientUtil {
      * @param param
      * @return String
      */
+    public static String doPostContentType(String url, Map<String, String> param) {
+        // 创建Httpclient对象
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpResponse response = null;
+        String resultString = "";
+        try {
+            // 创建Http Post请求
+            HttpPost httpPost = new HttpPost(url);
+            // 创建参数列表
+            if (param != null) {
+                httpPost.addHeader("Content-type","application/x-www-form-urlencoded;");
+                //httpPost.setHeader("Accept", "application/json");
+
+                List<NameValuePair> paramList = new ArrayList<>();
+                for (String key : param.keySet()) {
+                    paramList.add(new BasicNameValuePair(key, param.get(key)));
+                }
+
+                System.out.println("-----------------------");
+                paramList.stream().forEach(System.out::println);
+                System.out.println("-----------------------");
+
+                // 模拟表单
+                UrlEncodedFormEntity entity = new UrlEncodedFormEntity(paramList, Consts.UTF_8);
+                httpPost.setEntity(entity);
+            }
+            // 执行http请求
+            response = httpClient.execute(httpPost);
+            resultString = EntityUtils.toString(response.getEntity(), "utf-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(response!=null){
+                    response.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return resultString;
+    }
+
+    /**
+     * 带参数的post请求
+     * @param url
+     * @param param
+     * @return String
+     */
     public static String doPost(String url, Map<String, String> param) {
         // 创建Httpclient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -141,6 +197,11 @@ public class HttpClientUtil {
                 for (String key : param.keySet()) {
                     paramList.add(new BasicNameValuePair(key, param.get(key)));
                 }
+
+                System.out.println("-----------------------");
+                paramList.stream().forEach(System.out::println);
+                System.out.println("-----------------------");
+
                 // 模拟表单
                 UrlEncodedFormEntity entity = new UrlEncodedFormEntity(paramList, Consts.UTF_8);
                 httpPost.setEntity(entity);
@@ -152,7 +213,9 @@ public class HttpClientUtil {
             e.printStackTrace();
         } finally {
             try {
-                response.close();
+                if(response!=null){
+                    response.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -170,7 +233,7 @@ public class HttpClientUtil {
     }
 
     /**
-     * 传送json类型的post请求
+     * 传送Json类型的post请求
      * @param url
      * @param json
      * @return String

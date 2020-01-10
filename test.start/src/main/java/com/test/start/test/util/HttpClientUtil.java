@@ -141,7 +141,7 @@ public class HttpClientUtil {
             HttpPost httpPost = new HttpPost(url);
             // 创建参数列表
             if (param != null) {
-                httpPost.addHeader("Content-type","application/x-www-form-urlencoded;");
+                //httpPost.addHeader("Content-type","application/x-www-form-urlencoded;");
                 //httpPost.setHeader("Accept", "application/json");
 
                 List<NameValuePair> paramList = new ArrayList<>();

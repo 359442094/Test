@@ -19,18 +19,16 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
     private TestMapper testMapper;
 
     @Override
-    public com.test.common.dto.User login(User user) {
-        com.test.common.dto.User resultUser=null;
-        UserExample userExample=new UserExample();
-        userExample.createCriteria().andNameEqualTo(user.getName()).andPwdEqualTo(user.getPwd());
-        List<User> users = userMapper.selectByExample(userExample);
+    public Test login(Test test) {
+        Test resultUser=null;
+        TestExample testExample=new TestExample();
+        testExample.createCriteria().andNameEqualTo(test.getName()).andPwdEqualTo(test.getPwd());
+        List<Test> users = testMapper.selectByExample(testExample);
         if(users.size()>0){
-            resultUser = ConvertUtil.convert(user);
+            resultUser = test;
         }
         return resultUser;
     }

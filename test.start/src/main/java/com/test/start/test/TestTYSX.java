@@ -85,62 +85,58 @@ public class TestTYSX {
         return true;
     }
 
-    //文档:mobilephone=mobilephone&platform=platform&siteName=siteName& timestamp=timestamp&username=username&Modsffsafsa
-    //当前:imgMobileLink=http://94.191.62.87:81/images/1.jpg&imgPcLink=http://94.191.62.87:81/images/1.jpg&introduce=机构简介&logoLink=http://94.191.62.87:81/images/1.jpg&mobilephone=16621242385&platform=liveCourseConnect&siteDetailNoteOne=机构介绍1&siteDetailNoteThree=机构介绍3&siteDetailNoteTwo=机构介绍2&siteName=siteName&timestamp=20200107173938&username=username&liveCourse!@#$%19
+    //文档:mobilephone=16621242385&platform=liveCourseConnect&siteName=testSiteName&timestamp=20200108102123&username=4e5de20d7f53502592361fe934931e9e&liveCourse!@#$%19
+    //当前:mobilephone=16621242385&platform=liveCourseConnect&siteName=testSiteName&timestamp=20200108102123&username=testUsername&liveCourse!@#$%19
     public static void addTyOrg() throws Exception {
-        String siteName="测试渠道";
-        String username="张三";
+        String siteName="测试机构1";
+        String username="testName";
         String mobilephone="16621242385";
-        String siteDetailNoteOne="机构介绍1";
-        String siteDetailNoteTwo="机构介绍2";
-        String siteDetailNoteThree="机构介绍3";
+        String siteDetailNoteOne="机构介绍 1";
+        String siteDetailNoteTwo="机构介绍 2";
+        String siteDetailNoteThree="机构介绍 3";
         String logoLink="http://94.191.62.87:81/images/1.jpg";
         String imgPcLink="http://94.191.62.87:81/images/1.jpg";
         String imgMobileLink="http://94.191.62.87:81/images/1.jpg";
         String introduce="机构简介";
         String platform="liveCourseConnect";
         String timestamp= org.apache.commons.lang3.time.DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
-
         Map map=new HashMap();
         map.put("siteName",siteName);
         map.put("username",username);
         map.put("mobilephone",mobilephone);
-        map.put("siteDetailNoteOne",siteDetailNoteOne);
-        map.put("siteDetailNoteTwo",siteDetailNoteTwo);
-        map.put("siteDetailNoteThree",siteDetailNoteThree);
-        map.put("logoLink",logoLink);
-        map.put("imgPcLink",imgPcLink);
-        map.put("imgMobileLink",imgMobileLink);
-        map.put("introduce",introduce);
         map.put("timestamp",timestamp);
         map.put("platform",platform);
         String key = Ksort(map);
         map.put("key",key);
 
-        username = new SecurityDesCoder("tyxs9sx").encrypt(getURLEncoderString(username));
-        map.put("username",username);
-        mobilephone = new SecurityDesCoder("tyxs9sx").encrypt(mobilephone);
-        map.put("mobilephone",mobilephone);
         map.put("siteName",getURLEncoderString(siteName));
         map.put("siteDetailNoteOne",getURLEncoderString(siteDetailNoteOne));
         map.put("siteDetailNoteTwo",getURLEncoderString(siteDetailNoteTwo));
         map.put("siteDetailNoteThree",getURLEncoderString(siteDetailNoteThree));
         map.put("introduce",getURLEncoderString(introduce));
+        map.put("logoLink",logoLink);
+        map.put("imgPcLink",imgPcLink);
+        map.put("imgMobileLink",imgMobileLink);
 
-        String url="";
+        /*username = new SecurityDesCoder("tyxs9sx").encrypt(username);
+        map.put("username",username);*/
+        mobilephone = new SecurityDesCoder("tyxs9sx").encrypt(mobilephone);
+        map.put("mobilephone",mobilephone);
+
+
+        String url="http://frp.o-learn.cn:51085/thirdparty/siteOrChannelData/addSite";
         String json = HttpClientUtil.doPostContentType(url, map);
         System.out.println(json);
 
     }
 
     //文档:channelName=channelName&channelNote=channelNote&platform=platform&timestamp=timestamp&Modsffsafsa
-    //当前:channelName=channelName&channelNote=channelNote&platform=liveCourseConnect&timestamp=20200107131544&liveCourse!@#$%19
+    //当前:channelName=测试&channelNote=channelNote&platform=liveCourseConnect&timestamp=20200108100815&liveCourse!@#$%19
     public static void addTyChannel(){
-        String channelName="channelName";
-        String channelNote="channelNote";
+        String channelName="测试渠道1111";
+        String channelNote="渠道备注1111";
         String platform="liveCourseConnect";
         String timestamp= org.apache.commons.lang3.time.DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
-
         Map map=new HashMap();
         map.put("channelName",channelName);
         map.put("channelNote",channelNote);
@@ -148,9 +144,10 @@ public class TestTYSX {
         map.put("platform",platform);
         String key = Ksort(map);
         map.put("key",key);
-
-        String url="";
-        String json = HttpClientUtil.doPostContentType(url, map);
+        map.put("channelName",getURLEncoderString(channelName));
+        map.put("channelNote",getURLEncoderString(channelNote));
+        String url="http://frp.o-learn.cn:51085/thirdparty/siteOrChannelData/addChannel";
+        String json = HttpClientUtil.doPost(url,map);
         System.out.println(json);
 
     }
@@ -158,20 +155,25 @@ public class TestTYSX {
     //文档:channelName=channelName&channelNum=channelNum&platform=platform&timestamp=timestamp&Modsffsafsa
     //当前:channelName=channelName&channelNum=30&platform=liveCourseConnect&timestamp=20200107173232&liveCourse!@#$%19
     public static void addTyChannelResult(){
-        String channelName="channelName";
-        String channelNum="30";
+        String channelName="正承教育6";
+        String channelNo="30";
         String platform="liveCourseConnect";
+        String channelNote="备注";
+        //渠道状态(0 不通过 1 通过)
+        String channelStatus="1";
         String timestamp= org.apache.commons.lang3.time.DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
 
         Map map=new HashMap();
         map.put("channelName",channelName);
-        map.put("channelNum",channelNum);
+        map.put("channelNo",channelNo);
         map.put("timestamp",timestamp);
+        map.put("channelNote",channelNote);
+        map.put("channelStatus",channelStatus);
         map.put("platform",platform);
         String key = Ksort(map);
         map.put("key",key);
 
-        String url="";
+        String url="http://cj.ngrok2.xiaomiqiu.cn/xiaoyi/addTyChannelCallBack";
         String json = HttpClientUtil.doPostContentType(url, map);
         System.out.println(json);
 

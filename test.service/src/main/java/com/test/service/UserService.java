@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserService {
 
-    com.test.common.dto.User login(User user);
+    Test login(Test test);
 
     List<Test> tests();
 

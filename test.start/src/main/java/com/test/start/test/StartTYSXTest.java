@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class StartTYSXTest {
     public static void main(String[] args) throws Exception {
-        //TestTYSX.addTeacher();
+        TestTYSX.addTeacher();
         //TestTYSX.addLiveClass();
         //TestTYSX.addLesson();
         //TestTYSX.getClassDetail();
@@ -26,7 +26,7 @@ public class StartTYSXTest {
         //TestTYSX.addUserClass();
         //TestTYSX.addTySxUser();
         //添加机构
-        TestTYSX.addTyOrg();
+        //TestTYSX.addTyOrg();
         //添加渠道
         //TestTYSX.addTyChannel();
         //获取添加渠道结果

@@ -14,11 +14,55 @@
 
     <artifactId>test.model</artifactId>
 
+    <!--<dependencies>
+        <dependency>
+            <groupId>io.github.swagger2markup</groupId>
+            <artifactId>swagger2markup</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>jcenter-releases</id>
+            <name>jcenter</name>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
+    </repositories>-->
+
     <build>
         <finalName>test.model</finalName>
 
         <plugins>
-
+            <!-- <plugin>
+                 <groupId>io.github.swagger2markup</groupId>
+                 <artifactId>swagger2markup-maven-plugin</artifactId>
+                 <version>1.3.1</version>
+                 <configuration>
+                     <swaggerInput>http://localhost:80/v2/api-docs</swaggerInput>
+                     <outputDir>src/resoures/asciidoc/generated</outputDir>
+                     <config>
+                         <swagger2markup.markupLanguage>ASCIIDOC</swagger2markup.markupLanguage>
+                     </config>
+                 </configuration>
+             </plugin>
+             <plugin>
+                 <groupId>org.asciidoctor</groupId>
+                 <artifactId>asciidoctor-maven-plugin</artifactId>
+                 <version>1.5.6</version>
+                 <configuration>
+                     <sourceDirectory>src/resoures/asciidoc/generated</sourceDirectory>
+                     <outputDirectory>src/resoures/asciidoc/html</outputDirectory>
+                     <backend>html</backend>
+                     <sourceHighlighter>coderay</sourceHighlighter>
+                     <attributes>
+                         <toc>left</toc>
+                     </attributes>
+                 </configuration>
+             </plugin>-->
             <plugin>
                 <!--Mybatis-generator插件,用于自动生成Mapper和POJO-->
                 <groupId>org.mybatis.generator</groupId>

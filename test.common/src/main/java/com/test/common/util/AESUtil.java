@@ -121,9 +121,14 @@ public class AESUtil {
    }
 
    public static String decryptStart(String encryptResultStr){
-       byte[] decryptFrom = AESUtil.parseHexStr2Byte(encryptResultStr);
-       byte[] decryptResult = AESUtil.decrypt(decryptFrom, password);
-       String result = new String(decryptResult);
+       String result = "";
+       try {
+           byte[] decryptFrom = AESUtil.parseHexStr2Byte(encryptResultStr);
+           byte[] decryptResult = AESUtil.decrypt(decryptFrom, password);
+           result = new String(decryptResult);
+       }catch (Exception e){
+           result = "";
+       }
        return result;
    }
 

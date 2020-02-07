@@ -8,7 +8,7 @@
         <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources" />
         <javaClientGenerator targetPackage="com.test.model.persistence" targetProject="src/main/java" type="XMLMAPPER" />
 
-        <table tableName="User"></table>
+        <table tableName="Test"></table>
 
     </context>
 </generatorConfiguration>

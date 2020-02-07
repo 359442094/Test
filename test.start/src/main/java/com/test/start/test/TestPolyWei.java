@@ -49,7 +49,7 @@ public class TestPolyWei {
         //videoMerge(); //可以设置结果回调地址 结果为参数请求进来
 
         //异步批量转存录制文件到点播
-        //convertLiveVideo(); //可以设置结果回调地址 (记录文件已发送)
+        convertLiveVideo(); //可以设置结果回调地址 (记录文件已发送)
         //异步批量转存录制文件到点播回调
         //convertLiveVideoProcess();
 
@@ -75,7 +75,7 @@ public class TestPolyWei {
         //添加直播频道
         //addLiveChannel();
 
-        getVideoOneInfo();
+       //getVideoOneInfo();
 
     }
 
@@ -316,14 +316,15 @@ public class TestPolyWei {
     //7b1e1f5ea8b5a1df2fa3d3a013eb98db
     //异步批量转存录制文件到点播
     public static void convertLiveVideo(){
-        String channelId="383452";
-        String fileIds="a122c61782130a40cc1b83b60e5cf0ab,dedff516785d5883f7647b5628c846c7";
+        String channelId="428544";
+        String fileIds="20bb5d0147274a2f7caa2d506b8e12ab";
         Map<String,String> map=new HashMap<>();
         map.put("appId",appId);
         map.put("timestamp",timestamp);
         map.put("channelId",channelId);
         map.put("fileIds",fileIds);
         map.put("cataId","1575345411954");
+        map.put("fileName","测试转存文件");
         map.put("callbackUrl","http://94.191.62.87/xiaoyi/fileForwardSaveCallBack?id=2");
         String sign = Ksort(map);
         map.put("sign",sign);
@@ -487,7 +488,7 @@ public class TestPolyWei {
         String ptime=String.valueOf(Calendar.getInstance().getTimeInMillis());
         String data = "ptime="+ptime+"&userid="+userId+secretkey;
         String sign = SHA1Util.sha1(data).toUpperCase();
-        String url="http://api.polyv.net/v2/video/"+userId+"/cataJson?ptime="+ptime+"&sign="+sign+"&cataId=1499328808069";
+        String url="http://api.polyv.net/v2/video/"+userId+"/cataJson?ptime="+ptime+"&cataid=1568709388039"+"&sign="+sign;
         String json = HttpClientUtil.doGet(url);
         System.out.println("json:"+json);
         JSONObject object = JSONObject.parseObject(json);

@@ -156,4 +156,5 @@ public class SecurityDesCoder {
 	public String decrypt(String strIn) throws Exception {
 		return new String(decrypt(hexStr2ByteArr(strIn)));
 	}
+
 }

@@ -10,19 +10,24 @@ import com.test.common.exception.ServiceException;
 import com.test.common.util.AESUtil;
 import com.test.common.util.Context;
 import com.test.common.util.RedisUtil;
+import com.test.model.domain.LoginTest;
+import com.test.model.domain.Test;
+import com.test.model.domain.Test1;
 import com.test.model.domain.User;
 import com.test.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Api(tags = {"用户接口"})
 @RestController
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -37,20 +42,26 @@ public class UserController {
     public Return<UserLoginResponse> login(UserLoginRequest request){
         if(StringUtils.isEmpty(request)){
             throw new ServiceException(ErrorConstant.ERROR_PARAM,"登录参数为空");
-        }else if(StringUtils.isEmpty(request.getUsername())){
+        }else if(StringUtils.isEmpty(request.getUserName())){
             throw new ServiceException(ErrorConstant.ERROR_PARAM,"登录用户参数为空");
-        }else if(StringUtils.isEmpty(request.getPassword())){
+        }else if(StringUtils.isEmpty(request.getPassWord())){
             throw new ServiceException(ErrorConstant.ERROR_PARAM,"登录密码参数为空");
         }else{
-            User user1 = new User();
-            user1.setName(request.getUsername());
-            user1.setPwd(request.getPassword());
-            com.test.common.dto.User user = userService.login(user1);
-            if(!StringUtils.isEmpty(user)){
-                String sessionId = AESUtil.encryptStart(request.getUsername()+"&"+request.getPassword()+"&");
-                redisUtil.set(ServiceConstant.SERVICE_SESSION,sessionId);
+            Test test = new Test();
+            test.setName(request.getUserName());
+            test.setPwd(request.getPassWord());
+            Test test1 = userService.login(test);
+            log.info("test1:"+test1);
+            if(!StringUtils.isEmpty(test1)){
+                String sessionId = AESUtil.encryptStart(request.getUserName()+"&"+request.getPassWord()+"&");
+                redisUtil.set(request.getUserName()+request.getPassWord()+ServiceConstant.SERVICE_SESSION,sessionId);
                 UserLoginResponse response=new UserLoginResponse();
-                response.setUser(user);
+                LoginTest loginTest=new LoginTest();
+                loginTest.setSessionId(sessionId);
+                loginTest.setUserId(test1.getId());
+                loginTest.setUserName(test1.getName());
+                loginTest.setPassWord(test1.getPwd());
+                response.setUser(loginTest);
                 return new Return<>(response);
             }
         }
@@ -61,8 +72,8 @@ public class UserController {
     @ApiOperation(value = "获取上下文对象",notes = "获取上下文对象")
     @RequestMapping(path = "/user/contextUser",method = RequestMethod.GET)
     @ResponseBody
-    public Return<com.test.common.dto.User> getContextUser(){
-        return new Return<>(Context.getUser());
+    public Return<Test> getContextUser(@RequestParam String sessionId){
+        return new Return<>(Context.getUser(sessionId));
     }
 
 }

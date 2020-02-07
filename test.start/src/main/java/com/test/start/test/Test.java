@@ -17,6 +17,7 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
@@ -117,22 +118,10 @@ public class Test {
         System.out.println(string);
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        //[{"lessonId":"997","lessonName":"测试哦"}]
-        String str="[{\"lessonName\":\"1111\",\"startDate\":\"2019-11-27 8:00:00\",\"endDate\":\"2019-11-27 18:00:00\"}]";
-        List<LiveCourseLesson> courseLessons = JSONObject.parseArray(str, LiveCourseLesson.class);
-        for (LiveCourseLesson lesson : courseLessons) {
-            System.out.println(lesson);
-        }
-        //courseLessons.stream().forEach(LiveCourseLesson::);
-        /*JSONArray jsonArray = JSONObject.parseArray(str);
-        for (Object o : jsonArray) {
-            JSONObject jsonObject = JSONObject.parseObject(o.toString());
-            System.out.println(jsonObject.getString("lessonName"));
-            *//*System.out.println(jsonObject.getDate("startDate"));
-            //System.out.println(jsonObject.getString("lesson_order"));
-            System.out.println(jsonObject.getDate("endDate"));*//*
-        }*/
+    public static void main(String[] args){
+        DecimalFormat decimalFormat = new DecimalFormat(".00");
+        System.out.println(decimalFormat.format(1002200999));    //1,002,200,999.22
+
     }
 
 }

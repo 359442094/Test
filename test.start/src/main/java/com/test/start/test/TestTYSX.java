@@ -88,17 +88,17 @@ public class TestTYSX {
         //addLesson();
         //getClassDetail();
         //getClassOrder();
-        addRecordedClass();
+        //addRecordedClass();
         //addRecordedLesson();
-        //addUserClass();
+        addUserClass();
     }
 
     //用户分享
     public static void addUserClass() {
         String functionCode="addUserClass";
-        String classId="8a8880866e1a5c23016e1f663a28016b";
+        String classId="ff8080816ed3d794016ed4ec3ac25e33";
         String channel="channel";
-        String mobilephone="16621242384";
+        String mobilephone="18321326989";
         String platform="liveCourseConnect";
         String timestamp=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         Map<String,String> map=new HashMap<>();
@@ -109,7 +109,8 @@ public class TestTYSX {
         map.put("platform",platform);
         map.put("timestamp",timestamp);
         map.put("key",Ksort(map));
-        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addUserClass";
+        String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addUserClass";
+        //String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addUserClass";
         String post = HttpClientUtil.doPost(url, map);
         System.out.println("post:"+post);
     }

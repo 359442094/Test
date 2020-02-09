@@ -16,9 +16,16 @@ import java.util.Map;
  */
 public class StartTYSXTest {
     public static void main(String[] args) throws Exception {
-        TestTYSX.addTeacher();
+        //TestTYSX.addTeacher();
+        TestTYSX.editTeacher();
+
         //TestTYSX.addLiveClass();
+        TestTYSX.editLiveClass();
+
         //TestTYSX.addLesson();
+        TestTYSX.editLiveLesson();
+        TestTYSX.deleteLiveLesson();
+
         //TestTYSX.getClassDetail();
         //TestTYSX.getClassOrder();
         //TestTYSX.addRecordedClass();

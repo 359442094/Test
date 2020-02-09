@@ -247,6 +247,34 @@ public class TestTYSX {
         System.out.println("post:"+post);
     }
 
+    //修改教师信息
+    public static void editTeacher() throws Exception {
+        String functionCode="editTeacher";
+        String teacherId="teacherId";
+        String siteName="添翼申学";//"正承教育";
+        String name="教师名称";
+        String note="教师备注";
+        String platform="liveCourseConnect";
+        String timestamp= DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
+        Map<String,String> map=new HashMap<>();
+        map.put("functionCode",functionCode);
+        map.put("teacherId",teacherId);
+        map.put("siteName",siteName);
+        map.put("name",name);
+        map.put("note",note);
+        map.put("platform",platform);
+        map.put("timestamp",timestamp);
+        String key=Ksort(map);
+        map.put("siteName",getURLEncoderString(siteName));
+        map.put("name",getURLEncoderString(name));
+        map.put("note",getURLEncoderString(note));
+        map.put("key",key);
+        //http://frp.o-learn.cn:51085/hirdparty/
+        String url="";
+        String post = HttpClientUtil.doPost(url,map);
+        System.out.println("post:"+post);
+    }
+
     //用户分享
     public static void addUserClass() throws Exception {
         //测试 String classId="8a8880866e1a5c23016e1f663a28016b";
@@ -511,6 +539,58 @@ public class TestTYSX {
         System.out.println("post:"+post);
     }
 
+    //直播课节修改 ff8080816dba26a7016dbdf418501ae5
+    public static void editLiveLesson(){
+        String functionCode="editLesson";
+        String teacherId="ff8080815fd86a8f015fd9ba9c154dac";
+        String classId="ff8080816fa55ebf016fabe694775728";
+        String lessonId="lessonId";
+        String liveContent="直播内容/课节标题";
+        String liveStartDate="20200117000000";
+        String liveEndDate="20200118000000";
+        String platform="liveCourseConnect";
+        String timestamp=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
+        ;
+        Map<String,String> map=new HashMap<>();
+        map.put("functionCode",functionCode);
+        map.put("teacherId",teacherId);
+        map.put("classId",classId);
+        map.put("lessonId",lessonId);
+        map.put("liveContent",liveContent);
+        map.put("liveStartDate",liveStartDate);
+        map.put("liveEndDate",liveEndDate);
+        map.put("platform",platform);
+        map.put("timestamp",timestamp);
+        String key=Ksort(map);
+        map.put("key",key);
+        map.put("liveContent",getURLEncoderString(liveContent));
+        String url="";
+        String post = HttpClientUtil.doPost(url, map);
+        System.out.println("post:"+post);
+    }
+
+    //直播课节删除 ff8080816dba26a7016dbdf418501ae5
+    public static void deleteLiveLesson(){
+        String functionCode="deleteLesson";
+        String classId="ff8080816fa55ebf016fabe694775728";
+        String lessonId="lessonId";
+        String platform="liveCourseConnect";
+        String timestamp=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
+        ;
+        Map<String,String> map=new HashMap<>();
+        map.put("functionCode",functionCode);
+        map.put("classId",classId);
+        map.put("lessonId",lessonId);
+        map.put("platform",platform);
+        map.put("timestamp",timestamp);
+        String key=Ksort(map);
+        map.put("key",key);
+        String url="";
+        String post = HttpClientUtil.doPost(url, map);
+        System.out.println("post:"+post);
+    }
+
+
     //测试:828081876fa81d07016fabdef39a105b
     //正式:ff8080816fa55ebf016fabe694775728
     public static void addLiveClass() throws Exception {
@@ -575,6 +655,50 @@ public class TestTYSX {
         String post = HttpClientUtil.doPost(url,map);
         System.out.println("post:"+post);
     }
+
+    //测试:828081876fa81d07016fabdef39a105b
+    //正式:ff8080816fa55ebf016fabe694775728
+    public static void editLiveClass() throws Exception {
+        String functionCode="editLiveClass";
+        String classId="828081876fa81d07016fabdef39a105b";
+        String siteName="正承教育";
+        //String siteName="添翼申学";
+        String name="测试修改直播课程1";
+        String coverImgLink="http://94.191.62.87:81/images/1.jpg";
+        String enrollStartDate=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
+        ;
+        String enrollEndDate=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
+        ;
+        String maxNum="100";
+        String primeCost="666";
+        String cost="666";
+        String platform="liveCourseConnect";
+        String timestamp= DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
+        Map<String,String> map=new HashMap<>();
+        map.put("functionCode",functionCode);
+        map.put("classId",classId);
+        map.put("siteName",siteName);
+        map.put("name",name);
+        map.put("coverImgLink",coverImgLink);
+        map.put("enrollStartDate",enrollStartDate);
+        map.put("enrollEndDate",enrollEndDate);
+        map.put("maxNum",maxNum);
+        map.put("primeCost",primeCost);
+        map.put("cost",cost);
+        map.put("platform",platform);
+        map.put("timestamp",timestamp);
+
+        String key=Ksort(map);
+        map.put("key",key);
+
+        map.put("siteName",getURLEncoderString(siteName));
+        map.put("name",getURLEncoderString(name));
+        //String url=interfacePrefix+"liveCourseMaintenance/addLiveClass";
+        String url="";
+        String post = HttpClientUtil.doPost(url,map);
+        System.out.println("post:"+post);
+    }
+
 
     public static String Ksort(Map<String, String> map){
         String str = "";

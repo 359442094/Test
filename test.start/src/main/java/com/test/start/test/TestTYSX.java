@@ -22,7 +22,7 @@ public class TestTYSX {
 
     private static String suffix="liveCourse!@#$%19";
 
-    private static String interfacePrefix="http://tysx02.frp.o-learn.cn/thirdparty/";
+    private static String interfacePrefix="http://tysx03.frp.o-learn.cn/thirdparty/";
     //private static String interfacePrefix="https://www.ty-sx.com/thirdparty/";
 
     public static String EncoderByMd5(String buf) {
@@ -88,7 +88,7 @@ public class TestTYSX {
     //文档:mobilephone=16621242385&platform=liveCourseConnect&siteName=testSiteName&timestamp=20200108102123&username=4e5de20d7f53502592361fe934931e9e&liveCourse!@#$%19
     //当前:mobilephone=16621242385&platform=liveCourseConnect&siteName=testSiteName&timestamp=20200108102123&username=testUsername&liveCourse!@#$%19
     public static void addTyOrg() throws Exception {
-        String siteName="测试机构11111";
+        String siteName="正承教育";
         String username="testName";
         String mobilephone="16621242385";
         String siteDetailNoteOne="机构介绍 1";
@@ -124,7 +124,7 @@ public class TestTYSX {
         map.put("mobilephone",mobilephone);
 
 
-        String url="http://frp.o-learn.cn:51085/thirdparty/siteOrChannelData/addSite";
+        String url="http://tysx03.frp.o-learn.cn/thirdparty/siteOrChannelData/addSite";
         String json = HttpClientUtil.doPostContentType(url, map);
         System.out.println(json);
 
@@ -606,8 +606,8 @@ public class TestTYSX {
         String classType="素质教育"; //学科教育 素质教育 国际教育
         String primeCost="666";
         String cost="666";
-        String siteName="正承教育";
-        //String siteName="添翼申学";
+        //String siteName="正承教育";
+        String siteName="添翼申学";
         String platform="liveCourseConnect";
         String timestamp= DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         Map<String,String> map=new HashMap<>();
@@ -650,8 +650,8 @@ public class TestTYSX {
         map.put("courseObservationStyle",getURLEncoderString(courseObservationStyle));
         map.put("courseConsultant",getURLEncoderString(courseConsultant));
         map.put("courseWarmPrompt",getURLEncoderString(courseWarmPrompt));
-        //String url=interfacePrefix+"liveCourseMaintenance/addLiveClass";
-        String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addLiveClass";
+        String url=interfacePrefix+"liveCourseMaintenance/addLiveClass";
+        //String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addLiveClass";
         String post = HttpClientUtil.doPost(url,map);
         System.out.println("post:"+post);
     }

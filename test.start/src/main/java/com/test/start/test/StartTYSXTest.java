@@ -17,20 +17,23 @@ import java.util.Map;
 public class StartTYSXTest {
     public static void main(String[] args) throws Exception {
         //TestTYSX.addTeacher();
-        TestTYSX.editTeacher();
+        //TestTYSX.editTeacher();
 
         //TestTYSX.addLiveClass();
-        TestTYSX.editLiveClass();
+        //TestTYSX.editLiveClass();
 
         //TestTYSX.addLesson();
         TestTYSX.editLiveLesson();
-        TestTYSX.deleteLiveLesson();
+        //TestTYSX.deleteLiveLesson();
 
         //TestTYSX.getClassDetail();
         //TestTYSX.getClassOrder();
         //TestTYSX.addRecordedClass();
         //TestTYSX.addRecordedLesson();
+
         //TestTYSX.addUserClass();
+        //TestTYSX.deleteUserClass();
+
         //TestTYSX.addTySxUser();
         //添加机构
         //TestTYSX.addTyOrg();

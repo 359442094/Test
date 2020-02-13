@@ -22,7 +22,8 @@ public class TestTYSX {
 
     private static String suffix="liveCourse!@#$%19";
 
-    private static String interfacePrefix="http://tysx03.frp.o-learn.cn/thirdparty/";
+    private static String interfacePrefix="http://frp.o-learn.cn:51085/thirdparty/";
+    //private static String interfacePrefix="http://tysx03.frp.o-learn.cn/thirdparty/";
     //private static String interfacePrefix="https://www.ty-sx.com/thirdparty/";
 
     public static String EncoderByMd5(String buf) {
@@ -247,11 +248,11 @@ public class TestTYSX {
         System.out.println("post:"+post);
     }
 
-    //修改教师信息
+    //修改教师信息:828081896f5998e4016f693b798902df
     public static void editTeacher() throws Exception {
         String functionCode="editTeacher";
-        String teacherId="teacherId";
-        String siteName="添翼申学";//"正承教育";
+        String teacherId="828081896f5998e4016f693b798902df";
+        String siteName="添翼申学";
         String name="教师名称";
         String note="教师备注";
         String platform="liveCourseConnect";
@@ -269,22 +270,19 @@ public class TestTYSX {
         map.put("name",getURLEncoderString(name));
         map.put("note",getURLEncoderString(note));
         map.put("key",key);
-        //http://frp.o-learn.cn:51085/hirdparty/
-        String url="";
+        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/editTeacher";
         String post = HttpClientUtil.doPost(url,map);
         System.out.println("post:"+post);
     }
 
     //用户分享
     public static void addUserClass() throws Exception {
-        //测试 String classId="8a8880866e1a5c23016e1f663a28016b";
-        //String classId="ff8080816ed3d794016ed4ec3ac25e33";
         String functionCode="addUserClass";
-        String classId="8a8880866e1a5c23016e1f663a28016b";
+        String classId="8a888086703d28b801703d4b3769001e";
         String channel="30";
         String mobilephone="16621242385";
         String platform="liveCourseConnect";
-        String timestamp= "20191231151647";//org.apache.commons.lang3.time.DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
+        String timestamp= DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         Map<String,String> map=new HashMap<>();
         map.put("functionCode",functionCode);
         map.put("channel",channel);
@@ -293,8 +291,26 @@ public class TestTYSX {
         map.put("platform",platform);
         map.put("timestamp",timestamp);
         map.put("key",Ksort(map));
-        String url= "http://tysx05.frp.o-learn.cn/thirdparty/liveCourseMaintenance/addUserClass";
+        String url= "http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addUserClass";
         //String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addUserClass";
+        String json = HttpClientUtil.doPost(url,map);
+        System.out.println(json);
+    }
+    //删除用户分享
+    public static void deleteUserClass() throws Exception {
+        String functionCode="deleteUserClass";
+        String classId="8a888086703d28b801703d4b3769001e";
+        String mobilephone="16621242385";
+        String platform="liveCourseConnect";
+        String timestamp= DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
+        Map<String,String> map=new HashMap<>();
+        map.put("functionCode",functionCode);
+        map.put("classId",classId);
+        map.put("mobilephone",mobilephone);
+        map.put("platform",platform);
+        map.put("timestamp",timestamp);
+        map.put("key",Ksort(map));
+        String url= "http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/deleteUserClass";
         String json = HttpClientUtil.doPost(url,map);
         System.out.println(json);
     }
@@ -351,7 +367,7 @@ public class TestTYSX {
 
         String enrollStartDate="";
         String enrollEndDate="";
-        //String expirationDuration="30";
+        String expirationDuration="30";
         System.out.println(enrollStartDate);
         System.out.println(enrollEndDate);
 
@@ -367,7 +383,7 @@ public class TestTYSX {
         String timestamp= DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         Map<String,String> map=new HashMap<>();
         String maxNum="99999";
-        //map.put("expirationDuration",expirationDuration);
+        map.put("expirationDuration",expirationDuration);
         //map.put("coverVid",coverVid);
         map.put("maxNum",maxNum);
         map.put("siteName",siteName);
@@ -497,23 +513,16 @@ public class TestTYSX {
         }
     }
 
-    //直播课节添加 ff8080816dba26a7016dbdf418501ae5
+    //直播课节添加  8a888086703c523501703c84527a003a
     public static void addLesson(){
-        /*String functionCode="addLesson";
-        String teacherId="ff8080815fd86a8f015fd9ba9c154dac";
-        String classId="ff8080816f9e22d7016fa27f37cd5467";
-        String liveContent="英语语句是怎么来的 - 英语基本句子结构第一讲";
-        String code=UUID.randomUUID().toString();
-        String liveStartDate="20200203190000";
-        String liveEndDate="20200203194000";*/
         String functionCode="addLesson";
-        String teacherId="ff8080815fd86a8f015fd9ba9c154dac";
-        String classId="ff8080816fa55ebf016fabe694775728";
+        String teacherId="828081896f5998e4016f693b798902df";
+        String classId="8a888086703d28b801703d4b3769001e";
         String liveContent="直播内容";
         String code=UUID.randomUUID().toString();
 
-        String liveStartDate="20200117000000";
-        String liveEndDate="20200118000000";
+        String liveStartDate="20200227000000";
+        String liveEndDate="20200228000000";
         String lessonHour="86400000";
         String liveManNumber="15";
         String platform="liveCourseConnect";
@@ -542,12 +551,12 @@ public class TestTYSX {
     //直播课节修改 ff8080816dba26a7016dbdf418501ae5
     public static void editLiveLesson(){
         String functionCode="editLesson";
-        String teacherId="ff8080815fd86a8f015fd9ba9c154dac";
-        String classId="ff8080816fa55ebf016fabe694775728";
-        String lessonId="lessonId";
+        String teacherId="828081896f5998e4016f693b798902df";
+        String classId="8a888086703d28b801703d4b3769001e";
+        String lessonId="8a888086703d28b801703d8e9911004d";
         String liveContent="直播内容/课节标题";
-        String liveStartDate="20200117000000";
-        String liveEndDate="20200118000000";
+        String liveStartDate="20200227000000";
+        String liveEndDate="20200228000000";
         String platform="liveCourseConnect";
         String timestamp=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         ;
@@ -564,7 +573,7 @@ public class TestTYSX {
         String key=Ksort(map);
         map.put("key",key);
         map.put("liveContent",getURLEncoderString(liveContent));
-        String url="";
+        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/editLesson";
         String post = HttpClientUtil.doPost(url, map);
         System.out.println("post:"+post);
     }
@@ -572,8 +581,8 @@ public class TestTYSX {
     //直播课节删除 ff8080816dba26a7016dbdf418501ae5
     public static void deleteLiveLesson(){
         String functionCode="deleteLesson";
-        String classId="ff8080816fa55ebf016fabe694775728";
-        String lessonId="lessonId";
+        String classId="8a8880867037900c01703c6718a303d7";
+        String lessonId="8a888086703d28b801703d2a797e000b";
         String platform="liveCourseConnect";
         String timestamp=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         ;
@@ -585,7 +594,7 @@ public class TestTYSX {
         map.put("timestamp",timestamp);
         String key=Ksort(map);
         map.put("key",key);
-        String url="";
+        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/deleteLesson";
         String post = HttpClientUtil.doPost(url, map);
         System.out.println("post:"+post);
     }
@@ -598,10 +607,10 @@ public class TestTYSX {
         String name="测试课程1";
         String code= UUID.randomUUID().toString();
         String coverImgLink="http://94.191.62.87:81/images/1.jpg";
-        String enrollStartDate=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
-        ;
-        String enrollEndDate=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
-        ;
+        String enrollStartDate="20200213080000";/*DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
+        ;*/
+        String enrollEndDate="20200214080000";/*DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
+        ;*/
         String classHour="10";
         String classType="素质教育"; //学科教育 素质教育 国际教育
         String primeCost="666";
@@ -612,6 +621,7 @@ public class TestTYSX {
         String timestamp= DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         Map<String,String> map=new HashMap<>();
         String maxNum="100";
+        map.put("expirationDuration","366");
         map.put("showEvaluation","1");
         map.put("maxNum",maxNum);
         map.put("siteName",siteName);
@@ -642,36 +652,43 @@ public class TestTYSX {
         map.put("siteName",getURLEncoderString(siteName));
         map.put("name",getURLEncoderString(name));
         map.put("classType",getURLEncoderString(classType));
-        map.put("courseIntroduceImg",getURLEncoderString(courseIntroduceImg));
+        map.put("courseIntroduceImg",courseIntroduceImg);
+        map.put("courseInformation",courseInformation);
+        map.put("courseTeachersHighlight",courseTeachersHighlight);
+        map.put("courseHighlight",courseHighlight);
+        map.put("courseLearningContent",courseLearningContent);
+        map.put("courseObservationStyle",courseObservationStyle);
+        map.put("courseConsultant",courseConsultant);
+        map.put("courseWarmPrompt",courseWarmPrompt);
+        /*map.put("courseIntroduceImg",getURLEncoderString(courseIntroduceImg));
         map.put("courseInformation",getURLEncoderString(courseInformation));
         map.put("courseTeachersHighlight",getURLEncoderString(courseTeachersHighlight));
         map.put("courseHighlight",getURLEncoderString(courseHighlight));
         map.put("courseLearningContent",getURLEncoderString(courseLearningContent));
         map.put("courseObservationStyle",getURLEncoderString(courseObservationStyle));
         map.put("courseConsultant",getURLEncoderString(courseConsultant));
-        map.put("courseWarmPrompt",getURLEncoderString(courseWarmPrompt));
+        map.put("courseWarmPrompt",getURLEncoderString(courseWarmPrompt));*/
         String url=interfacePrefix+"liveCourseMaintenance/addLiveClass";
         //String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addLiveClass";
         String post = HttpClientUtil.doPost(url,map);
         System.out.println("post:"+post);
     }
-
-    //测试:828081876fa81d07016fabdef39a105b
+    //测试:8a8880867037900c01703c6718a303d7
     //正式:ff8080816fa55ebf016fabe694775728
     public static void editLiveClass() throws Exception {
         String functionCode="editLiveClass";
-        String classId="828081876fa81d07016fabdef39a105b";
-        String siteName="正承教育";
+        String classId="8a8880867037900c01703c6718a303d7";
+        String siteName="添翼申学";
         //String siteName="添翼申学";
-        String name="测试修改直播课程1";
+        String name = "测试修改直播课程2";
         String coverImgLink="http://94.191.62.87:81/images/1.jpg";
         String enrollStartDate=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         ;
         String enrollEndDate=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         ;
-        String maxNum="100";
-        String primeCost="666";
-        String cost="666";
+        String maxNum="101";
+        String primeCost="555";
+        String cost="555";
         String platform="liveCourseConnect";
         String timestamp= DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         Map<String,String> map=new HashMap<>();
@@ -694,7 +711,7 @@ public class TestTYSX {
         map.put("siteName",getURLEncoderString(siteName));
         map.put("name",getURLEncoderString(name));
         //String url=interfacePrefix+"liveCourseMaintenance/addLiveClass";
-        String url="";
+        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/editLiveClass";
         String post = HttpClientUtil.doPost(url,map);
         System.out.println("post:"+post);
     }

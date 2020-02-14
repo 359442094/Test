@@ -553,7 +553,7 @@ public class TestTYSX {
         String functionCode="editLesson";
         String teacherId="828081896f5998e4016f693b798902df";
         String classId="8a888086703d28b801703d4b3769001e";
-        String lessonId="8a888086703d28b801703d8e9911004d";
+        String lessonId="8a888086703d28b801703d9adacf0062";
         String liveContent="直播内容/课节标题";
         String liveStartDate="20200227000000";
         String liveEndDate="20200228000000";

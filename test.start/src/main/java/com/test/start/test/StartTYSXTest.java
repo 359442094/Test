@@ -23,7 +23,7 @@ public class StartTYSXTest {
         //TestTYSX.editLiveClass();
 
         //TestTYSX.addLesson();
-        TestTYSX.editLiveLesson();
+        //TestTYSX.editLiveLesson();
         //TestTYSX.deleteLiveLesson();
 
         //TestTYSX.getClassDetail();
@@ -31,7 +31,7 @@ public class StartTYSXTest {
         //TestTYSX.addRecordedClass();
         //TestTYSX.addRecordedLesson();
 
-        //TestTYSX.addUserClass();
+        TestTYSX.addUserClass();
         //TestTYSX.deleteUserClass();
 
         //TestTYSX.addTySxUser();

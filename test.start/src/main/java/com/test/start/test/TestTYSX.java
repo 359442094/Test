@@ -218,7 +218,7 @@ public class TestTYSX {
     //测试环境:828081896f5998e4016f693b798902df
     public static void addTeacher() throws Exception {
         String functionCode="addTeacher";
-        String userId="15211134401";
+        String userId="15738577721";
         String teacherCertificateNumber="123456";
         String siteName="添翼申学";//"正承教育";
         String orient="暂无";
@@ -517,7 +517,7 @@ public class TestTYSX {
     public static void addLesson(){
         String functionCode="addLesson";
         String teacherId="828081896f5998e4016f693b798902df";
-        String classId="8a888086703d28b801703d4b3769001e";
+        String classId="8a8880867037900c01703c6718a303d7";
         String liveContent="直播内容";
         String code=UUID.randomUUID().toString();
 

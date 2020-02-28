@@ -19,11 +19,11 @@ public class StartTYSXTest {
         //TestTYSX.addTeacher();
         //TestTYSX.editTeacher();
 
-        //TestTYSX.addLiveClass();
-        //TestTYSX.editLiveClass();
+        TestTYSX.addLiveClass();
+        TestTYSX.editLiveClass();
 
         TestTYSX.addLesson();
-        //TestTYSX.editLiveLesson();
+        TestTYSX.editLiveLesson();
         //TestTYSX.deleteLiveLesson();
 
         //TestTYSX.getClassDetail();

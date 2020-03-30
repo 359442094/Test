@@ -22,8 +22,8 @@ public class TestTYSX {
 
     private static String suffix="liveCourse!@#$%19";
 
-    private static String interfacePrefix="http://frp.o-learn.cn:51085/thirdparty/";
-    //private static String interfacePrefix="http://tysx03.frp.o-learn.cn/thirdparty/";
+    //private static String interfacePrefix="http://frp.o-learn.cn:51085/thirdparty/";
+    private static String interfacePrefix="http://tysx03.frp.o-learn.cn/thirdparty/";
     //private static String interfacePrefix="https://www.ty-sx.com/thirdparty/";
 
     public static String EncoderByMd5(String buf) {
@@ -89,7 +89,7 @@ public class TestTYSX {
     //文档:mobilephone=16621242385&platform=liveCourseConnect&siteName=testSiteName&timestamp=20200108102123&username=4e5de20d7f53502592361fe934931e9e&liveCourse!@#$%19
     //当前:mobilephone=16621242385&platform=liveCourseConnect&siteName=testSiteName&timestamp=20200108102123&username=testUsername&liveCourse!@#$%19
     public static void addTyOrg() throws Exception {
-        String siteName="正承教育";
+        String siteName="睿怡测试机构";
         String username="testName";
         String mobilephone="16621242385";
         String siteDetailNoteOne="机构介绍 1";
@@ -278,9 +278,9 @@ public class TestTYSX {
     //用户分享
     public static void addUserClass() throws Exception {
         String functionCode="addUserClass";
-        String classId="8a888086703d28b801703d4b3769001e";
+        String classId="82808182705d012801708b3219460cee";
         String channel="30";
-        String mobilephone="16621242385";
+        String mobilephone="16621242384";
         String platform="liveCourseConnect";
         String timestamp= DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         Map<String,String> map=new HashMap<>();
@@ -291,7 +291,7 @@ public class TestTYSX {
         map.put("platform",platform);
         map.put("timestamp",timestamp);
         map.put("key",Ksort(map));
-        String url= "http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/addUserClass";
+        String url= "http://tysx03.frp.o-learn.cn/thirdparty/liveCourseMaintenance/addUserClass";
         //String url="https://www.ty-sx.com/thirdparty/liveCourseMaintenance/addUserClass";
         String json = HttpClientUtil.doPost(url,map);
         System.out.println(json);

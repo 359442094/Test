@@ -19,11 +19,11 @@ public class StartTYSXTest {
         //TestTYSX.addTeacher();
         //TestTYSX.editTeacher();
 
-        TestTYSX.addLiveClass();
-        TestTYSX.editLiveClass();
+       /* TestTYSX.addLiveClass();
+        TestTYSX.editLiveClass();*/
 
-        TestTYSX.addLesson();
-        TestTYSX.editLiveLesson();
+        //TestTYSX.addLesson();
+        //TestTYSX.editLiveLesson();
         //TestTYSX.deleteLiveLesson();
 
         //TestTYSX.getClassDetail();
@@ -36,7 +36,7 @@ public class StartTYSXTest {
 
         //TestTYSX.addTySxUser();
         //添加机构
-        //TestTYSX.addTyOrg();
+        TestTYSX.addTyOrg();
         //添加渠道
         //TestTYSX.addTyChannel();
         //获取添加渠道结果

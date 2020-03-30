@@ -3,13 +3,9 @@ package com.test.controller;
 import com.test.common.annoation.CheckMethod;
 import com.test.common.annoation.ShowLogger;
 import com.test.common.dto.CheckFieldRequest;
-import com.test.common.excel.ExcelUtil;
 import com.test.common.util.FileUtil;
-import com.test.common.util.IpUtil;
 import com.test.common.util.RedisUtil;
 import com.test.common.videoApi.*;
-import com.test.model.domain.Test;
-import com.test.model.domain.User;
 import com.test.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,11 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.SocketException;
-import java.net.URLEncoder;
-import java.net.UnknownHostException;
-import java.util.List;
 
 @Slf4j
 @Api(tags = {"测试视图接口"})
@@ -101,6 +92,15 @@ public class TestController {
     @CheckMethod(parms = CheckFieldRequest.class)
     public CheckFieldRequest check(CheckFieldRequest request) throws IOException {
         return request;
+    }
+
+    @ShowLogger(info = "测试")
+    @ApiOperation(value = "测试",notes = "测试")
+    @RequestMapping(path = "/test/test1",method = RequestMethod.GET)
+    @ResponseBody
+    public Object check(HttpServletRequest request) throws IOException {
+        String ipAddr = IPUtil.getIpAddr(request);
+        return ipAddr;
     }
 
     @ResponseBody

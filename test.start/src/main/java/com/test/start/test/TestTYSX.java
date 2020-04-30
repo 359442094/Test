@@ -89,7 +89,7 @@ public class TestTYSX {
     //文档:mobilephone=16621242385&platform=liveCourseConnect&siteName=testSiteName&timestamp=20200108102123&username=4e5de20d7f53502592361fe934931e9e&liveCourse!@#$%19
     //当前:mobilephone=16621242385&platform=liveCourseConnect&siteName=testSiteName&timestamp=20200108102123&username=testUsername&liveCourse!@#$%19
     public static void addTyOrg() throws Exception {
-        String siteName="睿怡测试机构";
+        String siteName="添翼申学";
         String username="testName";
         String mobilephone="16621242385";
         String siteDetailNoteOne="机构介绍 1";
@@ -270,7 +270,7 @@ public class TestTYSX {
         map.put("name",getURLEncoderString(name));
         map.put("note",getURLEncoderString(note));
         map.put("key",key);
-        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/editTeacher";
+        String url="http://tysx03.frp.o-learn.cn/thirdparty/liveCourseMaintenance/editTeacher";
         String post = HttpClientUtil.doPost(url,map);
         System.out.println("post:"+post);
     }
@@ -517,12 +517,12 @@ public class TestTYSX {
     public static void addLesson(){
         String functionCode="addLesson";
         String teacherId="828081896f5998e4016f693b798902df";
-        String classId="8a8880867037900c01703c6718a303d7";
+        String classId="828081817153ea9501715792bba802f9";
         String liveContent="直播内容";
         String code=UUID.randomUUID().toString();
 
-        String liveStartDate="20200227000000";
-        String liveEndDate="20200228000000";
+        String liveStartDate="20200427000000";
+        String liveEndDate="20200428000000";
         String lessonHour="86400000";
         String liveManNumber="15";
         String platform="liveCourseConnect";
@@ -677,7 +677,7 @@ public class TestTYSX {
     //正式:ff8080816fa55ebf016fabe694775728
     public static void editLiveClass() throws Exception {
         String functionCode="editLiveClass";
-        String classId="8a8880867037900c01703c6718a303d7";
+        String classId="828081817159007f0171590f24dc0042";
         String siteName="添翼申学";
         //String siteName="添翼申学";
         String name = "测试修改直播课程2";
@@ -710,8 +710,8 @@ public class TestTYSX {
 
         map.put("siteName",getURLEncoderString(siteName));
         map.put("name",getURLEncoderString(name));
-        //String url=interfacePrefix+"liveCourseMaintenance/addLiveClass";
-        String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/editLiveClass";
+        String url=interfacePrefix+"liveCourseMaintenance/editLiveClass";
+        //String url="http://frp.o-learn.cn:51085/thirdparty/liveCourseMaintenance/editLiveClass";
         String post = HttpClientUtil.doPost(url,map);
         System.out.println("post:"+post);
     }

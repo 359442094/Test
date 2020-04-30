@@ -10,18 +10,18 @@ import com.test.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.tomcat.util.http.fileupload.FileUpload;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
 
 @Slf4j
 @Api(tags = {"测试视图接口"})
@@ -64,6 +64,61 @@ public class TestController {
     @Value(value = "${file.studentTemplate}")
     private String studentTemplate;
 
+    @ApiOperation(value = "上传html图片",notes = "上传html图片")
+    @RequestMapping(path = "/test/upload",method = RequestMethod.POST)
+    @ResponseBody
+    //这里参数data用formData传
+    public boolean upload(String data, HttpServletResponse response) throws Exception{
+        //设置跨域
+        response.setHeader("Access-Control-Allow-Origin","*");
+        boolean flag=true;
+        Base64 base64 = new Base64();
+        byte[] b = base64.decode(data.substring("data:image/png;base64,".length()).getBytes());
+        String oldPath="C:\\phpstudy_pro\\WWW\\files\\test.png";
+        File file = new File(oldPath);
+        InputStream in = new ByteArrayInputStream(b);
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            int len = 0;
+            byte[] buf = new byte[1024];
+            while ((len = in.read(buf)) != -1) {
+                fos.write(buf, 0, len);
+            }
+            fos.flush();
+        } catch (Exception e) {
+            flag=false;
+            e.printStackTrace();
+        } finally {
+            if (null != fos) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return flag;
+    }
+
+    /**
+     * 下载直播课程填写模板
+     */
+    @ApiOperation(value = "下载html图片",notes = "下载html图片")
+    @ShowLogger(info = "下载html图片")
+    @RequestMapping(path = "/test/download",method = RequestMethod.GET,produces = "application/octet-stream")
+    public void download(HttpServletResponse response) throws IOException {
+        String read="C:/phpstudy_pro/WWW/files/test.png";
+        FileUtil.download(read,"test.png",request,response);
+    }
+
+    @RequestMapping(value = "/htmltest", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String htmlGenerator() throws Exception{
+        PrintScreen4DJNativeSwingUtils.printUrlScreen2jpg("C:/phpstudy_pro/WWW/files/test.png", "https://www.baidu.com", 0,0,1400, 900);
+        return null;
+    }
+
     /**
      * 下载直播课程填写模板
      */
@@ -99,8 +154,8 @@ public class TestController {
     @RequestMapping(path = "/test/test1",method = RequestMethod.GET)
     @ResponseBody
     public Object check(HttpServletRequest request) throws IOException {
-        String ipAddr = IPUtil.getIpAddr(request);
-        return ipAddr;
+        //String ipAddr = IPUtil.getIpAddr(request);
+        return null;
     }
 
     @ResponseBody

@@ -16,7 +16,6 @@
     <artifactId>test.start</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpmime</artifactId>

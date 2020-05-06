@@ -11,14 +11,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.tomcat.util.http.fileupload.FileUpload;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -26,6 +23,7 @@ import java.io.*;
 @Slf4j
 @Api(tags = {"测试视图接口"})
 @Controller
+@SuppressWarnings(value = "all")
 public class TestController {
 
     @Autowired
@@ -64,17 +62,16 @@ public class TestController {
     @Value(value = "${file.studentTemplate}")
     private String studentTemplate;
 
-    @ApiOperation(value = "上传html图片",notes = "上传html图片")
+    @ApiOperation(value = "上传html生成图片",notes = "上传html生成图片")
     @RequestMapping(path = "/test/upload",method = RequestMethod.POST)
     @ResponseBody
-    //这里参数data用formData传
-    public boolean upload(String data, HttpServletResponse response) throws Exception{
+    public boolean upload(String data,String fileName, HttpServletResponse response) throws Exception{
         //设置跨域
         response.setHeader("Access-Control-Allow-Origin","*");
         boolean flag=true;
         Base64 base64 = new Base64();
         byte[] b = base64.decode(data.substring("data:image/png;base64,".length()).getBytes());
-        String oldPath="C:\\phpstudy_pro\\WWW\\files\\test.png";
+        String oldPath="C:\\phpstudy_pro\\WWW\\files\\"+fileName+".png";
         File file = new File(oldPath);
         InputStream in = new ByteArrayInputStream(b);
         FileOutputStream fos = null;
@@ -102,14 +99,20 @@ public class TestController {
     }
 
     /**
-     * 下载直播课程填写模板
+     * 下载html生成的图片
      */
-    @ApiOperation(value = "下载html图片",notes = "下载html图片")
-    @ShowLogger(info = "下载html图片")
-    @RequestMapping(path = "/test/download",method = RequestMethod.GET,produces = "application/octet-stream")
-    public void download(HttpServletResponse response) throws IOException {
-        String read="C:/phpstudy_pro/WWW/files/test.png";
-        FileUtil.download(read,"test.png",request,response);
+    @ApiOperation(value = "下载html生成的图片",notes = "下载html生成的图片")
+    @ShowLogger(info = "下载html生成的图片")
+    @RequestMapping(path = "/test/download/{fileName}",method = RequestMethod.GET,produces = "application/octet-stream")
+    @ResponseBody
+    public String download(@PathVariable String fileName,HttpServletResponse response) throws IOException {
+        try {
+            String read="C:/phpstudy_pro/WWW/files/"+fileName+".png";
+            FileUtil.download(read,"test.png",request,response);
+        }catch (Exception e){
+            return "下载失败:"+e.getMessage();
+        }
+        return "下载成功";
     }
 
     @RequestMapping(value = "/htmltest", produces = "application/json;charset=UTF-8")

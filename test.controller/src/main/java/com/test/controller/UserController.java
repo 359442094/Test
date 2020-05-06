@@ -76,4 +76,11 @@ public class UserController {
         return new Return<>(Context.getUser(sessionId));
     }
 
+    @ShowLogger(info = "获取上下文对象")
+    @ApiOperation(value = "获取上下文对象",notes = "获取上下文对象")
+    @RequestMapping(path = "/test/a",method = RequestMethod.GET)
+    public String test(@RequestParam String sessionId){
+        return "/error";
+    }
+
 }

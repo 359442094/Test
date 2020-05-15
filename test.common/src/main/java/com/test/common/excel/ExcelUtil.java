@@ -163,7 +163,7 @@ public class ExcelUtil {
             course.setTextBook(getValue(s1,8,2));
             //学习内容
             course.setCourseContent(getValue(s1,9,1));
-            List<XiaoYiCourseDetail> details=new ArrayList<>();
+            List<XiaoYiCourseDetail> evidenceDetail=new ArrayList<>();
             XiaoYiCourseDetail detail=null;
             //遍历行row
             for(int rowNum = 13; rowNum<=s1.getLastRowNum();rowNum++){
@@ -197,11 +197,11 @@ public class ExcelUtil {
                 }
                 if(!StringUtils.isEmpty(detail.getLessonName())&&detail.getLessonDate()!=null&&detail.getStartTime()!=null&&detail.getEndTime()!=null){
                     //detail:"+detail);
-                    details.add(detail);
+                    evidenceDetail.add(detail);
                 }
             }
 
-            course.setXiaoYiCourseDetails(details);
+            course.setXiaoYiCourseDetails(evidenceDetail);
             return course;
         } catch (IndexOutOfBoundsException e) {
             // TODO Auto-generated catch block

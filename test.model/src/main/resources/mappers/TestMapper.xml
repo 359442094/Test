@@ -18,10 +18,10 @@
       This element was generated on Thu Jan 02 12:07:16 CST 2020.
     -->
     <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
+      <foreach collection="oredCriteria" questionItem="criteria" separator="or" >
         <if test="criteria.valid" >
           <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
+            <foreach collection="criteria.criteria" questionItem="criterion" >
               <choose >
                 <when test="criterion.noValue" >
                   and ${criterion.condition}
@@ -34,7 +34,7 @@
                 </when>
                 <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach collection="criterion.value" questionItem="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -52,10 +52,10 @@
       This element was generated on Thu Jan 02 12:07:16 CST 2020.
     -->
     <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+      <foreach collection="example.oredCriteria" questionItem="criteria" separator="or" >
         <if test="criteria.valid" >
           <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
+            <foreach collection="criteria.criteria" questionItem="criterion" >
               <choose >
                 <when test="criterion.noValue" >
                   and ${criterion.condition}
@@ -68,7 +68,7 @@
                 </when>
                 <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach collection="criterion.value" questionItem="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>

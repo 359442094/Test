@@ -95,9 +95,9 @@ public class TestTYSX {
         String siteDetailNoteOne="机构介绍 1";
         String siteDetailNoteTwo="机构介绍 2";
         String siteDetailNoteThree="机构介绍 3";
-        String logoLink="http://94.191.62.87:81/images/1.jpg";
-        String imgPcLink="http://94.191.62.87:81/images/1.jpg";
-        String imgMobileLink="http://94.191.62.87:81/images/1.jpg";
+        String logoLink="http://94.191.62.87:81/evidenceImages/1.jpg";
+        String imgPcLink="http://94.191.62.87:81/evidenceImages/1.jpg";
+        String imgMobileLink="http://94.191.62.87:81/evidenceImages/1.jpg";
         String introduce="机构简介";
         String platform="liveCourseConnect";
         String timestamp= org.apache.commons.lang3.time.DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
@@ -324,7 +324,7 @@ public class TestTYSX {
         String classId="ff8080816ef95c83016efcfbde8b1fe4";
         String title="视频标题";
         String code=UUID.randomUUID().toString();
-        String coverImgLink="http://94.191.62.87:81/images/1.jpg";
+        String coverImgLink="http://94.191.62.87:81/evidenceImages/1.jpg";
         String vid="aef3afd3d09bbf9671712d08399945ee_a";
         String recordHour="86400000";
         String allowTaste="0";
@@ -362,7 +362,7 @@ public class TestTYSX {
         String functionCode="addRecordClass";
         String name="测试课程1";
         String code= UUID.randomUUID().toString();
-        String coverImgLink="http://94.191.62.87:81/images/1.jpg";
+        String coverImgLink="http://94.191.62.87:81/evidenceImages/1.jpg";
         //String coverVid="aef3afd3d0e5dce8c20c66a3d55ed1de_a";
 
         String enrollStartDate="";
@@ -606,7 +606,7 @@ public class TestTYSX {
         String functionCode="addLiveCourse";
         String name="测试课程1";
         String code= UUID.randomUUID().toString();
-        String coverImgLink="http://94.191.62.87:81/images/1.jpg";
+        String coverImgLink="http://94.191.62.87:81/evidenceImages/1.jpg";
         String enrollStartDate="20200213080000";/*DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         ;*/
         String enrollEndDate="20200214080000";/*DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
@@ -681,7 +681,7 @@ public class TestTYSX {
         String siteName="添翼申学";
         //String siteName="添翼申学";
         String name = "测试修改直播课程2";
-        String coverImgLink="http://94.191.62.87:81/images/1.jpg";
+        String coverImgLink="http://94.191.62.87:81/evidenceImages/1.jpg";
         String enrollStartDate=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");
         ;
         String enrollEndDate=DateFormatUtils.format(Calendar.getInstance().getTime(), "yyyyMMddHHmmss");

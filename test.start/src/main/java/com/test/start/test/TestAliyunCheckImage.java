@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @author CJ
  * @date 2020/5/18
  */
-public class TestAl {
+public class TestAliyunCheckImage {
 
     static IAcsClient client = null;
 
@@ -69,20 +69,20 @@ public class TestAl {
         //图片涉恐涉政识别
         //scenes.add("terrorism");
         //图文违规、鉴黄识别
-        scenes.add("ad");
+        //scenes.add("ad");
         //图片不良场景识别
         //scenes.add("live");
         //图片logo识别
-        //scenes.add("logo");
+        scenes.add("logo");
         req.setScenes(scenes);
         List<ScanImageRequest.Task> tasks = new ArrayList<>();
         com.aliyuncs.imageaudit.model.v20191230.ScanImageRequest.Task task = new ScanImageRequest.Task();
         task.setDataId(UUID.randomUUID().toString());
         //task.setImageURL("https://viapi-demo.oss-cn-shanghai.aliyuncs.com/viapi-demo/images/ChangeImageSize/change-image-size-src.png");
         //task.setImageURL("http://94.191.62.87:81/file/test2.jpg");
-        task.setImageURL("http://94.191.62.87:81/file/yellow4.png");
+        //task.setImageURL("http://94.191.62.87:81/file/favicon.png");
 
-        //task.setImageURL("http://94.191.62.87:81/file/yellow1.png");
+        task.setImageURL("http://94.191.62.87:81/file/yellow1.png");
         //task.setImageURL("http://94.191.62.87:81/file/yellow2.png");
         //task.setImageURL("http://94.191.62.87:81/file/yellow3.png");
 

@@ -91,7 +91,7 @@ public class HttpClientUtil {
      * @param jsonrpc
      * @return
      */
-    public static String uploadFile(String url,String writeToken,File file,String jsonrpc) {
+    public static String uploadFile(String url,String cataid,String writeToken,File file,String jsonrpc) {
         // 创建Httpclient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = null;
@@ -108,6 +108,7 @@ public class HttpClientUtil {
                     .addPart("writetoken", _writetoken)
                     .addPart("Filedata", _filedata)
                     .addPart("JSONRPC", _jsonrpc)
+                    .addPart("cataid", new StringBody(cataid))
                     .build();
             // 执行http请求
             httpPost.setEntity(reqEntity);

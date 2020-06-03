@@ -1,24 +1,20 @@
-package com.test.start.test;
+package com.test.start.test.polyWei;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.test.common.util.MD5HexUtil;
 import com.test.start.test.bean.*;
-import com.test.start.test.polyWei.Data;
-import com.test.start.test.polyWei.Result;
 import com.test.start.test.util.HttpClientUtil;
 import com.test.start.test.util.JSONRPC;
 import com.test.start.test.util.MD5Util;
 import com.test.start.test.util.SHA1Util;
-import org.bouncycastle.util.encoders.UrlBase64;
 import org.springframework.util.StringUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
@@ -51,9 +47,22 @@ public class TestPolyWei {
         System.out.println("result:"+result);
     }
 
+    //保利威 上传本地视频
+    public static void localUpload() {
+        String writetoken="2364ad46-e44e-4491-805a-ead0eecfeb54";
+        String cataid="1583817246582";
+        File file=new File("C:\\phpstudy_pro\\WWW\\files\\test.mp4");
+        String url="http://v.polyv.net/uc/services/rest?method=uploadfile";
+        String doPostFile = HttpClientUtil.uploadFile(url,cataid,
+                writetoken, file,JSON.toJSONString(new JSONRPC("标题","标签","描述")));
+        System.out.println("doPost:"+doPostFile);
+    }
+
     public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
 
         sshUpload();
+
+        //localUpload();
 
         //批量上传视频
         //uploadVideos();

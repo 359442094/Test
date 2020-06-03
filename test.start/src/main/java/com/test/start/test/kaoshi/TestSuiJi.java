@@ -111,7 +111,9 @@ public class TestSuiJi {
      * @return
      */
     public static List<Question> getQuestionShuffleList(List<Question> questions){
-        Map<String, Question> maps=new HashMap<>();
+        //打乱顺序
+        Collections.shuffle(questions);
+        /*Map<String, Question> maps=new HashMap<>();
         for (Question question : questions) {
             maps.put(String.valueOf(question.getQuestionId()), question);
         }
@@ -121,8 +123,8 @@ public class TestSuiJi {
         for (Integer questionId : questionIds) {
             Question question = maps.get(String.valueOf(questionId));
             shuffleQuestions.add(question);
-        }
-        return processQuestion(shuffleQuestions);
+        }*/
+        return processQuestion(questions);
     }
 
     /**
@@ -131,7 +133,8 @@ public class TestSuiJi {
      * @return
      */
     public static List<QuestionItem> getItemShuffleList(List<QuestionItem> questionItems){
-        Map<String, QuestionItem> maps=new HashMap<>();
+        Collections.shuffle(questionItems);
+        /*Map<String, QuestionItem> maps=new HashMap<>();
         for (QuestionItem questionItem : questionItems) {
             maps.put(String.valueOf(questionItem.getItemId()), questionItem);
         }
@@ -141,8 +144,8 @@ public class TestSuiJi {
         for (Integer itemId : itemIds) {
             QuestionItem questionItem = maps.get(String.valueOf(itemId));
             shuffleQuestionItems.add(questionItem);
-        }
-        return processItem(shuffleQuestionItems);
+        }*/
+        return processItem(questionItems);
     }
 
     public static void main(String[] args) {
@@ -171,27 +174,29 @@ public class TestSuiJi {
             }
         };
 
-        /*System.out.println("*********试题正常顺序*********");
+        System.out.println("*********试题正常顺序*********");
         List<Question> questionList = getQuestionList(questions);
-        //正常顺序
-        questionList.forEach(System.out::println);*/
 
-        /*System.out.println("*********试题打乱顺序*********");*/
+        //正常顺序
+        questionList.forEach(System.out::println);
+
+        System.out.println("*********试题打乱顺序*********");
         questions = getQuestionShuffleList(questions);
+        //打乱顺序
+        questions.forEach(System.out::println);
 
         for (Question suiJiQuestion : questions) {
             /*System.out.println("*********选项正常顺序*********");
             List<QuestionItem> itemList = getItemList(suiJiQuestion.getQuestionItems());
             suiJiQuestion.setQuestionItems(itemList);
             //正常顺序
-            list.forEach(System.out::println);*/
-            /*System.out.println("*********选项打乱顺序*********");*/
+            itemList.forEach(System.out::println);*/
+            System.out.println("*********选项打乱顺序*********");
             List<QuestionItem> itemShuffleList = getItemShuffleList(suiJiQuestion.getQuestionItems());
             suiJiQuestion.setQuestionItems(itemShuffleList);
+            //乱序
+            itemShuffleList.forEach(System.out::println);
         }
-
-        //乱序
-        questions.forEach(System.out::println);
 
     }
 }

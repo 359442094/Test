@@ -7,6 +7,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.test.common.util.MD5HexUtil;
 import com.test.start.test.bean.*;
+import com.test.start.test.polyWei.Data;
+import com.test.start.test.polyWei.Result;
 import com.test.start.test.util.HttpClientUtil;
 import com.test.start.test.util.JSONRPC;
 import com.test.start.test.util.MD5Util;
@@ -31,7 +33,31 @@ public class TestPolyWei {
 
     private static String timestamp=String.valueOf(Calendar.getInstance().getTimeInMillis());
 
+
+    //保利威 上传远程视频
+    public static void sshUpload(){
+        String writetoken="2364ad46-e44e-4491-805a-ead0eecfeb54";
+        Map<String,String> map=new HashMap<>();
+        String cataid="1583817246582";
+        String title="title";
+        map.put("writetoken",writetoken);
+        map.put("cataid",cataid);
+        map.put("title",title);
+        map.put("fileUrl","http://94.191.62.87:81/file/test.mp4");
+        String url="http://v.polyv.net/uc/services/rest?method=uploadUrlFile";
+        String json = HttpClientUtil.doPost(url, map);
+        //String json="{\"error\":\"0\",\"data\":[{\"images_b\":[\"http://img.videocc.net/uimage/a/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_0_b.jpg\",\"http://img.videocc.net/uimage/a/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_1_b.jpg\",\"http://img.videocc.net/uimage/a/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_2_b.jpg\",\"http://img.videocc.net/uimage/a/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_3_b.jpg\",\"http://img.videocc.net/uimage/a/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_4_b.jpg\",\"http://img.videocc.net/uimage/a/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_5_b.jpg\"],\"md5checksum\":\"513c7864aa70d95fde12a3374960570a\",\"tag\":\"\",\"mp4\":\"http://mpv.videocc.net/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_1.mp4\",\"title\":\"title\",\"df\":1,\"times\":\"0\",\"mp4_1\":\"http://mpv.videocc.net/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_1.mp4\",\"vid\":\"aef3afd3d058d0499f3060e0107f4b7a_a\",\"cataid\":\"1583817246582\",\"swf_link\":\"http://player.polyv.net/videos/aef3afd3d058d0499f3060e0107f4b7a_a.swf\",\"source_filesize\":490980,\"status\":\"10\",\"seed\":0,\"flv1\":\"http://plvod01.videocc.net/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_1.flv\",\"sourcefile\":\"\",\"playerwidth\":\"\",\"hls\":[\"http://hls.videocc.net/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_1.m3u8\"],\"default_video\":\"http://plvod01.videocc.net/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_1.flv\",\"duration\":\"00:00:12\",\"filesize\":[0],\"first_image\":\"http://img.videocc.net/uimage/a/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_0.jpg\",\"original_definition\":\"1280x720\",\"context\":\"\",\"images\":[\"http://img.videocc.net/uimage/a/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_0.jpg\",\"http://img.videocc.net/uimage/a/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_1.jpg\",\"http://img.videocc.net/uimage/a/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_2.jpg\",\"http://img.videocc.net/uimage/a/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_3.jpg\",\"http://img.videocc.net/uimage/a/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_4.jpg\",\"http://img.videocc.net/uimage/a/aef3afd3d0/a/aef3afd3d058d0499f3060e0107f4b7a_5.jpg\"],\"previewVid\":\"rlcn6lnk6k085k0799n6030c0104n7p4l_l\",\"playerheight\":\"\",\"ptime\":\"2020-06-03 10:30:27\"}]}\n";
+        Result result = JSONObject.parseObject(json, Result.class);
+        System.out.println("result:"+result);
+    }
+
     public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
+
+        sshUpload();
+
+        //批量上传视频
+        //uploadVideos();
+
         //上传本地视频
         //localUpload();
         //上传远程视频
@@ -49,7 +75,7 @@ public class TestPolyWei {
         //videoMerge(); //可以设置结果回调地址 结果为参数请求进来
 
         //异步批量转存录制文件到点播
-        convertLiveVideo(); //可以设置结果回调地址 (记录文件已发送)
+        //convertLiveVideo(); //可以设置结果回调地址 (记录文件已发送)
         //异步批量转存录制文件到点播回调
         //convertLiveVideoProcess();
 
@@ -77,6 +103,51 @@ public class TestPolyWei {
 
        //getVideoOneInfo();
 
+    }
+
+    //批量上传视频
+    public static void uploadVideos() throws NoSuchAlgorithmException {
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(new Date());
+        String ptime = String.valueOf(instance.getTimeInMillis());
+        String fileUrl="http://94.191.62.87:81/file/test.mp4";
+        String title="中文名称";
+        String cataid="1583817246582";
+        String data ="cataid="+cataid+"&fileUrl="+fileUrl
+                +"&ptime="+ptime+"&title="+title+secretkey;;
+        String sign = SHA1Util.sha1(data).toUpperCase();
+        System.out.println("sign:"+sign);
+        Map<String,String> map=new HashMap<>();
+        map.put("ptime",ptime);
+        map.put("fileUrl",fileUrl);
+        map.put("title",title);
+        map.put("cataid",cataid);
+        map.put("sign",sign);
+        String url="http://api.polyv.net/v2/video/grab/"+userId +"/upload/multi";
+        String json = HttpClientUtil.doPost(url,map);
+        System.out.println("json:"+json);
+    }
+
+    public static void uploadVideo() throws NoSuchAlgorithmException {
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(new Date());
+        String ptime = String.valueOf(instance.getTimeInMillis());
+        String fileUrl="http://94.191.62.87:81/file/test.mp4";
+        String title="中文名称";
+        String cataid="1583817246582";
+        String data ="cataid="+cataid+"&fileUrl="+fileUrl
+                +"&ptime="+ptime+"&title="+title+secretkey;;
+        String sign = SHA1Util.sha1(data).toUpperCase();
+        System.out.println("sign:"+sign);
+        Map<String,String> map=new HashMap<>();
+        map.put("ptime",ptime);
+        map.put("fileUrl",fileUrl);
+        map.put("title",title);
+        map.put("cataid",cataid);
+        map.put("sign",sign);
+        String url="http://api.polyv.net/v2/video/grab/"+userId +"/upload/multi";
+        String json = HttpClientUtil.doPost(url,map);
+        System.out.println("json:"+json);
     }
 
     //获取单个视频信息
@@ -551,18 +622,6 @@ public class TestPolyWei {
         String doPostFile = HttpClientUtil.uploadFile(url, writetoken, file,JSON.toJSONString(new JSONRPC("标题","标签","描述")));
         System.out.println("doPost:"+doPostFile);
     }
-
-    //保利威 上传远程视频
-    public static void sshUpload(){
-        //String writetoken="3e9b0554-1ed1-496f-ab1a-dfe11b792595";
-        Map<String,String> map=new HashMap<>();
-        map.put("writetoken",writetoken);
-        map.put("fileUrl","http://94.191.62.87:81/file/test.mp4");
-        String url="http://v.polyv.net/uc/services/rest?method=uploadUrlFile";
-        String doPost = HttpClientUtil.doPost(url, map);
-        System.out.println("doPost:"+doPost);
-    }*/
-
-
+       */
 
 }

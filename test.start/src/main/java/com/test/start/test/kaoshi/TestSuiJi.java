@@ -1,4 +1,8 @@
-package com.test.start.test;
+package com.test.start.test.kaoshi;
+
+import com.test.start.test.LetterUtil;
+import com.test.start.test.Question;
+import com.test.start.test.QuestionItem;
 
 import java.util.*;
 import java.util.stream.Collectors;

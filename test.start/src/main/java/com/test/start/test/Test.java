@@ -129,16 +129,11 @@ public class Test {
     }
 
     public static void main(String args[]) throws IOException {
-      //  HttpClient模拟请求如下
-        HttpClient httpclient = new DefaultHttpClient();        //打开浏览器
-        HttpGet httpPost = new HttpGet("http://localhost:6001/util/screenshot/core/process?htmlText=%3Cp%3E%E5%A6%82%E6%9E%9C%E5%8E%9F%E6%9D%A5%E4%BD%BF%E7%94%A8%E7%99%BE%E5%88%86%E6%AF%94%E8%AE%BE%E7%BD%AE%E5%85%83%E7%B4%A0%E5%AE%BD%E9%AB%98%EF%BC%8C%E8%AF%B7%E6%9B%B4%E6%94%B9%E4%B8%BApx%E4%B8%BA%E5%8D%95%E4%BD%8D%E7%9A%84%E5%AE%BD%E9%AB%98%EF%BC%8C%E9%81%BF%E5%85%8D%E6%A0%B7%E5%BC%8F%E4%BA%8C%E6%AC%A1%E8%AE%A1%E7%AE%97%E5%AF%BC%E8%87%B4%E7%9A%84%E6%A8%A1%E7%B3%8A%3C/p%3E&idName=copyImage");    //输入网址
-        List <NameValuePair> nvps = new ArrayList<NameValuePair>();
-        nvps.add(new BasicNameValuePair("fileName","test")); //封装表单
-        //httpPost.setEntity(new UrlEncodedFormEntity(nvps,"utf-8")); //将参数传入post方法中
-        HttpResponse response = httpclient.execute(httpPost);    //执行post
-        HttpEntity entity   = response.getEntity();    //获取响应数据
-        String result = EntityUtils.toString(entity);    //将响应数据转成字符串
-        System.out.println("result:"+result);
+        String roles="ROLE_ADMIN,ROLE_USER";
+        String[] strings = roles.split(",");
+        for (String string : strings) {
+            System.out.println(string);
+        }
     }
 
 }

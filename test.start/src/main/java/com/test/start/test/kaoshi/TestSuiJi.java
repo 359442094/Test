@@ -113,17 +113,6 @@ public class TestSuiJi {
     public static List<Question> getQuestionShuffleList(List<Question> questions){
         //打乱顺序
         Collections.shuffle(questions);
-        /*Map<String, Question> maps=new HashMap<>();
-        for (Question question : questions) {
-            maps.put(String.valueOf(question.getQuestionId()), question);
-        }
-        //开始乱序
-        List<Integer> questionIds = getShuffleQuestions(questions);
-        List<Question> shuffleQuestions =new ArrayList<>();
-        for (Integer questionId : questionIds) {
-            Question question = maps.get(String.valueOf(questionId));
-            shuffleQuestions.add(question);
-        }*/
         return processQuestion(questions);
     }
 
@@ -134,17 +123,6 @@ public class TestSuiJi {
      */
     public static List<QuestionItem> getItemShuffleList(List<QuestionItem> questionItems){
         Collections.shuffle(questionItems);
-        /*Map<String, QuestionItem> maps=new HashMap<>();
-        for (QuestionItem questionItem : questionItems) {
-            maps.put(String.valueOf(questionItem.getItemId()), questionItem);
-        }
-        //开始乱序
-        List<Integer> itemIds = getShuffleItems(questionItems);
-        List<QuestionItem> shuffleQuestionItems =new ArrayList<>();
-        for (Integer itemId : itemIds) {
-            QuestionItem questionItem = maps.get(String.valueOf(itemId));
-            shuffleQuestionItems.add(questionItem);
-        }*/
         return processItem(questionItems);
     }
 

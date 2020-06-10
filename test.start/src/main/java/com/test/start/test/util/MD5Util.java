@@ -37,10 +37,15 @@ public class MD5Util {
 
 	public final static String getMD5(String s, String charset) {
 		try {
-			return getMD5(s.getBytes(charset));
+			return getMD5(s.getBytes(charset)).toLowerCase();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public static void main(String[] args) {
+		String md5 = getMD5("68nTWV0g1591774919");
+		System.out.println("md5:"+md5);
 	}
 	
 }

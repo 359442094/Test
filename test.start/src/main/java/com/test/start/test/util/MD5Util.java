@@ -44,8 +44,12 @@ public class MD5Util {
 	}
 
 	public static void main(String[] args) {
-		String md5 = getMD5("68nTWV0g1591774919");
+
+		String timeStamp = String.valueOf((System.currentTimeMillis() + 60 * 10 * 1000) / 1000);
+
+		String md5 = getMD5("68nTWV0g"+timeStamp);
 		System.out.println("md5:"+md5);
+		System.out.println("timeStamp:"+timeStamp);
 	}
 	
 }

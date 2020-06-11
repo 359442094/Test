@@ -88,8 +88,6 @@ public class HttpClientUtil {
 
     /**
      * 使用httpclint 发送文件
-     * @author: qingfeng
-     * @date: 2019-05-27
      * @param file
      *            上传的文件
      * @return 响应结果
@@ -160,6 +158,50 @@ public class HttpClientUtil {
                     .addPart("JSONRPC", _jsonrpc)
                     .addPart("cataid", new StringBody(cataid))
                     .build();
+            // 执行http请求
+            httpPost.setEntity(reqEntity);
+            response = httpClient.execute(httpPost);
+            resultString = EntityUtils.toString(response.getEntity(), "utf-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                response.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return resultString;
+    }
+
+    /**
+     * 带File参数的post请求
+     * @param url
+     * @param file
+     * @return
+     */
+    public static String uploadFile(String url,File file,Map<String,String> map) {
+        // 创建Httpclient对象
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpResponse response = null;
+        String resultString = "";
+        try {
+            // 创建Http Post请求
+            HttpPost httpPost = new HttpPost(url);
+
+            MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
+            ContentType contentType = ContentType.create("text/plain", Charset.forName("UTF-8"));
+
+            if(file!=null){
+                entityBuilder.addPart("Filedata",new FileBody(file));
+            }
+
+            for (Map.Entry<String, String> e : map.entrySet()) {
+                // 类似浏览器表单提交，对应input的name和value
+                entityBuilder.addPart(e.getKey(),new StringBody(e.getValue(),contentType));
+            }
+            // 创建参数列表
+            HttpEntity reqEntity = entityBuilder.build();
             // 执行http请求
             httpPost.setEntity(reqEntity);
             response = httpClient.execute(httpPost);

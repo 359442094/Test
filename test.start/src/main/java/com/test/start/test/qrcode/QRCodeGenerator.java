@@ -50,7 +50,9 @@ public class QRCodeGenerator {
 
         byte[] bytes = pngOutputStream.toByteArray();
 
-        System.out.println(new String("data:image/png;base64,"+Base64.encode(bytes)));
+        String imageBase = new String("data:image/png;base64," + Base64.encode(bytes));
+
+        System.out.println(imageBase);
     }
 
     /**
@@ -80,9 +82,9 @@ public class QRCodeGenerator {
 	
 	public static void main(String[] args) {
         try {
-            getQrCodeViewImage("https://www.baidu.com/", 140, 100, QR_CODE_IMAGE_PATH);
+            getQrCodeViewImage("https://www.baidu.com/", 95, 95, QR_CODE_IMAGE_PATH);
 
-            getQrCodeSaveImage("https://www.baidu.com/", 100, 100, QR_CODE_IMAGE_PATH);
+            getQrCodeSaveImage("https://www.baidu.com/", 95, 95, QR_CODE_IMAGE_PATH);
         } catch (WriterException e) {
             System.out.println("Could not generate QR Code, WriterException :: " + e.getMessage());
         } catch (IOException e) {

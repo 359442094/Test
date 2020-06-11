@@ -37,7 +37,7 @@ public class MD5Util {
 
 	public final static String getMD5(String s, String charset) {
 		try {
-			return getMD5(s.getBytes(charset)).toLowerCase();
+			return getMD5(s.getBytes(charset));
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

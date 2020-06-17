@@ -25,9 +25,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class StartApp {
     public static void main(String[] args) {
-        /*SpringApplicationBuilder builder = new SpringApplicationBuilder(StartApp.class);
-        ApplicationContext applicationContext = builder.headless(false).run(args);
-        applicationContext.getBean(TestController.class);*/
         SpringApplication.run(StartApp.class);
     }
 }

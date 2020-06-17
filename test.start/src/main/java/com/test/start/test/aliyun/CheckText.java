@@ -72,8 +72,10 @@ public class CheckText {
         req.setTaskss(tasks);
 
         ScanTextResponse resp = getAcsResponse(req);
-        System.out.println("resp:"+resp);
-        ScanTextResponse.Data data = resp.getData();
+
+        printResponse(req.getSysActionName(), resp.getRequestId(), resp);
+
+        /*ScanTextResponse.Data data = resp.getData();
         List<ScanTextResponse.Data.Element> elements = data.getElements();
 
         int resultNumber=0;
@@ -97,9 +99,9 @@ public class CheckText {
                 }
 
             }
-        }
+        }*/
 
-        System.out.println("resultNumber:"+resultNumber);
+        //System.out.println("resultNumber:"+resultNumber);
 
     }
 

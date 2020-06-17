@@ -32,7 +32,7 @@ public class PdfToSwfUtil {
         //String pdf = "C:\\phpstudy_pro\\WWW\\conver\\test123.pdf";
         String image = "C:\\phpstudy_pro\\WWW\\conver\\Paper\\";
 
-        String swf = "C:\\phpstudy_pro\\WWW\\conver\\testPapeCreee9.swf";
+        String swf = "C:\\phpstudy_pro\\WWW\\conver\\04.swf";
         image2Swf(image, swf, 1f);
     }
 

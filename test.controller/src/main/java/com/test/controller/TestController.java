@@ -62,6 +62,13 @@ public class TestController {
     @Value(value = "${file.studentTemplate}")
     private String studentTemplate;
 
+    @ApiOperation(value = "读写分离",notes = "读写分离")
+    @RequestMapping(path = "/test/readWirter",method = RequestMethod.POST)
+    @ResponseBody
+    public void readWirter() throws Exception{
+
+    }
+
     @ApiOperation(value = "上传html生成图片",notes = "上传html生成图片")
     @RequestMapping(path = "/test/upload",method = RequestMethod.POST)
     @ResponseBody

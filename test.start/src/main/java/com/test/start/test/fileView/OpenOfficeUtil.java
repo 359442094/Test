@@ -30,8 +30,8 @@ public class OpenOfficeUtil {
 
             if ("dev".equals(active)) {
                 //执行window 启动OpenOffice服务命令
-                //String command = "C:\\Program Files (x86)\\OpenOffice 4\\program\\soffice -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\" -nofirststartwizard";
-                pro = Runtime.getRuntime().exec(openOfficeService);
+                String command = "C:\\Program Files (x86)\\OpenOffice 4\\program\\soffice -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\" -nofirststartwizard";
+                pro = Runtime.getRuntime().exec(command);
             } else {
                 //执行linux 启动OpenOffice服务命令
                 //String commandStr = "/opt/openoffice4/program/soffice -headless -accept=\"socket,host=127.0.0.1,port=8100;urp;\" -nofirststartwizard";
@@ -139,6 +139,7 @@ public class OpenOfficeUtil {
      * @param swfPath      SWF文件的路径
      */
     public static void PDFConverSWF(String active, String swfToolsFile,String swfToolsHome, String pdfPath, String swfPath) {
+        //OpenOfficeUtil.openService("dev","");
         try {
             /**
              * SWFTools_HOME在系统中的安装目录
@@ -158,7 +159,7 @@ public class OpenOfficeUtil {
                 cmd[5] = "-s flashversion=9";
                 //没有此命令的话 生成的swf文件不能打印成功
                 cmd[6] = "-T 9";
-                //log.info("windows执行pdf转换swf命令:"+cmd.toString());
+                log.info("windows执行pdf转换swf命令:"+cmd.toString());
                 pro = Runtime.getRuntime().exec(cmd);
             } else {
                 //linux SWFTools中文工具包
@@ -180,6 +181,19 @@ public class OpenOfficeUtil {
             log.error("pdf转换swf失败" + e.getMessage());
             throw new RuntimeException("pdf转换swf失败" + e.getMessage());
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        String sourceFile="C:\\phpstudy_pro\\WWW\\test.pdf";
+        String outFile="C:\\phpstudy_pro\\WWW\\test.docx";
+        OpenOfficeUtil.FileConverPDF(sourceFile,outFile);
+
+        /*String swfToolsHome="C:\\Program Files (x86)\\SWFTools\\pdf2swf.exe";
+        String pdf="C:/phpstudy_pro/WWW/upload/20200615/ff38f23b3cf34897b3700678ea580252.pdf";
+        String swf="C:/phpstudy_pro/WWW/cao.swf";
+        OpenOfficeUtil.PDFConverSWF("dev",null,swfToolsHome,pdf,swf);
+
+        System.out.println("执行完毕");*/
     }
 
 }

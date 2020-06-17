@@ -36,7 +36,7 @@ public class Test {
         //添加课程
         //addClassInCourse();
         //修改课程
-        //updateClassInCourse();
+        updateClassInCourse();
         //添加课程下的多个|学生单个
         //addCourseStudentList();
         //删除课程下的多个|单个学生
@@ -59,7 +59,7 @@ public class Test {
         //registerUser();
 
         //获取回放地址
-        getClassInLive();
+        //getClassInLive();
 
     }
 
@@ -90,7 +90,7 @@ public class Test {
         String data = result.getData();
         String param = data.substring(data.lastIndexOf("?") + 1);
         String courseKey = data.substring(data.lastIndexOf("courseKey=") + 10, data.indexOf("&"));
-        String lessonId = data.substring(data.lastIndexOf("lessonid=") + 9);
+        //String lessonId = data.substring(data.lastIndexOf("lessonid=") + 9);
         String checkCode = MD5Util.getMD5(secret + courseKey + account + name).toLowerCase();
         String webcastUrl = "https://www.eeo.cn/webcast_partner.html?" + param + "&account=" + account + "&nickname=" + name + "&checkCode=" + checkCode;
         System.out.println("webcastUrl:"+webcastUrl);
@@ -297,7 +297,7 @@ public class Test {
         map.put("timeStamp",timeStamp);
         map.put("courseId","81176318");
         map.put("courseName","testImage");
-
+        map.put("classroomSettingId","1");
         String path="C:\\phpstudy_pro\\WWW\\files\\timg (2).jpg";
 
         File file = new File(path);

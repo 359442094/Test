@@ -62,12 +62,12 @@ public class CheckText {
         ScanTextRequest req = new ScanTextRequest();
         List<ScanTextRequest.Labels> labelss=new ArrayList<>();
         ScanTextRequest.Labels labels=new ScanTextRequest.Labels();
-        labels.setLabel("abuse");
+        labels.setLabel("porn");
         labelss.add(labels);
         req.setLabelss(labelss);
         List<ScanTextRequest.Tasks> tasks = new ArrayList<>();
         com.aliyuncs.imageaudit.model.v20191230.ScanTextRequest.Tasks task = new ScanTextRequest.Tasks();
-        task.setContent("某是傻逼");
+        task.setContent("操你妈");
         tasks.add(task);
         req.setTaskss(tasks);
 
@@ -81,20 +81,21 @@ public class CheckText {
             List<ScanTextResponse.Data.Element.Result> results = element.getResults();
             for (ScanTextResponse.Data.Element.Result result : results) {
                 String suggestion = result.getSuggestion();
-                System.out.println("suggestion："+suggestion);
+                System.out.println("getLabel："+result.getLabel());
                 if("review".equals(suggestion)){
                     resultNumber = 1;
-                    System.out.println("检测结果不确定:"+result.getSuggestion());
+                    System.out.println("["+task.getContent()+"]检测结果不确定");
                     break;
                 }else if("block".equals(result.getSuggestion())){
                     resultNumber = 2;
-                    System.out.println("文本违规:"+result.getSuggestion());
+                    System.out.println("["+task.getContent()+"]文本违规");
                     break;
                 }else{
                     resultNumber = 0;
-                    System.out.println("文本正常:"+result.getSuggestion());
+                    System.out.println("["+task.getContent()+"]文本正常");
                     break;
                 }
+
             }
         }
 

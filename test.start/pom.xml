@@ -17,6 +17,26 @@
 
     <dependencies>
 
+        <!-- pdf2image -->
+        <dependency>
+            <groupId>org.icepdf.os</groupId>
+            <artifactId>icepdf-core</artifactId>
+            <version>6.2.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.media</groupId>
+                    <artifactId>jai_core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- image2swf -->
+        <dependency>
+            <groupId>com.flagstonesoftware</groupId>
+            <artifactId>transform-swf</artifactId>
+            <version>2.1.5</version>
+        </dependency>
+
         <!--生成二维码-->
         <dependency>
             <groupId>com.google.zxing</groupId>
@@ -59,6 +79,24 @@
             <artifactId>jodconverter</artifactId>
             <version>2.2.1</version>
         </dependency>
+
+        <!--<dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
+        </dependency>-->
+
+
         <dependency>
             <groupId>org.openoffice</groupId>
             <artifactId>jurt</artifactId>
@@ -88,13 +126,13 @@
         </dependency>-->
 
         <!--添加本地的jacob.jar包-->
-        <dependency>
-            <groupId>com.jacob</groupId>
-            <artifactId>jacob</artifactId>
-            <version>1.19</version>
+        <!--<dependency>
+            <groupId>com.flagstone</groupId>
+            <artifactId>transform</artifactId>
+            <version>3.0.2</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/jacob.jar</systemPath>
-        </dependency>
+            <systemPath>${basedir}/src/main/resources/lib/transform-3.0.2.jar</systemPath>
+        </dependency>-->
 
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

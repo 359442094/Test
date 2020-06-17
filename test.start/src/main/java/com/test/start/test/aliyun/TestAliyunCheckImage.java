@@ -65,7 +65,7 @@ public class TestAliyunCheckImage {
         ScanImageRequest req = new ScanImageRequest();
         List<String> scenes = new ArrayList<>();
         //图片智能鉴黄
-        //scenes.add("porn");
+        scenes.add("porn");
         //图片涉恐涉政识别
         //scenes.add("terrorism");
         //图文违规、鉴黄识别
@@ -73,7 +73,7 @@ public class TestAliyunCheckImage {
         //图片不良场景识别
         //scenes.add("live");
         //图片logo识别
-        scenes.add("logo");
+        //scenes.add("logo");
         req.setScenes(scenes);
         List<ScanImageRequest.Task> tasks = new ArrayList<>();
         com.aliyuncs.imageaudit.model.v20191230.ScanImageRequest.Task task = new ScanImageRequest.Task();

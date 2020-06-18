@@ -9,7 +9,7 @@
         <javaClientGenerator targetPackage="com.test.model.persistence" targetProject="src/main/java" type="XMLMAPPER" />
 
         <!--<table tableName="Test"></table>-->
-        <table tableName="User"></table>
+        <table tableName="word_key"></table>
 
     </context>
 </generatorConfiguration>

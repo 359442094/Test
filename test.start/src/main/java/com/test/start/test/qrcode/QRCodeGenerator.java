@@ -32,11 +32,10 @@ public class QRCodeGenerator {
      * @param text
      * @param width
      * @param height
-     * @param filePath
      * @throws WriterException
      * @throws IOException
      */
-    public static void getQrCodeViewImage(String text, int width, int height,String filePath) throws WriterException, IOException {
+    public static String getQrCodeViewImage(String text, int width, int height) throws WriterException, IOException {
         Hashtable hints = new Hashtable();
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
         hints.put(EncodeHintType.CHARACTER_SET, CHARSET);
@@ -53,6 +52,8 @@ public class QRCodeGenerator {
         String imageBase = new String("data:image/png;base64," + Base64.encode(bytes));
 
         System.out.println(imageBase);
+
+        return imageBase;
     }
 
     /**
@@ -82,9 +83,9 @@ public class QRCodeGenerator {
 	
 	public static void main(String[] args) {
         try {
-            getQrCodeViewImage("https://www.baidu.com/", 95, 95, QR_CODE_IMAGE_PATH);
+            String qrCodeViewImage = getQrCodeViewImage("https://www.eeo.cn/webcast_partner.html?courseKey=ab24c8d655e40460&lessonid=194891495&account=13800000001&nickname=正承&checkCode=a7231bdaca3256734080756c15e3eefd", 95, 95);
 
-            getQrCodeSaveImage("https://www.baidu.com/", 95, 95, QR_CODE_IMAGE_PATH);
+            //getQrCodeSaveImage("https://www.baidu.com/", 95, 95, QR_CODE_IMAGE_PATH);
         } catch (WriterException e) {
             System.out.println("Could not generate QR Code, WriterException :: " + e.getMessage());
         } catch (IOException e) {

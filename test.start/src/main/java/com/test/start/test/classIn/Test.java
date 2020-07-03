@@ -9,6 +9,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -32,11 +33,23 @@ public class Test {
     private static final String sid="16111422";
     private static final String secret="ho8k5t7n";
 
+    public void fuckyou(){
+        int n = 0;
+        Random rd = new Random();
+        while (n<1) {
+            JFrame frame = new JFrame("");
+            frame.setSize(400,100);
+            frame.setLocation(rd.nextInt(1920),rd.nextInt(1080));
+            frame.setVisible(true);
+            n++;
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         //添加课程
         //addClassInCourse();
         //修改课程
-        updateClassInCourse();
+        //updateClassInCourse();
         //添加课程下的多个|学生单个
         //addCourseStudentList();
         //删除课程下的多个|单个学生
@@ -94,8 +107,6 @@ public class Test {
         String checkCode = MD5Util.getMD5(secret + courseKey + account + name).toLowerCase();
         String webcastUrl = "https://www.eeo.cn/webcast_partner.html?" + param + "&account=" + account + "&nickname=" + name + "&checkCode=" + checkCode;
         System.out.println("webcastUrl:"+webcastUrl);
-
-
 
     }
 

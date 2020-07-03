@@ -1,6 +1,6 @@
 package com.test.controller;
 
-import com.test.common.annoation.CheckMethod;
+import com.test.common.annoation.RequestLimit;
 import com.test.common.annoation.ShowLogger;
 import com.test.common.dto.CheckFieldRequest;
 import com.test.common.util.FileUtil;
@@ -62,11 +62,15 @@ public class TestController {
     @Value(value = "${file.studentTemplate}")
     private String studentTemplate;
 
-    @ApiOperation(value = "读写分离",notes = "读写分离")
-    @RequestMapping(path = "/test/readWirter",method = RequestMethod.POST)
+    /**
+     * 1秒内只能访问1次
+     * */
+    @RequestLimit(count=1,time=600)
+    @ApiOperation(value = "测试限流",notes = "测试限流")
+    @RequestMapping(path = "/test/limit",method = RequestMethod.POST)
     @ResponseBody
-    public void readWirter() throws Exception{
-
+    public boolean limit() throws Exception{
+        return true;
     }
 
     @ApiOperation(value = "上传html生成图片",notes = "上传html生成图片")
@@ -154,7 +158,6 @@ public class TestController {
     @ApiOperation(value = "测试",notes = "测试")
     @RequestMapping(path = "/test/test",method = RequestMethod.GET)
     @ResponseBody
-    @CheckMethod(parms = CheckFieldRequest.class)
     public CheckFieldRequest check(CheckFieldRequest request) throws IOException {
         return request;
     }

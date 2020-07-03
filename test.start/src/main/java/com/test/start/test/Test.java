@@ -129,11 +129,15 @@ public class Test {
     }
 
     public static void main(String args[]) throws IOException {
-        String roles="ROLE_ADMIN,ROLE_USER";
-        String[] strings = roles.split(",");
-        for (String string : strings) {
-            System.out.println(string);
-        }
+        String url="http://localhost:7999/course/callback/record/info";
+        RecordCallbackRequest request=new RecordCallbackRequest();
+        request.setCourseID(1);
+        request.setCmd("Record");
+        String json = JSONObject.toJSONString(request);
+
+        System.out.println("request:"+json);
+        String result = HttpClientUtil.doPostJson(url, json);
+        System.out.println("result:"+result);
     }
 
 }

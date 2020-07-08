@@ -3,6 +3,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import java.lang.annotation.*;
 /**
+ * 接口限流注解
  * @author chenjie
  */
 @Retention(RetentionPolicy.RUNTIME)

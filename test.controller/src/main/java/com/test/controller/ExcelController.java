@@ -10,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author CJ
@@ -42,18 +43,31 @@ public class ExcelController {
 
     @ShowLogger(info = "下载easyexcel")
     @ApiOperation(value = "下载easyexcel",notes = "下载easyexcel")
-    @RequestMapping(value = "/test/testExcel", method = RequestMethod.GET)
-    @ResponseBody
-    public String downTemplate(HttpServletResponse response) {
+    @RequestMapping(value = "/test/exportExcel", method = RequestMethod.GET)
+    //@ResponseBody
+    public void downTemplate(HttpServletResponse response) {
         List<NewLeads> leadsList = new ArrayList<>();
         NewLeads newLeads=new NewLeads();
         newLeads.setCreateTime(new Date());
-        newLeads.setName("zs");
-        newLeads.setPhone("15211134400");
+        newLeads.setOrgName("zs");
+        newLeads.setOrgId("123");
         leadsList.add(newLeads);
+        //导出操作
+        ExcelUtil.exportExcel(leadsList,"花名册","草帽一伙",NewLeads.class,"海贼王.xls",response);
+    }
 
-        ExcelUtil<NewLeads> util = new ExcelUtil<>(NewLeads.class);
-        return util.exportExcel(leadsList, "leads数据");
+    @ShowLogger(info = "读取easyexcel")
+    @ApiOperation(value = "读取easyexcel",notes = "读取easyexcel")
+    @RequestMapping(value = "/test/importExcel", method = RequestMethod.POST)
+    @ResponseBody
+    public Object importUser(@RequestParam MultipartFile file){
+        //String filePath = "F:\\海贼王.xls";
+        //本地方式:解析excel，
+        //List<NewLeads> personList = ExcelUtil.importExcel(filePath,1,1,NewLeads.class);
+        //file文件导入方式: 也可以使用MultipartFile
+        List<NewLeads> newLeads = ExcelUtil.importExcel(file, 1, 1, NewLeads.class);
+        log.info("导入数据一共【"+newLeads.size()+"】行");
+        return newLeads;
     }
 
 }

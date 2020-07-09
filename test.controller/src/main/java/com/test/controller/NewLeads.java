@@ -1,6 +1,6 @@
 package com.test.controller;
 
-import com.test.common.annoation.Excel;
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,17 +14,14 @@ import java.util.Date;
 public class NewLeads implements Serializable {
 
     private String leadsId;
-
+    @Excel(name = "机构编号")
     private String orgId;
-    @Excel(name = "所属机构")
+    @Excel(name = "机构名称")
     private String orgName;
-    @Excel(name = "手机")
     private String phone;
-    @Excel(name = "姓名")
     private String name;
-    @Excel(name = "来源")
     private String createType;
-    @Excel(name = "入库时间",dateFormat = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "时间",format = "yyyy-MM-dd")
     private Date createTime;
 
     private Date startDate;

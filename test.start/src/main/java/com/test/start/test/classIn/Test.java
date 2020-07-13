@@ -71,8 +71,8 @@ public class Test {
         //注册用户
         //registerUser();
 
-        //获取回放地址
-        //getClassInLive();
+        //获取回放地址 https://www.eeo.cn/webcast.php?courseKey=7a30062bb9b028f9&lessonid=189128012
+        getClassInLive();
 
     }
 

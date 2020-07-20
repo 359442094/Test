@@ -72,7 +72,7 @@ public class Test {
         //registerUser();
 
         //获取回放地址 https://www.eeo.cn/webcast.php?courseKey=7a30062bb9b028f9&lessonid=189128012
-        getClassInLive();
+        //getClassInLive();
 
     }
 
@@ -198,16 +198,16 @@ public class Test {
      */
     public static void addClassInLessionOne(){
 
-        String courseId="81176318";
+        String courseId="84849293";
         //String courseId="81217306";
-        String className="测试课节";
+        String className="FUCK";
 
         //获取2020年06月10日 22：36：01的Date对象
-        Calendar start = new GregorianCalendar(2020, 06, 10,22,36,01);
+        Calendar start = new GregorianCalendar(2020, 07, 15,22,36,01);
         Date startDate = start.getTime();
         System.out.println("start:"+ DateFormatUtils.format(startDate,"yyyy-MM-dd HH:mm:ss"));
         //获取2020年06月11日 22：36：01的Date对象
-        Calendar end = new GregorianCalendar(2020, 06, 11,22,36,01);
+        Calendar end = new GregorianCalendar(2020, 07, 16,22,36,01);
         Date endDate = end.getTime();
         System.out.println("end:"+ DateFormatUtils.format(endDate,"yyyy-MM-dd HH:mm:ss"));
 
@@ -306,9 +306,14 @@ public class Test {
         String safeKey = MD5Util.getMD5(secret+timeStamp).toLowerCase();
         map.put("safeKey",safeKey);
         map.put("timeStamp",timeStamp);
-        map.put("courseId","81176318");
+        map.put("courseId","84849293");
         map.put("courseName","testImage");
-        map.put("classroomSettingId","1");
+        //map.put("classroomSettingId","1");
+        Calendar calendar=Calendar.getInstance();
+        calendar.add(Calendar.DATE,1);
+        System.out.println("calendar:"+DateFormatUtils.format(calendar.getTime(),"yyyy-MM-dd HH:mm:ss"));
+        long timeInMillis = calendar.getTimeInMillis();
+        map.put("expiryTime", "1595260799");
         String path="C:\\phpstudy_pro\\WWW\\files\\timg (2).jpg";
 
         File file = new File(path);

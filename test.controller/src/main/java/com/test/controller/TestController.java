@@ -19,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Api(tags = {"测试视图接口"})
@@ -71,6 +73,16 @@ public class TestController {
     @ResponseBody
     public boolean limit() throws Exception{
         return true;
+    }
+
+    @ApiOperation(value = "测试同时返回json/xml",notes = "测试同时返回json/xml")
+    @PostMapping(value = "/test/testResult")
+    public Map<String,String> testResultJson(){
+        Map<String,String> map=new HashMap<>();
+        map.put("1","1value");
+        map.put("2","2value");
+        map.put("3","3value");
+        return map;
     }
 
     @ApiOperation(value = "上传html生成图片",notes = "上传html生成图片")

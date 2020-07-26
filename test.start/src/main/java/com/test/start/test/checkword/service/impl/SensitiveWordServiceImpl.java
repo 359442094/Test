@@ -1,10 +1,10 @@
 package com.test.start.test.checkword.service.impl;
 
+import com.test.common.util.LuceneUtil;
 import com.test.start.test.checkword.dto.SensitiveWordFilterRequest;
 import com.test.start.test.checkword.dto.SensitiveWordFilterResponse;
 import com.test.start.test.checkword.service.SensitiveWordService;
 import com.test.start.test.checkword.util.IkAnalyzerUtil;
-import com.test.start.test.checkword.util.LuceneUtil;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

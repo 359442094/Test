@@ -60,7 +60,7 @@ public class CheckWordController {
      * @return
      * @throws NoSuchAlgorithmException
      */
-    @RequestMapping(path = "/flushLuceneIndex", method = RequestMethod.GET)
+    /*@RequestMapping(path = "/flushLuceneIndex", method = RequestMethod.GET)
     @ApiOperation(value = "更新敏感词全文索引", notes = "更新敏感词全文索引")
     @Scheduled(cron = "0 0 0 * * ?")
     @ResponseBody
@@ -69,6 +69,6 @@ public class CheckWordController {
         BaseResponse response = new BaseResponse();
         response.success();
         return response;
-    }
+    }*/
 
 }

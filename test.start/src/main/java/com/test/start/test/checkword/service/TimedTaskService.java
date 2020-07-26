@@ -5,6 +5,6 @@ public interface TimedTaskService {
     /**
      * 定时更新全文检索敏感词
      */
-    String flushLuceneIndex() throws Exception;
+    //String flushLuceneIndex() throws Exception;
 
 }

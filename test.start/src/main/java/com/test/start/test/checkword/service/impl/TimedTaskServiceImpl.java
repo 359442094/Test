@@ -1,15 +1,8 @@
 package com.test.start.test.checkword.service.impl;
 
 import com.test.start.test.checkword.service.TimedTaskService;
-import com.test.start.test.checkword.service.WordKeyService;
-import com.test.start.test.checkword.util.LuceneUtil;
-import com.test.start.test.checkword.util.TimesTaskUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.wltea.analyzer.cfg.DefaultConfig;
-import org.wltea.analyzer.dic.Dictionary;
-import java.util.List;
 
 /**
  * @author CJ
@@ -19,10 +12,10 @@ import java.util.List;
 @Service
 public class TimedTaskServiceImpl implements TimedTaskService {
 
-    @Autowired
-    private WordKeyService wordKeyService;
+    //@Autowired
+    //private WordKeyService wordKeyService;
 
-    @Override
+    /*@Override
     public String flushLuceneIndex() throws Exception {
         long startTime = System.currentTimeMillis();
         //数据库中获取敏感词
@@ -43,5 +36,5 @@ public class TimedTaskServiceImpl implements TimedTaskService {
             return TimesTaskUtil.process(startTime, endTime);
         }
     }
-
+*/
 }

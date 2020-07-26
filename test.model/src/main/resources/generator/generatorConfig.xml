@@ -2,14 +2,14 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <context id="context1">
-        <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/sharding?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=utf-8"
+        <jdbcConnection connectionURL="jdbc:mysql://db.hzero.org:3306/ms_mtc?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=utf-8"
                         driverClass="com.mysql.jdbc.Driver" userId="root" password="root" />
         <javaModelGenerator targetPackage="com.test.model.domain" targetProject="src/main/java" />
         <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources" />
         <javaClientGenerator targetPackage="com.test.model.persistence" targetProject="src/main/java" type="XMLMAPPER" />
 
         <!--<table tableName="Test"></table>-->
-        <table tableName="word_key"></table>
+        <table tableName="mtc_sales_order"></table>
 
     </context>
 </generatorConfiguration>

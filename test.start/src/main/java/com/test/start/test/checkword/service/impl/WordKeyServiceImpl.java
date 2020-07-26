@@ -1,8 +1,5 @@
 package com.test.start.test.checkword.service.impl;
 
-import com.test.model.domain.WordKey;
-import com.test.model.domain.WordKeyExample;
-import com.test.model.persistence.WordKeyMapper;
 import com.test.start.test.checkword.service.WordKeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class WordKeyServiceImpl implements WordKeyService {
 
-    @Autowired
+    /*@Autowired
     private WordKeyMapper wordKeyMapper;
 
     @Override
@@ -28,6 +25,6 @@ public class WordKeyServiceImpl implements WordKeyService {
         //return wordKeys.stream().map(wordKey -> wordKey.getWordKey()).collect(Collectors.toList());
         List<WordKey> wordKeys = wordKeyMapper.selectByExample(new WordKeyExample());
         return wordKeys.stream().map(wordKey -> wordKey.getWordKey()).collect(Collectors.toList());
-    }
+    }*/
 
 }

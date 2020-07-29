@@ -13,7 +13,7 @@ public class AddOrderRequest {
 
     //联系人
     private String name;
-    //性别(0:男 1:女111)
+    //性别(0:男 1:女1)
     private int sex;
     //手机号码
     private String phone;

@@ -3,7 +3,6 @@ package com.test.start.test.shouxian;
 import com.alibaba.fastjson.JSONObject;
 import com.test.start.test.util.HttpClientUtil;
 import com.test.start.test.util.MD5Util;
-import org.apache.commons.lang.CharSet;
 import org.springframework.util.StringUtils;
 
 import java.io.UnsupportedEncodingException;

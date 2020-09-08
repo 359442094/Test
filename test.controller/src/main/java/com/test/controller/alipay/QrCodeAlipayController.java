@@ -8,12 +8,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
- * 支付宝沙箱扫码支付
+ * 电脑网站支付
+ * 支付宝-沙箱扫码支付
  */
 @Slf4j
 @Controller
@@ -26,7 +28,7 @@ public class QrCodeAlipayController {
      * @param response
      * @return
      * @throws Exception*/
-    @RequestMapping(value = "/goAlipay", produces = "text/html; charset=UTF-8")
+    @RequestMapping(value = "/goAlipay", produces = "text/html; charset=UTF-8",method = RequestMethod.GET)
     @ResponseBody
     public String goAlipay( HttpServletRequest request, HttpServletRequest response) throws Exception {
         //获得初始化的AlipayClient
@@ -67,7 +69,7 @@ public class QrCodeAlipayController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/synchronizationCallBack")
+    @RequestMapping(path = "/synchronizationCallBack",method = RequestMethod.POST)
     @ResponseBody
     public String alipayReturnNotice(Model model,HttpServletRequest request, HttpServletRequest response) throws Exception {
         log.info("支付成功, 进入同步通知接口...");
@@ -117,7 +119,7 @@ public class QrCodeAlipayController {
      * @return
      * @throws Exception
 */
-    @RequestMapping(value = "/asyncCallBack")
+    @RequestMapping(path = "/asyncCallBack",method = RequestMethod.POST)
     @ResponseBody
     public String alipayNotifyNotice(HttpServletRequest request, HttpServletRequest response) throws Exception {
         log.info("支付成功, 进入异步通知接口...");

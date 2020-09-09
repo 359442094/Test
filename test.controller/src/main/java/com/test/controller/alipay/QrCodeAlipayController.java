@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
+ * alipay.trade.page.pay(统一收单下单并支付页面接口)
  * 电脑网站支付
  * 支付宝-沙箱扫码支付
  */
@@ -37,7 +38,8 @@ public class QrCodeAlipayController {
         //设置请求参数
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
         alipayRequest.setNotifyUrl(QrCodeAlipayConfig.notify_url);
-
+        //支付成功或者关闭页面之后跳转的url
+        alipayRequest.setReturnUrl("https://www.baidu.com/?tn=02003390_9_hao_pg");
         String out_trade_no =UUID.randomUUID().toString();
         //付款金额，必填
         String total_amount = "10";
@@ -114,13 +116,13 @@ public class QrCodeAlipayController {
     /**
      * 支付宝异步 通知页面
      * 推荐使用异步通知
+     * (异步支付页面需要自行做逻辑处理 例如:支付页面加一个按钮，点击请求查询状态的接口，支付中不能关闭，支付成功或者失败的可以关闭)
      * @param request
      * @param response
      * @return
      * @throws Exception
 */
     @RequestMapping(path = "/asyncCallBack",method = RequestMethod.POST)
-    @ResponseBody
     public String alipayNotifyNotice(HttpServletRequest request, HttpServletRequest response) throws Exception {
         log.info("支付成功, 进入异步通知接口...");
         //获取支付宝POST过来反馈信息
@@ -174,16 +176,7 @@ public class QrCodeAlipayController {
                 //注意：
                 //付款完成后，支付宝系统发送该交易状态通知
 
-                int result=0;
-                //这里根据自身的业务写代码，我这里删掉了
-                
-                if(result==0){
-                    log.info("resultinfo","更新订单失败！请业务员联系后台管理员！");
-                }else {
-                    log.info("resultinfo","出租工具成功！");
-                }
-
-                log.info("********************** 支付成功(支付宝同步通知) **********************");
+                log.info("********************** 支付成功(支付宝异步通知) **********************");
                 log.info("* 订单号: {}", out_trade_no);
                 log.info("* 支付宝交易号: {}", trade_no);
                 log.info("* 实付金额: {}", total_amount);
@@ -193,7 +186,7 @@ public class QrCodeAlipayController {
         /*}else {//验证失败
             log.info("支付, 验签失败...");
         }*/
-        return "成功返回首页";
+        return "redirect:https://www.baidu.com/?tn=02003390_9_hao_pg";
     }
 
 }

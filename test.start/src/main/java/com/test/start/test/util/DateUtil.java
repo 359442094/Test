@@ -134,42 +134,53 @@ public class DateUtil {
         return list;
     }
 
+    //判断是否在规定的时间内 nowTime指定时间 beginTime开始时间 endTime结束时间
+    public static boolean timeCalendar(Date nowTime, Date beginTime, Date endTime) {
+        //设置当前时间
+        Calendar date = Calendar.getInstance();
+        date.setTime(nowTime);
+        //设置开始时间
+        Calendar begin = Calendar.getInstance();
+        begin.setTime(beginTime);
+        //设置结束时间
+        Calendar end = Calendar.getInstance();
+        end.setTime(endTime);
+        //处于开始时间之后，和结束时间之前的判断
+        if ((date.after(begin) && date.before(end))) {
+            return true;
+        }
+        return false;
+        /*
+        //设置当前时间
+        Calendar date = Calendar.getInstance();
+        date.setTime(nowTime);
+        //设置开始时间
+        Calendar amBegin = Calendar.getInstance();
+        amBegin.setTime(amBeginTime);//上午开始时间
+        //设置结束时间
+        Calendar amEnd = Calendar.getInstance();
+        amEnd.setTime(amEndTime);
+        Calendar pmEnd = Calendar.getInstance();
+        //处于开始时间之后，和结束时间之前的判断
+        if ((date.after(amBegin) && date.before(amEnd))) {
+            return true;
+        }
+        return false;*/
+    }
+
     public static void main(String[] args) throws ParseException {
+        Calendar start = Calendar.getInstance();
+        start.set(start.get(Calendar.YEAR), start.get(Calendar.MONTH), start.get(Calendar.DAY_OF_MONTH), 00, 00, 00);
+        Calendar end = Calendar.getInstance();
+        end.set(end.get(Calendar.YEAR), end.get(Calendar.MONTH), end.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
 
-        /*List<String> betweenDate = getBetweenDate("2020-07-27", "2020-07-29");
+        Calendar thisDate = Calendar.getInstance();
+        //thisDate.add(Calendar.DAY_OF_YEAR,-1);
+        thisDate.set(thisDate.get(Calendar.YEAR), thisDate.get(Calendar.MONTH), thisDate.get(Calendar.DAY_OF_MONTH), 18, 00, 00);
 
-        ListSort(betweenDate);
 
-        System.out.println("betweenDate:"+betweenDate);*/
-
-        /*List<String> list = getTimeMinute(1, 5, 0, 10);
-        System.out.println("timeLag5Minute:" + list);
-
-        for (int i = 0; i < list.size()-1; i++) {
-            String s = list.get(i + 1);
-            System.out.println(list.get(i)+"-"+s);
-        }*/
-
-        int startWeek = 1;
-        int endWeek = 3;
-
-        Integer startWeekKey = convertIntMap.get(startWeek);
-        Integer endWeekKey = convertIntMap.get(endWeek);
-
-        Date dayOfWeek = getDayOfWeek(startWeekKey, 0);
-        String format1 = DateFormatUtils.format(dayOfWeek, "yyyy-MM-dd");
-        System.out.println(":" + format1);
-        Date dayOfWeek2 = getDayOfWeek(endWeekKey, 0);
-        String format2 = DateFormatUtils.format(dayOfWeek2, "yyyy-MM-dd");
-        System.out.println(":" + format2);
-
-        //指定累加的分钟数
-        int minute = 30;
-        //指定的小时数区间
-        int startHour = 10;
-        int endHour = 11;
-
-        getDates(minute, startHour, endHour, format1, format2);
+        boolean flag = timeCalendar(thisDate.getTime(), start.getTime(), end.getTime());
+        System.out.println("flag:"+flag);
 
     }
 

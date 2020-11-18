@@ -37,7 +37,7 @@ public class AppAlipayController {
      * @return
      */
     public String alipayTradeAppPay(String out_trade_no, String total_amount){
-        AlipayClient alipayClient = new DefaultAlipayClient(QrCodeAlipayConfig.gatewayUrl, QrCodeAlipayConfig.app_id, QrCodeAlipayConfig.merchant_private_key, "json", QrCodeAlipayConfig.charset, QrCodeAlipayConfig.alipay_public_key, QrCodeAlipayConfig.sign_type);
+        AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
         AlipayTradeWapPayRequest alipayTradeWapPayRequest=new AlipayTradeWapPayRequest();
         //alipayTradeWapPayRequest.setReturnUrl("http://cj.ngrok2.xiaomiqiu.cn/alipay/app/asyncCallBack.action");
         alipayTradeWapPayRequest.setNotifyUrl("http://cj.ngrok2.xiaomiqiu.cn/alipay/app/asyncCallBack.action");

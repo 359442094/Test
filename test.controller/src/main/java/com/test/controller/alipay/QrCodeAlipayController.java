@@ -33,11 +33,11 @@ public class QrCodeAlipayController {
     @ResponseBody
     public String goAlipay( HttpServletRequest request, HttpServletRequest response) throws Exception {
         //获得初始化的AlipayClient
-        AlipayClient alipayClient = new DefaultAlipayClient(QrCodeAlipayConfig.gatewayUrl, QrCodeAlipayConfig.app_id, QrCodeAlipayConfig.merchant_private_key, "json", QrCodeAlipayConfig.charset, QrCodeAlipayConfig.alipay_public_key, QrCodeAlipayConfig.sign_type);
+        AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
 
         //设置请求参数
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
-        alipayRequest.setNotifyUrl(QrCodeAlipayConfig.notify_url);
+        alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
         //支付成功或者关闭页面之后跳转的url
         alipayRequest.setReturnUrl("https://www.baidu.com/?tn=02003390_9_hao_pg");
         String out_trade_no =UUID.randomUUID().toString();
@@ -140,7 +140,7 @@ public class QrCodeAlipayController {
             valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
             params.put(name, valueStr);
         }
-        boolean signVerified = AlipaySignature.rsaCheckV1(params, QrCodeAlipayConfig.alipay_public_key, QrCodeAlipayConfig.charset, QrCodeAlipayConfig.sign_type); //调用SDK验证签名
+        boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
         //——请在这里编写您的程序（以下代码仅作参考）——
          /*实际验证过程建议商户务必添加以下校验：
         1、需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号，

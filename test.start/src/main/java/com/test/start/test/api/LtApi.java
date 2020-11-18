@@ -30,9 +30,9 @@ public class LtApi {
         String url = "https://www.gzuni.com/apps/kingcard/b2i/cz_api/";
         Map<String,String> map = new HashMap<>();
         map.put("source","yunfen");
-        map.put("token","MTYwMDc0NzEwNi4wODM3MDk3OjlhOWJhM2Y0MGQwODQ3NGM3MjMyYjQ2ZjBiMDFkMTc1ZGZhYjEyY2Y=");
+        map.put("token","MTYwMDk5NzA3Ni40MTQ1MzY3OmFlMjdmMGU1ZjEwOWNlNDczYzBhMDkzZTBjYzkwMWE4NjFhNzNkMmM=");
         map.put("chnlcode","5112042796");
-        map.put("serial_number","15521301234");
+        map.put("serial_number","17502004704");
         String json = HttpClientUtil.doPostJson(url, JSONObject.toJSONString(map));
         System.out.println("json:"+json);
         JSONObject object = JSONObject.parseObject(json);

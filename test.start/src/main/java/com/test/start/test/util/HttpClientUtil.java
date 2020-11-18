@@ -283,8 +283,8 @@ public class HttpClientUtil {
             HttpPost httpPost = new HttpPost(url);
             // 创建参数列表
             if (param != null) {
-                //httpPost.addHeader("Content-type","text/html;charset=UTF-8;");
-                //httpPost.setHeader("Accept", "application/json");
+               /* httpPost.addHeader("Content-type","application/json;");
+                httpPost.setHeader("Accept", "text/html;charset=UTF-8;");*/
 
                 List<NameValuePair> paramList = new ArrayList<>();
                 for (String key : param.keySet()) {

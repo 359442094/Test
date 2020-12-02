@@ -6,6 +6,8 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -17,7 +19,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
         "com.test.common",
         "com.test.service",
         "com.test.controller",
-        "com.test.start"
+        "com.test.start",
+        "com.test.start.test"
 })
 @MapperScan(basePackages = {
         "com.test.model.persistence"
@@ -34,6 +37,5 @@ public class StartApp {
     public ObjectMapper objectMapper() {
         return new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
     }
-
 
 }

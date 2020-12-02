@@ -35,7 +35,7 @@ import java.util.Arrays;
 @RequestMapping(path = "/util/my/core")
 public class CheckWordController {
 
-    @Autowired
+    @Autowired(required = false)
     private SensitiveWordService sensitiveWordService;
     @Autowired
     private TimedTaskService timedTaskService;

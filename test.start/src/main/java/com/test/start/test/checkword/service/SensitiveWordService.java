@@ -14,7 +14,7 @@ public interface SensitiveWordService  {
      */
     SensitiveWordFilterResponse filter(SensitiveWordFilterRequest request) throws ParseException;
 
-   /* *//**
+    /* *//**
      * Tool检索方式 不忽略大小写
      * @param request
      * @return

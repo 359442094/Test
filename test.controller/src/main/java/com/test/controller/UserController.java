@@ -5,10 +5,8 @@ import com.test.common.constant.ErrorConstant;
 import com.test.common.constant.ServiceConstant;
 import com.test.common.dto.Return;
 import com.test.common.dto.UserLoginRequest;
-import com.test.common.dto.UserLoginResponse;
 import com.test.common.exception.ServiceException;
 import com.test.common.util.AESUtil;
-import com.test.common.util.Context;
 import com.test.common.util.RedisUtil;
 import com.test.model.domain.LoginTest;
 import com.test.model.domain.Test;
@@ -34,7 +32,7 @@ public class UserController {
     @Autowired
     private RedisUtil redisUtil;
 
-    @ShowLogger(info = "用户登录")
+    /*@ShowLogger(info = "用户登录")
     @ApiOperation(value = "用户登录",notes = "用户登录")
     @RequestMapping(path = "/user/login",method = RequestMethod.POST)
     @ResponseBody
@@ -73,7 +71,7 @@ public class UserController {
     @ResponseBody
     public Return<Test> getContextUser(@RequestParam String sessionId){
         return new Return<>(Context.getUser(sessionId));
-    }
+    }*/
 
     @ShowLogger(info = "获取上下文对象")
     @ApiOperation(value = "获取上下文对象",notes = "获取上下文对象")

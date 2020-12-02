@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -81,7 +82,6 @@ public class HttpClientUtil {
     /**
      * 带File参数的post请求
      * @param url
-     * @param param
      * @return String
      */
     public static String uploadFile(String url,String writeToken,File file,String jsonrpc) {
@@ -118,12 +118,6 @@ public class HttpClientUtil {
         return resultString;
     }
 
-    /**
-     * 带参数的post请求
-     * @param url
-     * @param param
-     * @return String
-     */
     public static String doPost(String url, Map<String, String> param) {
         // 创建Httpclient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -159,6 +153,75 @@ public class HttpClientUtil {
         }
         return resultString;
     }
+
+    /**
+     * 带参数的post请求
+     * @param url
+     * @return String
+     */
+    public static String doPostList(String url, List<NameValuePair> paramList) {
+        // 创建Httpclient对象
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpResponse response = null;
+        String resultString = "";
+        try {
+            // 创建Http Post请求
+            HttpPost httpPost = new HttpPost(url);
+            // 模拟表单
+            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(paramList, Consts.UTF_8);
+            httpPost.setEntity(entity);
+            // 执行http请求
+            response = httpClient.execute(httpPost);
+            resultString = EntityUtils.toString(response.getEntity(), "utf-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                response.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return resultString;
+    }
+
+    public static String doPostMap(String url, Map<String, Object> param) {
+        // 创建Httpclient对象
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpResponse response = null;
+        String resultString = "";
+        try {
+            // 创建Http Post请求
+            HttpPost httpPost = new HttpPost(url);
+            // 创建参数列表
+            if (param != null) {
+                //httpPost.addHeader("Content-type","text/html;charset=UTF-8;");
+                //httpPost.setHeader("Accept", "application/json");
+                List<NameValuePair> paramList = new ArrayList<>();
+                String[] objects = param.keySet().toArray(new String[0]);
+                Arrays.sort(objects);
+                for (String key : objects) {
+                    paramList.add(new BasicNameValuePair(key, param.get(key).toString()));
+                }
+                // 模拟表单
+                UrlEncodedFormEntity entity = new UrlEncodedFormEntity(paramList, Consts.UTF_8);
+                httpPost.setEntity(entity);
+            }
+            // 执行http请求
+            response = httpClient.execute(httpPost);
+            resultString = EntityUtils.toString(response.getEntity(), "utf-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                response.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return resultString;
+    }
+
 
     /**
      * 不带参数的post请求

@@ -1,4 +1,4 @@
-package com.test.controller.lt;
+package com.test.common.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;

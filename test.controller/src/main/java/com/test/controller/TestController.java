@@ -3,9 +3,12 @@ package com.test.controller;
 import com.test.common.annoation.RequestLimit;
 import com.test.common.annoation.ShowLogger;
 import com.test.common.dto.CheckFieldRequest;
+import com.test.common.dto.WithdrawalReportCallbackReqeust;
+import com.test.common.exception.Result;
 import com.test.common.util.FileUtil;
 import com.test.common.util.RedisUtil;
 import com.test.common.videoApi.*;
+import com.test.common.dto.RechargeOrderSubmitCallBackRequest;
 import com.test.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -64,15 +67,23 @@ public class TestController {
     @Value(value = "${file.studentTemplate}")
     private String studentTemplate;
 
+    //星启天充值话费接口-异步回调
+    @ApiOperation(value = "京东金融回调接口-异步回调",notes = "京东金融回调接口-异步回调")
+    @ShowLogger(info = "京东金融回调接口-异步回调")
+    @RequestMapping(path = "/withdrawalReportCallback",method = RequestMethod.GET)
+    public Object withdrawalReportCallback(WithdrawalReportCallbackReqeust request){
+        return request;
+    }
+
     /**
-     * 1秒内只能访问1次
+     * 1秒内只能访问1次(可以拦截，缺少全局异常处理)
      * */
     @RequestLimit(count=1,time=600)
     @ApiOperation(value = "测试限流",notes = "测试限流")
     @RequestMapping(path = "/test/limit",method = RequestMethod.POST)
     @ResponseBody
-    public boolean limit() throws Exception{
-        return true;
+    public Result limit() {
+        return new Result("200","请求成功");
     }
 
     @ApiOperation(value = "测试同时返回json/xml",notes = "测试同时返回json/xml")

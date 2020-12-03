@@ -1,6 +1,7 @@
 package com.test.controller.lt;
 
 import com.test.common.annoation.ShowLogger;
+import com.test.common.dto.RechargeOrderSubmitCallBackRequest;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -6,6 +6,10 @@ public class ServiceException extends RuntimeException {
         super();
     }
 
+    public ServiceException(String message) {
+        super(message);
+    }
+
     public ServiceException(String errorCode, String message) {
         super(errorCode+" "+message);
     }

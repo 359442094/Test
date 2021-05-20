@@ -31,7 +31,7 @@ public class MergeRecordFileAPIImpl implements MergeRecordFileAPI {
             file.append(fileId+",");
         }
         String fileIds=file.toString();
-        Map<String,String> map=new HashMap<>();
+        Map<String,String> map=new HashMap<String,String>();
         map.put("appId", APIConstant.API_APP_ID);
         map.put("timestamp",APIConstant.API_TIMESTAMP_VALUE);
         map.put("channelId",channelId);

@@ -12,7 +12,7 @@ import java.util.Map;
 public class Test {
 
     public static void main(String[] args) {
-        Map<String,String> map=new HashMap<>();
+        Map<String,String> map=new HashMap<String,String>();
         map.put("name","name");
         map.put("type","type");
         String method = MD5Util.getMd5(JSONObject.toJSONString(map) + "CreateGoods");

@@ -40,7 +40,7 @@ public class MergeRecordFileCallBackAPIImpl implements MergeRecordFileCallBackAP
         resopnse.setFileIds(request.getFileIds());
         resopnse.setFileName(request.getFileName());
         resopnse.setFileUrl(request.getFileUrl());
-        List<String> fileIds=new ArrayList<>();
+        List<String> fileIds=new ArrayList<String>();
         fileIds.add(request.getFileId());
         log.info("同步点播上送参数:" + getForwardRequest(id,"383452",fileIds));
         FileForwardSaveResponse response1 = fileForwardSaveAPI.process(getForwardRequest(id, "383452", fileIds));

@@ -1,73 +1,80 @@
 package com.test.controller;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.context.AnalysisContext;
+import com.alibaba.excel.event.SyncReadListener;
+import com.alibaba.excel.metadata.CellExtra;
+import com.alibaba.excel.metadata.Sheet;
+import com.alibaba.excel.metadata.Table;
+import com.alibaba.excel.read.listener.ReadListener;
+import com.alibaba.excel.support.ExcelTypeEnum;
+import com.alibaba.excel.write.metadata.WriteSheet;
 import com.test.common.annoation.ShowLogger;
 import com.test.common.util.ExcelUtil;
-import com.test.service.UserService;
+import groovy.util.logging.Log4j;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.jsoup.helper.DataUtil;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.standard.expression.EachUtils;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
-/**
- * @author CJ
- * @date 2020/1/2
- */
-@Slf4j
-@Api(tags = {"测试视图接口"})
+@Log4j
+@Api(tags = "excel处理")
 @Controller
 public class ExcelController {
 
-    @Autowired
-    private UserService userService;
-
-    /*@ShowLogger(info = "下载excel")
-    @ApiOperation(value = "下载excel",notes = "下载excel")
-    @RequestMapping(path = "/test/testMyExcel",method = RequestMethod.GET)
-    public void testExcel(HttpServletResponse response) throws IOException {
-        List<Test> tests = userService.tests();
-        ExcelUtil excelUtil=new ExcelUtil();
-        response.setHeader("content-type", "application/octet-stream");
-        response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("excel.xlsx", "UTF-8"));
-        excelUtil.excelExport(response.getOutputStream(),tests);
-    }*/
-
-    @ShowLogger(info = "下载easyexcel")
-    @ApiOperation(value = "下载easyexcel",notes = "下载easyexcel")
-    @RequestMapping(value = "/test/exportExcel", method = RequestMethod.GET)
-    //@ResponseBody
-    public void downTemplate(HttpServletResponse response) {
-        List<NewLeads> leadsList = new ArrayList<>();
-        NewLeads newLeads=new NewLeads();
-        newLeads.setCreateTime(new Date());
-        newLeads.setOrgName("zs");
-        newLeads.setOrgId("123");
-        leadsList.add(newLeads);
-        //导出操作
-        ExcelUtil.exportExcel(leadsList,"花名册","草帽一伙",NewLeads.class,"海贼王.xls",response);
+    private List<EasyUser> data() {
+        List<EasyUser> list = new ArrayList<EasyUser>();
+        for (int i = 0; i < 10; i++) {
+            EasyUser data = new EasyUser();
+            data.setString("字符串" + i);
+            data.setDate(new Date());
+            data.setDoubleData(0.56);
+            list.add(data);
+        }
+        return list;
     }
 
-    @ShowLogger(info = "读取easyexcel")
-    @ApiOperation(value = "读取easyexcel",notes = "读取easyexcel")
-    @RequestMapping(value = "/test/importExcel", method = RequestMethod.POST)
+    @RequestMapping(path = "/test/easyDownload",method = RequestMethod.GET)
+    @ApiOperation(value = "下载")
+    @ShowLogger(info = "下载")
+    public void download(HttpServletResponse response) throws IOException {
+        List<EasyUser> datas = data();
+        String fileName = "easy.xlsx";
+        // 这里注意 使用swagger 会导致各种问题，请直接用浏览器或者用postman
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName);
+        EasyExcel.write(response.getOutputStream(), EasyUser.class).sheet("模板").doWrite(datas);
+    }
+
+    @ShowLogger(info = "导入")
+    @RequestMapping(path = "/test/easyUpload",method = RequestMethod.POST)
+    @ApiOperation(value = "导入")
     @ResponseBody
-    public Object importUser(@RequestParam MultipartFile file){
-        //String filePath = "F:\\海贼王.xls";
-        //本地方式:解析excel，
-        //List<NewLeads> personList = ExcelUtil.importExcel(filePath,1,1,NewLeads.class);
-        //file文件导入方式: 也可以使用MultipartFile
-        List<NewLeads> newLeads = ExcelUtil.importExcel(file, 1, 1, NewLeads.class);
-        log.info("导入数据一共【"+newLeads.size()+"】行");
-        return newLeads;
+    public Object upload(MultipartFile file) throws IOException {
+        List<Object> objects = EasyExcel.read(file.getInputStream(), EasyUser.class, new SyncReadListener()).sheet().doReadSync();
+        return objects;
     }
 
 }

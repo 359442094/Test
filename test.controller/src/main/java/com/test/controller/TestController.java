@@ -213,6 +213,7 @@ public class TestController {
 
     @ResponseBody
     @ShowLogger(info = "异步批量转存录制文件到点播")
+    //@RequestMapping(value = "${xiaoYiService.startRecordCallBack}",method = RequestMethod.POST)
     @RequestMapping(path = "/xiaoyi/fileForwardSave",method = RequestMethod.POST)
     @ApiOperation(value = "异步批量转存录制文件到点播",notes = "异步批量转存录制文件到点播")
     public FileForwardSaveResponse fileForwardSave(FileForwardSaveRequest request){

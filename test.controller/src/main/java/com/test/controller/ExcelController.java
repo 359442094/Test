@@ -13,10 +13,12 @@ import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.test.common.annoation.ShowLogger;
+import com.test.common.util.EasyExcelUtil;
 import com.test.common.util.ExcelUtil;
 import groovy.util.logging.Log4j;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.jsoup.helper.DataUtil;
 import org.springframework.http.MediaType;
@@ -60,21 +62,16 @@ public class ExcelController {
     public void download(HttpServletResponse response) throws IOException {
         List<EasyUser> datas = data();
         String fileName = "easy.xlsx";
-        // 这里注意 使用swagger 会导致各种问题，请直接用浏览器或者用postman
-        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setCharacterEncoding("utf-8");
-        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
-        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName);
-        EasyExcel.write(response.getOutputStream(), EasyUser.class).sheet("模板").doWrite(datas);
+        String sheetName = "模板名称";
+        EasyExcelUtil.writeDownload(response,EasyUser.class,fileName,sheetName,datas);
     }
 
     @ShowLogger(info = "导入")
     @RequestMapping(path = "/test/easyUpload",method = RequestMethod.POST)
     @ApiOperation(value = "导入")
     @ResponseBody
-    public Object upload(MultipartFile file) throws IOException {
-        List<Object> objects = EasyExcel.read(file.getInputStream(), EasyUser.class, new SyncReadListener()).sheet().doReadSync();
-        return objects;
+    public List<EasyUser> upload(MultipartFile file) throws IOException {
+        return EasyExcelUtil.read(file, EasyUser.class);
     }
 
 }

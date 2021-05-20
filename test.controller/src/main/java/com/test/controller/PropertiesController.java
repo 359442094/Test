@@ -3,21 +3,26 @@ package com.test.controller;
 import com.test.common.dto.Return;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-/*@Api(tags = {"配置接口"})
+@Api(tags = {"配置接口"})
 @PropertySource(value = "classpath:application.properties")
 @ConfigurationProperties(prefix = "spring.thymeleaf")
-@RestController*/
+@RestController
 public class PropertiesController {
 
-   /* private boolean cache;
+    @Autowired
+    private Environment environment;
+
+    private boolean cache;
     private String encoding;
     @Value(value = "${spring.thymeleaf.cache}")
     private String valueCache;
@@ -26,7 +31,9 @@ public class PropertiesController {
     @RequestMapping(path = "/properties",method = RequestMethod.GET)
     @ResponseBody
     public Return<String> properties(){
-        return new Return<String>(cache+"\t"+valueCache+"\t"+encoding);
+        String active = environment.getProperty("spring.profiles.active");
+        String result = "active:"+active+" cache:" +cache+" valueCache:"+valueCache+" encoding:"+encoding;
+        return new Return<String>(result);
     }
 
     public void setCache(boolean cache) {
@@ -35,5 +42,5 @@ public class PropertiesController {
     public void setEncoding(String encoding) {
         this.encoding = encoding;
     }
-*/
+
 }

@@ -1,9 +1,11 @@
 package com.test.controller.alipay;
 
+import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.alipay.api.response.AlipayTradePagePayResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,15 +25,13 @@ import java.util.*;
 @RequestMapping("/alipay/qrcode")
 public class QrCodeAlipayController {
 
-   /* *
-     * 前往支付宝第三方网关进行支付
-     * @param request
-     * @param response
+    /* *
+     * 前往支付宝第三方网
      * @return
      * @throws Exception*/
     @RequestMapping(value = "/goAlipay", produces = "text/html; charset=UTF-8",method = RequestMethod.GET)
     @ResponseBody
-    public String goAlipay( HttpServletRequest request, HttpServletRequest response) throws Exception {
+    public String goAlipay() throws Exception {
         //获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
 
@@ -57,7 +57,9 @@ public class QrCodeAlipayController {
                     + "\"timeout_express\":\""+ timeout_express +"\","
                     + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
             //请求
-            String result = alipayClient.pageExecute(alipayRequest).getBody();
+            AlipayTradePagePayResponse alipayTradePagePayResponse = alipayClient.pageExecute(alipayRequest);
+            String result = alipayTradePagePayResponse.getBody();
+            log.info("result:"+result);
             return result;
         }
         return "订单信息错误!";
@@ -90,9 +92,15 @@ public class QrCodeAlipayController {
             valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
             params.put(name, valueStr);
         }
+        log.info("sign:"+params.get("sign"));
 
-        System.out.println("params:"+params);
-        //boolean signVerified = AlipaySignature.rsaCheckV1(params, QrCodeAlipayConfig.alipay_public_key, QrCodeAlipayConfig.charset, QrCodeAlipayConfig.sign_type); //调用SDK验证签名
+        boolean signVerified1 = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, "UTF-8", AlipayConfig.sign_type);
+
+        log.info("signVerified1:"+signVerified1);
+
+        boolean signVerified2 = AlipaySignature.rsaCheckV2(params, AlipayConfig.alipay_public_key, "UTF-8", AlipayConfig.sign_type);
+
+        log.info("signVerified2:"+signVerified2);
 
         //——请在这里编写您的程序（以下代码仅作参考）——
         //if(signVerified) {
@@ -140,7 +148,16 @@ public class QrCodeAlipayController {
             valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
             params.put(name, valueStr);
         }
-        boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
+        log.info("sign:"+params.get("sign"));
+
+        /*boolean signVerified1 = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, "UTF-8", AlipayConfig.sign_type);
+
+        log.info("signVerified1:"+signVerified1);*/
+
+        boolean signVerified2 = AlipaySignature.rsaCheckV2(params, AlipayConfig.alipay_public_key, "UTF-8", AlipayConfig.sign_type);
+
+        log.info("signVerified2:"+signVerified2);
+
         //——请在这里编写您的程序（以下代码仅作参考）——
          /*实际验证过程建议商户务必添加以下校验：
         1、需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号，

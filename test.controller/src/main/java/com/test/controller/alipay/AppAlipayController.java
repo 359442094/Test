@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -53,9 +54,7 @@ public class AppAlipayController {
         alipayTradeWapPayRequest.setBizContent(bizContent);
         String form = "";
         try {
-            log.info("请求编号发送POST-FORM请求url={}，body={}", "(支付宝)手机网站支付:alipay.trade.wap.pay", bizContent);
             form = alipayClient.pageExecute(alipayTradeWapPayRequest).getBody();
-            log.info("接收请求编号返回内容={}", form);
         } catch (AlipayApiException e) {
             e.printStackTrace();
             log.error("支付宝错误信息{}", e.getErrMsg());
@@ -65,7 +64,7 @@ public class AppAlipayController {
 
     @RequestMapping(path = "/asyncCallBack",method = RequestMethod.POST)
     @ResponseBody
-    public AppAlipayCallBackDTO appAlipay(HttpServletRequest request){
+    public AppAlipayCallBackDTO appAlipay(HttpServletRequest request) throws AlipayApiException {
         Map<String, String> params = new HashMap<>();
         Set<Map.Entry<String, String[]>> entrySet = request.getParameterMap().entrySet();
         for (Map.Entry<String, String[]> entry : entrySet) {
@@ -87,6 +86,11 @@ public class AppAlipayController {
         String paramsJson = JSON.toJSONString(params);
         AppAlipayCallBackDTO appAlipayCallBackDto = JSON.parseObject(paramsJson, AppAlipayCallBackDTO.class);
         log.info("支付宝回调参数{}", paramsJson);
+
+        /*boolean signVerified1 = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset,AlipayConfig.sign_type);
+        log.info("signVerified1:"+signVerified1);*/
+        boolean signVerified2 = AlipaySignature.rsaCheckV2(params, AlipayConfig.alipay_public_key, AlipayConfig.charset,AlipayConfig.sign_type);
+        log.info("signVerified1:"+signVerified2);
         return appAlipayCallBackDto;
     }
 

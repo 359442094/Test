@@ -22,7 +22,7 @@ public class ToAccount {
      * 发起转账交易
      */
     public static void toAccount(String bizNo) throws AlipayApiException {
-        AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl,AlipayConfig.app_id,AlipayConfig.merchant_private_key,"json",AlipayConfig.charset,AlipayConfig.merchant_public_key, AlipayConfig.sign_type);
+        AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl,AlipayConfig.app_id,AlipayConfig.merchant_private_key,"json",AlipayConfig.charset,AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
         AlipayFundTransToaccountTransferRequest request = new AlipayFundTransToaccountTransferRequest();
         request.setBizContent("{" +
                 "\"out_biz_no\":"+ bizNo +"," +
@@ -46,7 +46,7 @@ public class ToAccount {
      * 查询转账交易
      */
     public static void queryAccount(String bizNo) throws AlipayApiException {
-        AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl,AlipayConfig.app_id,AlipayConfig.merchant_private_key,"json",AlipayConfig.charset,AlipayConfig.merchant_public_key, AlipayConfig.sign_type);
+        AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl,AlipayConfig.app_id,AlipayConfig.merchant_private_key,"json",AlipayConfig.charset,AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
         AlipayFundTransOrderQueryRequest request = new AlipayFundTransOrderQueryRequest();
         request.setBizContent("{" +
                 "\"out_biz_no\":"+bizNo+"," +
@@ -63,7 +63,7 @@ public class ToAccount {
     public static void main(String[] args) throws AlipayApiException {
         String bizNo = "bc59e909-cea6-40e2-9539-5d821a6528b8";//UUID.randomUUID().toString();
         System.out.println("bizNo:"+bizNo);
-        toAccount(bizNo);
+        //toAccount(bizNo);
         //queryAccount(bizNo);
     }
 }

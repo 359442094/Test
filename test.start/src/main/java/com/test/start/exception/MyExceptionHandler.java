@@ -18,12 +18,12 @@ import java.util.Map;
 @ControllerAdvice
 public class MyExceptionHandler {
 
-    @ExceptionHandler(value = Exception.class)
+   /* @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public Result exceptionHandler(Exception e){
         log.error("1未知异常！原因是:"+e);
         return new Result("400",e.getMessage());
-    }
+    }*/
 
     @ExceptionHandler(value = ServiceException.class)
     @ResponseBody

@@ -22,6 +22,12 @@ public class DateUtil {
      * @param end   格式必须为'2018-01-25'
      * @return
      */
+
+    public static List<String> getBetweenDate(Date start, Date end) {
+        String pattern = "yyyy-MM-dd";
+        return getBetweenDate(DateFormatUtils.format(start, pattern), DateFormatUtils.format(end, pattern));
+    }
+
     public static List<String> getBetweenDate(String start, String end) {
         List<String> list = new ArrayList<>();
         LocalDate startDate = LocalDate.parse(start);
@@ -37,64 +43,7 @@ public class DateUtil {
             list.add(f.toString());
         });
         ListSort(list);
-        List<String> collect = list.stream().distinct().sorted().collect(Collectors.toList());
-        return collect;
-    }
-
-    /**
-     * 用户输入星期数转换为系统星期数
-     */
-    private static Map<Integer, Integer> convertIntMap = new HashMap<Integer, Integer>() {
-        {
-            put(1, 2);
-            put(2, 3);
-            put(3, 4);
-            put(4, 5);
-            put(5, 6);
-            put(6, 7);
-            put(7, 1);
-        }
-    };
-
-
-    /**
-     * 获取上周周几的日期,默认一周从周一开始
-     *
-     * @param dayOfWeek
-     * @param weekOffset
-     * @return
-     */
-    public static Date getDayOfWeek(int dayOfWeek, int weekOffset) {
-        return getDayOfWeek(Calendar.MONDAY, dayOfWeek, weekOffset);
-    }
-
-    /**
-     * 获取上、下、本周指定星期数的日期
-     *
-     * @param firstDayOfWeek
-     * @param dayOfWeek      {@link Calendar}
-     * @param weekOffset     周偏移，上周为-1，本周为0，下周为1，以此类推
-     * @return
-     */
-    public static Date getDayOfWeek(int firstDayOfWeek, int dayOfWeek, int weekOffset) {
-        if (dayOfWeek > Calendar.SATURDAY || dayOfWeek < Calendar.SUNDAY) {
-            return null;
-        }
-        if (firstDayOfWeek > Calendar.SATURDAY || firstDayOfWeek < Calendar.SUNDAY) {
-            return null;
-        }
-        Calendar date = Calendar.getInstance(Locale.CHINA);
-        date.setFirstDayOfWeek(firstDayOfWeek);
-        // 周数减一，即上周
-        date.add(Calendar.WEEK_OF_MONTH, weekOffset);
-        // 日子设为周几
-        date.set(Calendar.DAY_OF_WEEK, dayOfWeek);
-        // 时分秒全部置0
-        date.set(Calendar.HOUR_OF_DAY, 0);
-        date.set(Calendar.MINUTE, 0);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
-        return date.getTime();
+        return list.stream().distinct().collect(Collectors.toList());
     }
 
     /**
@@ -104,6 +53,7 @@ public class DateUtil {
      */
     public static List<String> getTimeMinute(int startHour, int endHour, Integer hr, int minutes) {
         ArrayList<String> list = new ArrayList<>();//创建集合存储所有时间点
+        String minute = null;
         for (int h = 0, m = 0; h < 24; h += hr, m += minutes) {//创建循环，指定间隔分钟
             if (m > 60) {//判断分钟累计到60时清零，小时+1
                 h++;
@@ -116,16 +66,16 @@ public class DateUtil {
             if (h > 24) {//判断小时累计到24时跳出循环，不添加到集合
                 break;
             }
-            if (h <= endHour && h >= startHour) {
+            if (h < endHour && h >= startHour) {
                 /*转换为字符串*/
                 String hour = String.valueOf(h);
-                String minute = String.valueOf(m);
+                minute = String.valueOf(m);
 
                 /*判断如果为个位数则在前面拼接‘0’*/
-                if (hour.length() < 2) {
+                if (hour.length() == 1) {
                     hour = "0" + hour;
                 }
-                if (minute.length() < 2) {
+                if (minute.length() == 1) {
                     minute = "0" + minute;
                 }
                 list.add(hour + ":" + minute);//拼接为HH:mm格式，添加到集合
@@ -150,22 +100,6 @@ public class DateUtil {
             return true;
         }
         return false;
-        /*
-        //设置当前时间
-        Calendar date = Calendar.getInstance();
-        date.setTime(nowTime);
-        //设置开始时间
-        Calendar amBegin = Calendar.getInstance();
-        amBegin.setTime(amBeginTime);//上午开始时间
-        //设置结束时间
-        Calendar amEnd = Calendar.getInstance();
-        amEnd.setTime(amEndTime);
-        Calendar pmEnd = Calendar.getInstance();
-        //处于开始时间之后，和结束时间之前的判断
-        if ((date.after(amBegin) && date.before(amEnd))) {
-            return true;
-        }
-        return false;*/
     }
 
     public static void main(String[] args) throws ParseException {
@@ -178,9 +112,7 @@ public class DateUtil {
         //thisDate.add(Calendar.DAY_OF_YEAR,-1);
         thisDate.set(thisDate.get(Calendar.YEAR), thisDate.get(Calendar.MONTH), thisDate.get(Calendar.DAY_OF_MONTH), 18, 00, 00);
 
-
-        boolean flag = timeCalendar(thisDate.getTime(), start.getTime(), end.getTime());
-        System.out.println("flag:"+flag);
+        getDates(5, 1, 10, start.getTime(), end.getTime());
 
     }
 
@@ -208,50 +140,63 @@ public class DateUtil {
         });
     }
 
-    public static void getDates(int minute, int startHour, int endHour, String date1, String date2) {
+    /**
+     * @param minute    间隔分钟数
+     * @param startHour 开始时间
+     * @param endHour   结束时间
+     * @param date1     开始日期
+     * @param date2     结束日期
+     */
+    public static void getDates(int minute, int startHour, int endHour, Date date1, Date date2) {
         Set<Set<Map<String, Object>>> o = new HashSet<>();
 
         List<String> betweenDate = getBetweenDate(date1, date2);
-        for (int i1 = 1; i1 <= 2; i1++) {
 
-            Set<Map<String, Object>> lists = new HashSet<>();
+        Set<Map<String, Object>> lists = new HashSet<>();
 
-            int hAuto = minute / 60;
-            int mAuto = minute % 60;
+        int hAuto = minute / 60;
+        int mAuto = minute % 60;
 
-            ListSort(betweenDate);
+        ListSort(betweenDate);
 
-            for (String date : betweenDate) {
-                System.out.println("date:" + date);
+        for (String date : betweenDate) {
+            Map<String, Object> map = new HashMap<>();
 
-                Map<String, Object> map = new HashMap<>();
+            LocalDate startDate = LocalDate.parse(date);
+            Calendar start = Calendar.getInstance();
+            Calendar end = Calendar.getInstance();
+            start.set(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth(), startHour, 00, 00);
+            end.set(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth(), startHour, 00, 00);
 
-                LocalDate startDate = LocalDate.parse(date);
-                Calendar start = Calendar.getInstance();
-                Calendar end = Calendar.getInstance();
-                start.set(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth(), startHour, 00, 00);
-                end.set(startDate.getYear(), startDate.getMonthValue(), startDate.getDayOfMonth(), startHour, 00, 00);
+            String startDateType = DateFormatUtils.format(start.getTime(), "yyyy-MM-dd");
 
-                String startDateType = DateFormatUtils.format(start.getTime(), "yyyy-MM-dd");
+            List<String> timeMinute = getTimeMinute(startHour, endHour, hAuto, mAuto);
 
-                List<String> timeMinute = getTimeMinute(startHour, endHour, hAuto, mAuto);
+            //timeMinute.add(timeMinute.get(timeMinute.size()-1)+":");
 
-                List<Map<String, String>> childMaps = new ArrayList<>();
-                for (int i = 0; i < timeMinute.size() - 2; i++) {
-                    Map<String, String> map1 = new HashMap<>();
-                    map1.put("value", timeMinute.get(i) + "-" + timeMinute.get(i + 1));
-                    map1.put("label", timeMinute.get(i) + "-" + timeMinute.get(i + 1));
-                    childMaps.add(map1);
-                }
-                map.put("children", childMaps);
-                map.put("value", startDateType);
-                map.put("label", startDateType);
-                lists.add(map);
+            List<Map<String, String>> childMaps = new LinkedList<>();
+            for (int i = 0; i < timeMinute.size() - 1; i++) {
+                Map<String, String> map1 = new HashMap<>();
+                map1.put("value", timeMinute.get(i) + "-" + timeMinute.get(i + 1));
+                childMaps.add(map1);
             }
-            o.add(lists);
+            map.put("children", childMaps);
+            map.put("value", startDateType);
+            lists.add(map);
+
+            Map<String, String> mapLast = new HashMap<>();
+
+            lists.stream().forEach(stringObjectMap -> {
+                LinkedList<Map<String, String>> o1 = (LinkedList<Map<String, String>>) stringObjectMap.get("children");
+                String str = "" + (endHour - 1);
+                str = str.length() == 1 ? "0" + str : str;
+                mapLast.put("value",str + ":55" + "-" + endHour + ":00");
+                o1.add(mapLast);
+            });
+
         }
 
-
+        o.add(lists);
 
         System.out.println("dates:" + JSONObject.toJSONString(o));
 

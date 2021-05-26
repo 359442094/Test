@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.gson.*;
 import com.test.start.test.util.HttpClientUtil;
 import com.test.start.test.util.SignatureUtils;
+
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,20 +15,27 @@ import java.util.stream.Collectors;
  */
 public class TestWord {
 
-    /** 产品密钥ID，产品标识 */
+    /**
+     * 产品密钥ID，产品标识
+     */
     private final static String SECRETID = "a7b30c6bde9c81190d1923f7c1d889da";
-    /** 产品私有密钥，服务端生成签名信息使用，请严格保管，避免泄露 */
+    /**
+     * 产品私有密钥，服务端生成签名信息使用，请严格保管，避免泄露
+     */
     private final static String SECRETKEY = "48d9fe27eda56843143a47d9b50e64d1";
-    /** 易盾反垃圾云服务文档检测在线提交地址 */
+    /**
+     * 易盾反垃圾云服务文档检测在线提交地址
+     */
     private final static String checkFile_URL = "http://as-file.dun.163yun.com/v1/file/submit";
     private final static String CheckReuslt_URL = "http://as-file.dun.163yun.com/v1/file/query";
 
 
-    /** 需检测的文档URL topdodo_1.jpg*/
+    /**
+     * 需检测的文档URL topdodo_1.jpg
+     */
     private final static String FILE_URL = "http://94.191.62.87:81/file/test.xlsx";
 
     /**
-     *
      * @param args
      * @throws Exception
      */
@@ -38,7 +46,7 @@ public class TestWord {
 
     /**
      * 获取检查结果
-     * */
+     */
     public static void getCheckReusltByTaskId() throws UnsupportedEncodingException {
         Map<String, String> params = new HashMap<>();
         // 1.设置公共参数
@@ -59,16 +67,17 @@ public class TestWord {
         // 4.发送HTTP请求，这里使用的是HttpClient工具包，产品可自行选择自己熟悉的工具包发送请求
         String response = HttpClientUtil.doPost(CheckReuslt_URL, params);
 
-        System.out.println("response:"+response);
+        System.out.println("response:" + response);
         CheckFileResponse checkFileResponse = JSONObject.parseObject(response, CheckFileResponse.class);
 
         String string = JSONObject.toJSONString(checkFileResponse);
-        System.out.println("checkFileResponse:"+string);
+        System.out.println("checkFileResponse:" + string);
 
     }
 
     /**
      * 开始检查
+     *
      * @throws UnsupportedEncodingException
      */
     public static void checkFile() throws UnsupportedEncodingException {
@@ -82,7 +91,7 @@ public class TestWord {
 
         // 2.设置私有参数
         //params.put("dataId", "ebfcad1c-dba1-490c-b4de-e784c2691768");
-        params.put("dataId", "zc-utils-check-file");
+        params.put("dataId", "zc-utils-style-file");
         //检查url文件
         params.put("url", FILE_URL);
         /*params.put("content", "" +
@@ -104,10 +113,10 @@ public class TestWord {
         params.put("signature", signature);
 
         // 4.发送HTTP请求，这里使用的是HttpClient工具包，产品可自行选择自己熟悉的工具包发送请求
-        String response = HttpClientUtil.doPost(checkFile_URL,params);
+        String response = HttpClientUtil.doPost(checkFile_URL, params);
 
         CheckResponse checkFileResponse = JSONObject.parseObject(response, CheckResponse.class);
-        System.out.println("checkFileResponse:"+checkFileResponse);
+        System.out.println("checkFileResponse:" + checkFileResponse);
     }
 
 }

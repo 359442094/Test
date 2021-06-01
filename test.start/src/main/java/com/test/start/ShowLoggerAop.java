@@ -24,36 +24,37 @@ public class ShowLoggerAop {
     private HttpServletRequest request;
 
     @Pointcut(value = "@annotation(com.test.common.annoation.ShowLogger)")
-    public void pointcut(){}
+    public void pointcut() {
+    }
 
     @Before(value = "pointcut()")
-    public void before(JoinPoint point){
+    public void before(JoinPoint point) {
         log.info("----------------  start  ----------------");
 
         showLoggerInfo(point);
 
         Object[] args = point.getArgs();
         for (Object arg : args) {
-            log.info("request:["+arg.toString()+"]");
+            log.info("request:[" + arg.toString() + "]");
         }
     }
 
-    public void showLoggerInfo(JoinPoint point){
+    public void showLoggerInfo(JoinPoint point) {
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
-        if(method.isAnnotationPresent(ShowLogger.class)){
+        if (method.isAnnotationPresent(ShowLogger.class)) {
             ShowLogger showLogger = method.getAnnotation(ShowLogger.class);
-            log.info("url:["+request.getRequestURI()+"]");
-            log.info("info:["+showLogger.info()+"]");
-            log.info("method:["+method.getName()+"]");
+            log.info("url:[" + request.getRequestURI() + "]");
+            log.info("info:[" + showLogger.info() + "]");
+            log.info("method:[" + method.getName() + "]");
         }
     }
 
-    @AfterReturning(value = "pointcut()",returning = "result")
-    public void afterReturn(Object result){
-        if(result != null){
-            log.info("response:["+result.toString()+"]");
-        }else{
+    @AfterReturning(value = "pointcut()", returning = "result")
+    public void afterReturn(Object result) {
+        if (result != null) {
+            log.info("response:[" + result.toString() + "]");
+        } else {
             log.info("response:[Null]");
         }
         log.info("----------------  end  ----------------");

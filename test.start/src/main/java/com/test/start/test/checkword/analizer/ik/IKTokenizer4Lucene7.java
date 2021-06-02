@@ -1,9 +1,10 @@
-package com.test.start.test.checkword.analizer.ik;
+/*package com.test.start.test.checkword.analizer.ik;
 
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.analysis.tokenattributes.TypeAttribute;
+import org.bouncycastle.jcajce.provider.symmetric.IDEA;
 import org.wltea.analyzer.core.IKSegmenter;
 import org.wltea.analyzer.core.Lexeme;
 
@@ -23,10 +24,10 @@ public class IKTokenizer4Lucene7  extends Tokenizer {
     // 记录最后一个词元的结束位置
     private int endPosition;
 
-    /**
+    *//**
      * Lucene 4.0 Tokenizer适配器类构造函数
      * @param useSmart
-     */
+     *//*
     public IKTokenizer4Lucene7(boolean useSmart) {
         super();
         offsetAtt = addAttribute(OffsetAttribute.class);
@@ -35,10 +36,10 @@ public class IKTokenizer4Lucene7  extends Tokenizer {
         _IKImplement = new IKSegmenter(input, useSmart);
     }
 
-    /*
+    *//*
      * (non-Javadoc)
      * @see org.apache.lucene.analysis.TokenStream#incrementToken()
-     */
+     *//*
     @Override
     public boolean incrementToken() throws IOException {
         // 清除所有的词元属性
@@ -63,10 +64,10 @@ public class IKTokenizer4Lucene7  extends Tokenizer {
         return false;
     }
 
-    /*
+    *//*
      * (non-Javadoc)
      * @see org.apache.lucene.analysis.Tokenizer#reset(java.io.Reader)
-     */
+     *//*
     @Override
     public void reset() throws IOException {
         super.reset();
@@ -80,4 +81,4 @@ public class IKTokenizer4Lucene7  extends Tokenizer {
         offsetAtt.setOffset(finalOffset, finalOffset);
     }
 
-}
+}*/

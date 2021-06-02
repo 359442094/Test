@@ -1,6 +1,6 @@
 package com.test.start.test.checkword.util;
 
-import com.test.start.test.checkword.analizer.ik.IKAnalyzer4Lucene7;
+//import com.test.start.test.checkword.analizer.ik.IKAnalyzer4Lucene7;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
@@ -57,12 +57,12 @@ public class IkAnalyzerUtil {
      */
     public static Map<String,List<String>> processIkAnalyzerWord(String word, List<String> ikAnalyzerWord){
         // IKAnalyzer 细粒度切分
-        try (Analyzer analyzer = new IKAnalyzer4Lucene7();){
+        /*try (Analyzer analyzer = new IKAnalyzer4Lucene7();){
             TokenStream tokenStream = analyzer.tokenStream("content",word);
             return doToken(word,tokenStream,ikAnalyzerWord);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         return null;
     }
 

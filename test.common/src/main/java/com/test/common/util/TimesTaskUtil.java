@@ -10,13 +10,14 @@ public class TimesTaskUtil {
 
     /**
      * 计算开始时间结束时间的毫秒数
-     * @param millis
+     *
+     * @param
      * @return
      */
-    public static String process(long start,long end) {
-        if(end>0&&end>0){
+    public static String process(long start, long end) {
+        if (end > 0 && end > 0) {
             long hm = end - start;
-            if(hm>0){
+            if (hm > 0) {
                 return millisToStringShort(hm);
             }
         }
@@ -25,6 +26,7 @@ public class TimesTaskUtil {
 
     /**
      * 把毫秒数转换成时分秒
+     *
      * @param millis
      * @return
      */
@@ -46,9 +48,12 @@ public class TimesTaskUtil {
         if (temp / sper > 0) {
             strBuilder.append(temp / sper).append("秒 ");
         }
-        if(!StringUtils.isEmpty(strBuilder.toString())){
-            return "成功 总用时:"+strBuilder.toString();
-        }else{
+
+        strBuilder.append(millis + "毫秒 ");
+
+        if (!StringUtils.isEmpty(strBuilder.toString())) {
+            return "成功 总用时:" + strBuilder.toString();
+        } else {
             return "成功";
         }
     }

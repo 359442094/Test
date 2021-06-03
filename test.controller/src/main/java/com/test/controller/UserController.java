@@ -77,6 +77,9 @@ public class UserController {
     @ApiOperation(value = "获取上下文对象",notes = "获取上下文对象")
     @RequestMapping(path = "/test/a",method = RequestMethod.GET)
     public String test(@RequestParam String sessionId){
+        for (int i=0;i<999999;i++){
+
+        }
         return "/error";
     }
 
